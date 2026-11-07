@@ -1805,7 +1805,7 @@ const G3 = (function () {
   Renderer.prototype.draw = function (roots) {
     const gl = this.gl, P = this.p, list = [], trans = [];
     const walk = n => { if (!n.visible) return; n.meshes.forEach(m => (m.mat.alpha < 1 || m.mat.decal ? trans : list).push([m, n.world, n])); n.kids.forEach(walk); };
-    roots.forEach(r => { if (!r.visible) return; r.update(); walk(r); });
+    roots.forEach(r => { if (!r.visible) return; r.update(); if (r.skinFn) r.skinFn(); walk(r); });
     gl.useProgram(P.p);
     gl.uniformMatrix4fv(P.u.uPV, false, this.pv); gl.uniform3fv(P.u.uL, this.light); gl.uniform3fv(P.u.uCam, this.eye);
     gl.enableVertexAttribArray(P.aP); gl.enableVertexAttribArray(P.aN); gl.enableVertexAttribArray(P.aU);
@@ -1970,7 +1970,7 @@ const SOFT = (function () {
   function collect(roots) {
     const list = [], trans = [];
     const walk = n => { if (!n.visible) return; n.meshes.forEach(m => (m.mat.alpha < 1 ? trans : list).push([m, n.world, n])); n.kids.forEach(walk); };
-    roots.forEach(r => { if (!r.visible) return; r.update(); walk(r); });
+    roots.forEach(r => { if (!r.visible) return; r.update(); if (r.skinFn) r.skinFn(); walk(r); });
     return { list, trans };
   }
   function bindGeo(R, P, g, nor) {
@@ -3785,6 +3785,7 @@ const HQ = (function () {
   // libère la mémoire graphique propre à un héros (tête, visage, cheveux) quand plus personne ne l'utilise
   function dispose(R, ch) {
     if (!ch || ch.disposed) return; ch.disposed = true;
+    if (ch.vrm) { if (ch.hq) dispose(R, ch.hq); return; }
     const gl = R.gl;
     if (ref(ch.hk, -1) <= 0) { const st = STRUCT.get(ch.hk); if (st) st.parts.forEach(p => { const b = p.geo[R.id]; if (b) { ['p', 'n', 'u', 'i'].forEach(k => gl.deleteBuffer(b.buf[k])); delete p.geo[R.id]; } }); STRUCT.delete(ch.hk); }
     if (ref(ch.mk, -1) <= 0) { const M = MATS.get(ch.mk); if (M) M.own.forEach(k => { if (TX[k]) { gl.deleteTexture(TX[k]); delete TX[k]; } }); MATS.delete(ch.mk); }
@@ -3801,7 +3802,7 @@ const HQ = (function () {
     ref(hk, 1); ref(M.key, 1);
     const J = {};
     [bs, hs].forEach(st => st.nodes.forEach(d => { const n = new Node(d.name); n.pos = d.pos.slice(); n.rot = d.rot.slice(); n.s = d.s; if (d.parent) J[d.parent].add(n); J[d.name] = n; }));
-    [bs, hs].forEach(st => st.parts.forEach(p => { const m = M.get(p.slot); if (m) J[p.node].meshes.push(new Mesh(p.geo, m)); }));
+    [bs, hs].forEach(st => st.parts.forEach(p => { const m = M.get(p.slot); if (m) { const mm = new Mesh(p.geo, m); mm.slot = p.slot; J[p.node].meshes.push(mm); } }));
     const swing = [];
     const sw = (name, kf, ks, ky, idle) => { if (J[name]) swing.push({ n: J[name], base: J[name].rot.slice(), kf, ks, ky, idle: idle || 0, x: [0, 0, 0], v: [0, 0, 0] }); };
     sw('tail', 0.16, 0.12, -0.05, 0.05); sw('hb', 0.07, 0.06, -0.02, 0.02); sw('cape', 0.14, 0.1, -0.04, 0.03); sw('scarf', 0.2, 0.14, -0.06, 0.06);
@@ -3905,7 +3906,127 @@ const HQ = (function () {
   };
   const cache = new Map();
   const lookOf = h => { if (!cache.has(h.id)) cache.set(h.id, lookFrom(h)); return cache.get(h.id); };
-  return { faceHQ, build, dispose, setPose, animate, springPose, runPose, idlePose, showPose, lookOf, LOOKS, headShape };
+  // personnages VRoid quand les modèles sont chargés (sinon l'ancien modèle fabriqué par le code)
+  const buildAny = (R, look, seed) => { const hq = build(R, look, seed); if (typeof VRMC !== 'undefined' && VRMC.isReady()) { const c = VRMC.build(R, look, hq); c.hq = hq; return c; } return hq; };
+  return { faceHQ, build: buildAny, dispose, setPose, animate, springPose, runPose, idlePose, showPose, lookOf, LOOKS, headShape };
+})();
+
+;
+/* ===================== PERSONNAGES VRoid (modèles 3D libres CC0) =====================
+   Les modèles sont convertis à l'avance (vrmtools/conv.py) : géométrie par matériau + poids vers les 17 articulations
+   du squelette du jeu. Ici : chargement, couleurs propres à chaque héros, et « skinning » sur le processeur à chaque image.
+   Le personnage obtenu a la même forme que ceux du jeu (root, J, poses) : combat, menus et animations marchent sans changement. */
+const VRMC = (function () {
+  const M = G3.M, BASE = window.__VRM_BASE || 'models/', D = {}, NAMES = ['male', 'female', 'avf'];
+  let ROOT = BASE;
+  let ready = false, loading = null;
+  function load() {
+    if (loading) return loading;
+    // les fichiers sont dans « models/ » ; si on les a mis à la racine du site (envoi depuis un téléphone), on les cherche là
+    const get = (f, kind) => fetch(BASE + f).then(r => { if (!r.ok) throw 0; return r[kind](); }).catch(() => fetch(f).then(r => { if (!r.ok) throw new Error(f); ROOT = ''; return r[kind](); }));
+    loading = Promise.all(NAMES.map(async n => {
+      // le binaire est en .bin (site) ; dans l'aperçu Claude il est servi en .bin.json (base64)
+      const [meta, bin] = await Promise.all([get(n + '.json', 'json'), get(n + '.bin', 'arrayBuffer').catch(() => get(n + '.bin.json', 'json').then(o => { const s = atob(o.b64), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u.buffer; }))]);
+      const files = new Set(); meta.mats.forEach(m => { if (m.tex) files.add(m.tex); if (m.tint) files.add(m.tint); });
+      const imgs = {};
+      await Promise.all([...files].map(f => new Promise(res => { const im = new Image(); im.onload = () => { imgs[f] = im; res(); }; im.onerror = () => res(); im.src = ROOT + f; })));
+      meta.Ji = {}; meta.J.forEach((j, i) => { meta.Ji[j.n] = i; });
+      D[n] = { meta, bin, imgs, tex: new Map() };
+    })).then(() => { ready = true; return true; }).catch(e => { console.warn('Modèles VRoid indisponibles', e); return false; });
+    return loading;
+  }
+  // quel modèle pour quel héros : garçons -> « male », filles -> « avf » (cheveux complets) ou « female »
+  function modelFor(look) { if (look.body !== 'f') return 'male'; return (hashId(look.id) % 4 === 0) ? 'avf' : 'female'; }
+  const hashId = s => { let h = 0; for (let i = 0; i < (s || '').length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; };
+  function texOf(R, d, f) { const k = R.id + f; if (!d.tex.has(k) && d.imgs[f]) d.tex.set(k, R.texture(d.imgs[f])); return d.tex.get(k); }
+  const mix = (a, b, t) => a.map((v, i) => v * (1 - t) + b[i] * t), mulc = (a, k) => a.map(v => Math.min(1, v * k));
+  function matFor(R, d, m, look) {
+    const o = { col: m.col.slice(), map: m.tex ? texOf(R, d, m.tex) : null, rough: 0.85, spec: 0.06, wrap: 0.55, rim: 0.3, rimC: look.rim || [0.6, 0.8, 1] };
+    if (m.kind === 'SKIN') { o.sss = 0.22; o.sssC = [1, 0.45, 0.35]; o.wrap = 0.7; if (look.skin) o.col = mix([1, 1, 1], mulc(look.skin, 1.12), 0.35); }
+    if (m.kind === 'FACE' || m.kind === 'EYE') { o.unlit = true; o.noCast = true; o.decal = m.blend >= 2 || m.kind === 'EYE'; }
+    if (m.kind === 'HAIR') { o.aniso = true; o.spec = 0.35; o.rough = 0.45; }
+    if (m.tint) {
+      const nm = m.name;
+      let c1 = null, c2 = null;
+      if (m.kind === 'HAIR') { c1 = look.hairRoot; c2 = look.hairTip; }
+      else if (/EyeIris/.test(nm)) { c1 = mulc(look.eye || [0.4, 0.6, 1], 0.8); c2 = mix(look.eye || [0.4, 0.6, 1], [1, 1, 1], 0.45); }
+      else if (/Tops|Onepi/.test(nm)) { c1 = look.main; c2 = mix(look.main, look.sec || look.main, 0.6); }
+      else if (/Bottoms/.test(nm)) { c1 = look.pants || look.sec; c2 = mix(look.pants || look.sec, [1, 1, 1], 0.2); }
+      if (c1) { o.tint = true; o.map = texOf(R, d, m.tint); o.col = mulc(c1, 1.05); o.col2 = mulc(c2, 1.1); }
+    }
+    if (m.blend >= 2 && !o.decal) o.alpha = 0.999;
+    if (m.two) o.twoSide = true;
+    return o;
+  }
+  function build(R, look, hq) {
+    const name = modelFor(look), d = D[name], meta = d.meta, bin = d.bin;
+    const root = new G3.Node('root'), J = {};
+    meta.J.forEach(j => { const n = new G3.Node(j.n), pp = j.p ? meta.J[meta.Ji[j.p]].pos : [0, 0, 0]; n.pos = j.pos.map((v, i) => v - pp[i]); (j.p ? J[j.p] : root).add(n); J[j.n] = n; });
+    const C = meta.J.map(j => new Float32Array(meta.C[j.n]));
+    const parts = meta.prims.map(p => {
+      const n = p.n, src = {
+        pos: new Float32Array(bin, p.pos, n * 3), nor: new Float32Array(bin, p.nor, n * 3), j: new Uint8Array(bin, p.j, n * 4), w: new Uint8Array(bin, p.w, n * 4)
+      };
+      const geo = { pos: new Float32Array(src.pos), nor: new Float32Array(src.nor), uv: new Float32Array(bin, p.uv, n * 2), idx: p.i32 ? new Uint32Array(bin, p.idx, p.ni) : new Uint16Array(bin, p.idx, p.ni) };
+      const mt = matFor(R, d, meta.mats[p.mat], look);
+      const mesh = new G3.Mesh(geo, mt); mesh.q = meta.mats[p.mat].q;
+      return { geo, src, mesh, n, kind: meta.mats[p.mat].kind, mname: meta.mats[p.mat].name };
+    });
+    // cheveux : les modèles de base n'ont qu'un casque de cheveux ; on leur pose la coiffure propre à chaque héros
+    const graft = name !== 'avf' && hq && hq.J.hd;
+    parts.slice().sort((a, b) => a.mesh.q - b.mesh.q).forEach(pt => { if (!(graft && pt.kind === 'HAIR')) root.meshes.push(pt.mesh); });
+    const swing = [];
+    if (graft) {
+      const hd = hq.J.hd, box = () => ({ a: [1e9, 1e9, 1e9], b: [-1e9, -1e9, -1e9] }), grow = (B, x, y, z) => { B.a[0] = Math.min(B.a[0], x); B.a[1] = Math.min(B.a[1], y); B.a[2] = Math.min(B.a[2], z); B.b[0] = Math.max(B.b[0], x); B.b[1] = Math.max(B.b[1], y); B.b[2] = Math.max(B.b[2], z); };
+      // tête de l'ancien modèle (repère de la tête) et tête VRoid (repère de l'articulation « head »)
+      const hb = box(), skin = hd.meshes.find(m => m.slot === 'skin');
+      if (skin) { const P = skin.geo.pos; for (let i = 0; i < P.length; i += 3) grow(hb, hd.pos[0] + P[i] * hd.s, hd.pos[1] + P[i + 1] * hd.s, hd.pos[2] + P[i + 2] * hd.s); }
+      const vb = box(), hp = meta.J[meta.Ji.head].pos;
+      parts.filter(pt => /Face_00_SKIN/.test(pt.mname)).forEach(pt => { const P = pt.src.pos; for (let i = 0; i < P.length; i += 3) if (P[i + 1] > hp[1] - 0.02) grow(vb, P[i] - hp[0], P[i + 1] - hp[1], P[i + 2] - hp[2]); });
+      if (skin && vb.b[0] > vb.a[0]) {
+        const sc = (vb.b[0] - vb.a[0]) / (hb.b[0] - hb.a[0]) * 1.04;
+        const W = new G3.Node('hairfit'); W.s = sc;
+        W.pos = [(vb.a[0] + vb.b[0]) / 2 - sc * (hb.a[0] + hb.b[0]) / 2, vb.b[1] - sc * hb.b[1] + 0.004, (vb.a[2] + vb.b[2]) / 2 - sc * (hb.a[2] + hb.b[2]) / 2 - 0.004];
+        const keep = /^(hairCap|hair|tie|hood|hoodHem)$/;
+        const prune = n => { n.meshes = n.meshes.filter(m => keep.test(m.slot) || /^acc/.test(n.name)); n.kids = n.kids.filter(k => !/^ear/.test(k.name)); n.kids.forEach(prune); };
+        prune(hd); hd.rot = [0, 0, 0];
+        W.add(hd); J.head.add(W);
+        (hq.swing || []).forEach(w => { let n = w.n, ok = false; const inHd = x => { if (x === hd) return true; return x.kids.some(inHd); }; if (inHd(hd) && (function f(x) { if (x === w.n) return true; return x.kids.some(f); })(hd)) ok = true; if (ok) swing.push(w); });
+      }
+    }
+    const S = meta.J.map(() => new Float32Array(16)), RW = {};
+    const order = meta.J.map(j => j.n);
+    root.skinFn = function () {
+      // matrices articulation -> espace du personnage (sans la position dans le monde)
+      for (let i = 0; i < order.length; i++) {
+        const nm = order[i], nd = J[nm], pj = meta.J[i].p, loc = M.compose(nd.pos, nd.rot, nd.s);
+        RW[nm] = pj ? M.mul(RW[pj], loc) : loc;
+        const r = M.mul(RW[nm], C[i]); S[i].set(r);
+      }
+      const gl = R.gl;
+      parts.forEach(pt => {
+        const { pos: P0, nor: N0, j: JJ, w: WW } = pt.src, P = pt.geo.pos, N = pt.geo.nor;
+        for (let v = 0, o3 = 0, o4 = 0; v < pt.n; v++, o3 += 3, o4 += 4) {
+          const x = P0[o3], y = P0[o3 + 1], z = P0[o3 + 2], nx = N0[o3], ny = N0[o3 + 1], nz = N0[o3 + 2];
+          let px = 0, py = 0, pz = 0, qx = 0, qy = 0, qz = 0;
+          for (let k = 0; k < 4; k++) {
+            const wt = WW[o4 + k]; if (!wt) continue; const w = wt / 255, m = S[JJ[o4 + k]];
+            px += w * (m[0] * x + m[4] * y + m[8] * z + m[12]); py += w * (m[1] * x + m[5] * y + m[9] * z + m[13]); pz += w * (m[2] * x + m[6] * y + m[10] * z + m[14]);
+            qx += w * (m[0] * nx + m[4] * ny + m[8] * nz); qy += w * (m[1] * nx + m[5] * ny + m[9] * nz); qz += w * (m[2] * nx + m[6] * ny + m[10] * nz);
+          }
+          P[o3] = px; P[o3 + 1] = py; P[o3 + 2] = pz; N[o3] = qx; N[o3 + 1] = qy; N[o3 + 2] = qz;
+        }
+        const g = R.upload(pt.geo);
+        gl.bindBuffer(gl.ARRAY_BUFFER, g.buf.p); gl.bufferSubData(gl.ARRAY_BUFFER, 0, P);
+        gl.bindBuffer(gl.ARRAY_BUFFER, g.buf.n); gl.bufferSubData(gl.ARRAY_BUFFER, 0, N);
+      });
+    };
+    // l'arme du héros (même que l'ancien modèle) passe dans la main droite
+    if (hq && hq.J.weapon) { const w = hq.J.weapon; J.haR.add(w); J.weapon = w; w.pos = [0, -0.07, 0.02]; }
+    const ch = { root, J, look, swing, tails: [], vrm: name, t: 0 };
+    return ch;
+  }
+  return { load, build, isReady: () => ready, modelFor };
 })();
 
 </script>
@@ -6827,6 +6948,13 @@ function start(data) {
   wire();
   applyOpt();
   go('home');
+  // personnages VRoid : chargés en arrière-plan, puis on remplace les anciens modèles
+  VRMC.load().then(ok => {
+    if (!ok || !GL.R) return;
+    GL.models.forEach((ch, id) => { if (!F || (F.p.ch !== ch && F.e.ch !== ch)) { HQ.dispose(GL.R, ch); GL.models.delete(id); } });
+    GL.thumbs.clear(); GL.multi = {};
+    $$('img[data-th]').forEach(im => { const id = im.dataset.th; if (GL.queue.indexOf(id) < 0) GL.queue.push(id); });
+  });
   if (P.login.day !== dayKey()) setTimeout(() => { if (cur === 'home' && !F) openSheet(`<div class="sh"><h2>Bon retour !</h2><span>Récompense de connexion</span></div>` + loginHTML()); }, 600);
   requestAnimationFrame(loop);
   netBoot();
@@ -6836,7 +6964,7 @@ function start(data) {
    EN LIGNE : connexion, pseudo, compte, amis, club, duels entre joueurs.
    (inséré dans la même portée que ui3.js, juste avant le démarrage)
    ===================================================================== */
-const GAME_VER = '10.0';
+const GAME_VER = '11.0';
 const ONL = { watch: [], gate: false, inviteSeen: {}, q: null, saveT: 0, profT: 0 };
 const logged = () => !!(NET.ready && NET.user && NET.me && NET.me.pseudo);
 function screenUnwatch() { ONL.watch.splice(0).forEach(f => { try { f(); } catch (e) { /* */ } }); }
