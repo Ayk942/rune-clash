@@ -1,5 +1,5 @@
 window.FIREBASE_CONFIG = {
-  apiKey: "COLLE_TA_CLE_ICI",
+  apiKey: "AIzaSyDEtDqk6LbvP1jC_fA9nI9jUJk7ZqYoOFs",
   authDomain: "rune-clash.firebaseapp.com",
   databaseURL: "https://rune-clash-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "rune-clash",
