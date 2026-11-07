@@ -1,0 +1,76 @@
+{
+  "rules": {
+    "users": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        "pseudo": { ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_À-ÿ]{3,16}$/)" }
+      }
+    },
+    "pseudos": {
+      ".read": "auth != null",
+      "$p": { ".write": "auth != null && ((!data.exists() && newData.val() === auth.uid) || (data.val() === auth.uid && !newData.exists()))" }
+    },
+    "saves": { "$uid": { ".read": "auth != null && auth.uid === $uid", ".write": "auth != null && auth.uid === $uid" } },
+    "presence": { ".read": "auth != null", "$uid": { ".write": "auth != null && auth.uid === $uid" } },
+    "requests": {
+      "$to": {
+        ".read": "auth != null && auth.uid === $to",
+        "$from": { ".write": "auth != null && (auth.uid === $from || auth.uid === $to)" }
+      }
+    },
+    "friends": {
+      "$a": {
+        ".read": "auth != null && auth.uid === $a",
+        "$b": { ".write": "auth != null && (auth.uid === $a || (auth.uid === $b && (!newData.exists() || root.child('requests/' + auth.uid + '/' + $a).exists())))" }
+      }
+    },
+    "invites": {
+      "$to": {
+        ".read": "auth != null && auth.uid === $to",
+        "$from": { ".write": "auth != null && (auth.uid === $from || auth.uid === $to)" }
+      }
+    },
+    "rooms": {
+      "$r": {
+        ".read": "auth != null",
+        ".write": "auth != null && (!data.exists() || data.child('host').val() === auth.uid || data.child('guest').val() === auth.uid || (data.child('state').val() === 'wait' && !data.child('guest').exists()))"
+      }
+    },
+    "queue": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        "room": { ".write": "auth != null && !data.exists()" }
+      }
+    },
+    "clubs": {
+      ".read": "auth != null",
+      ".indexOn": ["nl"],
+      "$c": {
+        ".write": "auth != null && (!data.exists() || data.child('owner').val() === auth.uid)",
+        "n": { ".write": "auth != null" },
+        "members": { "$m": { ".write": "auth != null && (auth.uid === $m || root.child('clubs/' + $c + '/owner').val() === auth.uid)" } }
+      }
+    },
+    "clubNames": {
+      ".read": "auth != null",
+      "$n": { ".write": "auth != null && (!data.exists() || root.child('clubs/' + data.val() + '/owner').val() === auth.uid)" }
+    },
+    "clubFeed": {
+      "$c": {
+        ".read": "auth != null && root.child('clubs/' + $c + '/members/' + auth.uid).exists()",
+        "$m": { ".write": "auth != null && !data.exists() && newData.child('u').val() === auth.uid && root.child('clubs/' + $c + '/members/' + auth.uid).exists()" }
+      }
+    },
+    "clubBoss": {
+      "$c": {
+        ".read": "auth != null && root.child('clubs/' + $c + '/members/' + auth.uid).exists()",
+        "$wk": {
+          "total": { ".write": "auth != null && root.child('clubs/' + $c + '/members/' + auth.uid).exists() && newData.isNumber() && (!data.exists() || newData.val() >= data.val())" },
+          "by": { "$u": { ".write": "auth != null && auth.uid === $u" } }
+        }
+      }
+    }
+  }
+}
