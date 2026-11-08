@@ -1738,6 +1738,123 @@ body.tutf #f-train { display: none !important; }
 .calm #sheet .ihd .it, .calm #sheet .kv { animation: none !important; }
 #tutbar.mini { opacity: 0 !important; pointer-events: none !important; }
 
+/* ===================== v12.1 : ACCUEIL, rubriques en bas ===================== */
+#s-home .hrail { position: absolute; z-index: 4; left: calc(10px + env(safe-area-inset-left)); top: calc(66px + env(safe-area-inset-top)); display: flex; flex-direction: column; gap: 7px; }
+#s-home .hrail .hq { gap: 2px; animation: in12 .4s both; } #s-home .hrail .hq:nth-child(2) { animation-delay: .04s; } #s-home .hrail .hq:nth-child(3) { animation-delay: .08s; } #s-home .hrail .hq:nth-child(4) { animation-delay: .12s; } #s-home .hrail .hq:nth-child(5) { animation-delay: .16s; } #s-home .hrail .hq:nth-child(6) { animation-delay: .2s; } #s-home .hrail .hq:nth-child(7) { animation-delay: .24s; }
+#s-home .hrail .hq .qi, #s-home .hrail .hq-chest > svg { width: 42px; height: 42px; }
+#s-home .hrail .hq > b, #s-home .hrail .hq-chest > span b { font-size: 9px; font-weight: 700; text-shadow: 0 1px 2px rgba(0, 0, 0, .8); }
+#s-home .hrail .hq-chest > span small { display: none; }
+.hq .qi { position: relative; }
+.qn { position: absolute; right: -7px; bottom: -4px; min-width: 18px; padding: 1px 5px; border-radius: 8px; font-size: 9.5px; font-weight: 800; font-style: normal; line-height: 1.3; color: #fff; background: #24345e; border: 1px solid rgba(255, 255, 255, .25); }
+.qn.full, .qn.on { background: #1fa862; border-color: #7dffb0; }
+/* anneau du coffre gratuit : se remplit jusqu'à ce qu'il soit prêt */
+#s-home .hq-chest > svg { background: radial-gradient(closest-side, rgba(10, 18, 36, .92) 82%, transparent 84%), conic-gradient(#ffd23d calc(var(--cp, 0) * 1turn), rgba(255, 255, 255, .12) 0); border-color: transparent; }
+#s-home .hq-chest.ready > svg { background: radial-gradient(closest-side, rgba(40, 30, 6, .92) 82%, transparent 84%), conic-gradient(#ffd23d 1turn, #ffd23d 0); }
+/* bas : JOUER puis les 4 rubriques */
+#s-home .hbot { flex-direction: column; align-items: stretch; gap: 9px; }
+#s-home .hbot .htabs { position: static; left: auto; right: auto; top: auto; transform: none; width: auto; max-width: none; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+#s-home .hbot .htab { padding: 7px 3px 6px; border-radius: 14px; }
+#s-home .hplay { width: auto; flex-direction: row; gap: 8px; }
+#s-home .hmode { flex: 1; min-width: 0; }
+#s-home .hjouer { flex: 1.15; height: 60px; font-size: 28px; }
+#s-home .hhero { bottom: calc(160px + env(safe-area-inset-bottom)); left: calc(64px + env(safe-area-inset-left)); }
+.htap { margin-top: 4px; font-size: 10.5px; color: rgba(220, 232, 255, .55); transition: opacity .5s; }
+.htap.gone { opacity: 0; }
+.htop .cur.up { color: #7dffb0; } .htop .cur.dn { color: #ffb4a0; }
+@media (orientation: landscape) and (min-width: 600px), (min-width: 900px) and (min-aspect-ratio: 1/1) {
+  #s-home .hrail { left: 50%; top: calc(8px + env(safe-area-inset-top)); transform: translateX(-50%); flex-direction: row; gap: 5px; }
+  #s-home .hrail .hq .qi, #s-home .hrail .hq-chest > svg { width: 40px; height: 40px; }
+  #s-home .hbot { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  #s-home .hbot .htabs { order: 0; width: min(560px, 54vw); }
+  #s-home .hbot .htab { flex-direction: row; justify-content: center; gap: 5px; padding: 9px 5px; } #s-home .hbot .htab small { display: none; }
+  #s-home .hplay { order: 1; width: min(32vw, 240px); flex-direction: column; }
+  #s-home .hjouer { flex: none; height: 58px; }
+  #s-home .hhero { bottom: calc(92px + env(safe-area-inset-bottom)); left: calc(16px + env(safe-area-inset-left)); }
+  #s-home .vitb { top: calc(60px + env(safe-area-inset-top)) !important; }
+}
+@media (orientation: landscape) and (max-height: 430px) {
+  #s-home .hrail .hq > b, #s-home .hrail .hq-chest > span { display: none; }
+  #s-home .hrail .hq .qi, #s-home .hrail .hq-chest > svg { width: 36px; height: 36px; }
+  #s-home .hjouer { height: 50px; font-size: 24px; } #s-home .hbot .htab { padding: 7px 4px; }
+  #s-home .hhero { bottom: calc(78px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 360px) { #s-home .hbot .htab small { display: none; } }
+@media (orientation: landscape) and (max-height: 430px) { #s-home .hbot .htab .tt b { font-size: 12px; } #s-home .hbot .htab .ti { width: 18px; } }
+
+/* ===================== v12.1 : PRÉPARATION ===================== */
+#prep { position: fixed; inset: 0; z-index: 70; display: none; flex-direction: column; color: #fff;
+  background: radial-gradient(ellipse 90% 50% at 50% 0%, color-mix(in srgb, var(--mc) 22%, transparent), transparent 70%), linear-gradient(180deg, #0d1528, #070b16); }
+#prep.on { display: flex; animation: in12 .3s both; }
+.phd { display: flex; align-items: center; gap: 12px; padding: calc(10px + env(safe-area-inset-top)) 14px 10px; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+.phd > div { display: flex; flex-direction: column; min-width: 0; } .phd small { font-size: 10.5px; font-weight: 900; letter-spacing: .18em; color: var(--mc); }
+.phd b { font-family: var(--font-d); font-size: 22px; font-weight: 900; line-height: 1.1; } .phd span { font-size: 12px; color: #9fb0cc; }
+.pbody { flex: 1; overflow-y: auto; padding: 4px 14px 16px; -webkit-overflow-scrolling: touch; }
+.pbody section { margin-top: 14px; } .pbody h4 { margin: 0 0 8px; font-size: 14px; font-weight: 800; } .pbody h4 small { font-weight: 500; font-size: 11px; color: #8fa2c2; margin-left: 6px; }
+.pslots { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.pslot { position: relative; flex: 0 0 auto; width: 98px; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 6px 7px; border-radius: 16px; color: #fff;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ec, #3a4a6e) 30%, #141d33), #0b1120); border: 2px solid rgba(255, 255, 255, .12); transition: transform .15s, border-color .15s; }
+.pslot.on { border-color: var(--mc); box-shadow: 0 0 18px color-mix(in srgb, var(--mc) 40%, transparent); transform: translateY(-2px); }
+.pslot .ph { width: 62px; height: 62px; border-radius: 14px; overflow: hidden; background: #0b1324; display: grid; place-items: center; } .pslot .ph img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.pslot .ph.plus { font-size: 30px; color: #6f83a8; border: 2px dashed rgba(255, 255, 255, .18); }
+.pslot b { font-size: 12.5px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .pslot small { font-size: 10.5px; color: #9fb0cc; }
+.pslot em { font-style: normal; font-size: 9px; font-weight: 900; letter-spacing: .1em; color: var(--mc); }
+.pslot .rm { position: absolute; top: -6px; right: -6px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 15px; background: #ff3d5e; color: #fff; }
+.pchips { display: flex; flex-wrap: wrap; gap: 6px; } .pchips button { padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #c4d3ea; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); }
+.pchips button[aria-pressed="true"] { color: #12100a; background: var(--mc); border-color: var(--mc); }
+.pchips.small { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-bottom: 8px; } .pchips.small button { padding: 5px 11px; font-size: 12px; white-space: nowrap; }
+.pdecor { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 640px) { .pdecor { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.pdc { position: relative; height: 70px; border-radius: 14px; overflow: hidden; background: var(--bg); border: 2px solid rgba(255, 255, 255, .12); color: #fff; text-align: left; padding: 6px 8px; display: flex; align-items: flex-end; }
+.pdc i { position: absolute; left: 0; right: 0; bottom: 0; height: 45%; background: radial-gradient(ellipse 70% 100% at 50% 100%, color-mix(in srgb, var(--gl) 70%, transparent), transparent 70%); }
+.pdc b { position: relative; font-size: 11.5px; font-weight: 800; line-height: 1.15; text-shadow: 0 1px 3px #000; }
+.pdc.on { border-color: var(--mc); box-shadow: 0 0 16px color-mix(in srgb, var(--mc) 45%, transparent); }
+.pdc.on::after { content: '✓'; position: absolute; top: 4px; right: 7px; font-weight: 900; color: var(--mc); text-shadow: 0 1px 2px #000; }
+.pgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+@media (min-width: 640px) { .pgrid { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+.pg { position: relative; display: flex; flex-direction: column; align-items: center; padding: 0 0 5px; border-radius: 12px; overflow: hidden; color: #fff; background: #111a2e; border: 1.5px solid color-mix(in srgb, var(--rc) 55%, transparent); }
+.pg img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--ec) 35%, transparent), transparent 70%); }
+.pg b { font-size: 11px; max-width: 94%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .pg small { font-size: 9.5px; color: #ffd23d; }
+.pg.sel { border-color: var(--mc); box-shadow: inset 0 0 0 2px var(--mc); } .pg.sel::after { content: '✓'; position: absolute; top: 3px; right: 6px; font-weight: 900; color: var(--mc); text-shadow: 0 1px 2px #000; }
+.pft { display: flex; align-items: center; gap: 12px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid rgba(255, 255, 255, .08); background: rgba(5, 8, 16, .9); }
+.ppow { display: flex; flex-direction: column; } .ppow small { font-size: 9.5px; letter-spacing: .14em; color: #9fb0cc; } .ppow b { font-size: 19px; font-weight: 900; color: #ffd23d; }
+.pft .hjouer { flex: 1; height: 56px; font-size: 24px; }
+/* ROBOT : toujours visible pour savoir qu'on n'affronte pas une vraie personne */
+.bot { display: inline-block; padding: 0 5px; margin-right: 3px; border-radius: 5px; font-size: 9.5px; font-weight: 900; letter-spacing: .08em; background: #5a6a8c; color: #fff; vertical-align: 1px; }
+
+/* ===================== v12.1 : CLASSÉ ===================== */
+.rkb { position: relative; display: inline-flex; flex-direction: column; align-items: center; width: 40px; flex: none; }
+.rkb svg { width: 40px; height: 46px; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--rc) 50%, transparent)); }
+.rkb.big { width: 64px; } .rkb.big svg { width: 64px; height: 74px; }
+.rkb .pips { display: flex; gap: 3px; margin-top: 2px; } .rkb .pips i { width: 7px; height: 7px; border-radius: 2px; transform: rotate(45deg); background: rgba(255, 255, 255, .18); } .rkb .pips i.on { background: var(--rc); }
+.rkb.t4 svg { animation: rkglow 2.4s ease-in-out infinite; } @keyframes rkglow { 50% { filter: drop-shadow(0 0 14px var(--rc)); } }
+.rkhead { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 18px; background: linear-gradient(120deg, color-mix(in srgb, var(--rc) 22%, #121a30), #0b1120 70%); border: 1.5px solid color-mix(in srgb, var(--rc) 55%, transparent); }
+.rkhead > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; } .rkhead small { font-size: 10.5px; letter-spacing: .16em; font-weight: 900; color: var(--rc); }
+.rkhead b { font-family: var(--font-d); font-size: 24px; font-weight: 900; } .rkhead span { font-size: 12.5px; color: #c4d3ea; } .rkhead em { font-style: normal; font-size: 11.5px; color: #9fb0cc; }
+.rkbar { display: block; height: 7px; margin: 4px 0 2px; border-radius: 4px; background: rgba(255, 255, 255, .1); overflow: hidden; } .rkbar i { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--rc), #fff); }
+.rktiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin: 8px 0 4px; }
+.rktiers > div { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px; border-radius: 12px; background: rgba(255, 255, 255, .04); border: 1px solid rgba(255, 255, 255, .08); opacity: .55; text-align: center; }
+.rktiers > div.ok { opacity: 1; border-color: color-mix(in srgb, var(--rc) 50%, transparent); }
+.rktiers b { font-size: 11.5px; color: var(--rc); } .rktiers small { font-size: 9px; color: #9fb0cc; line-height: 1.2; }
+.rktiers .rkb { width: 30px; } .rktiers .rkb svg { width: 30px; height: 35px; } .rktiers .rkb .pips { display: none; }
+.rkwho { margin-top: 8px; }
+#rsearch { position: fixed; inset: 0; z-index: 75; display: none; place-items: center; background: rgba(3, 5, 10, .82); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+#rsearch.on { display: grid; }
+.rsbox { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 22px 26px; border-radius: 22px; background: linear-gradient(160deg, #1b2747, #0c1324); border: 1.5px solid rgba(255, 194, 61, .5); color: #fff; text-align: center; }
+.rsbox .rkb { animation: bob12 1.6s ease-in-out infinite; } .rsbox b { font-size: 17px; } .rsbox > span { font-size: 26px; font-weight: 900; color: #ffc23d; } .rsbox small { font-size: 12px; color: #9fb0cc; }
+.rkres { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 10px 0 4px; }
+.rkres > div { display: flex; flex-direction: column; } .rkres b { font-family: var(--font-d); font-size: 22px; color: var(--rc); } .rkres span.p { color: #7dffb0; font-weight: 800; } .rkres span.m { color: #ff9b9b; font-weight: 800; }
+.rkres em { font-style: normal; font-weight: 900; letter-spacing: .12em; color: #ffd23d; animation: pop12 .6s .3s both; } .rkres em.m { color: #ff9b9b; }
+.modec[disabled] { opacity: .5; }
+.rkres small { font-size: 11px; color: #9fb0cc; }
+@media (orientation: landscape) and (max-height: 560px) {
+  .phd { padding-top: calc(5px + env(safe-area-inset-top)); padding-bottom: 5px; } .phd b { font-size: 18px; }
+  .pbody { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); column-gap: 16px; align-content: start; }
+  .pbody section { grid-column: 1; margin-top: 8px; } .pbody .ppick { grid-column: 2; grid-row: 1 / span 8; }
+  .pslot { width: 86px; padding: 6px 4px; } .pslot .ph { width: 46px; height: 46px; }
+  .pdc { height: 52px; } .pgrid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .pft { padding-top: 6px; padding-bottom: calc(6px + env(safe-area-inset-bottom)); } .pft .hjouer { height: 46px; font-size: 20px; }
+}
+
 </style>
 </head>
 <body>
@@ -4431,6 +4548,13 @@ const FIGHT3D = (function () {
     const mk = (side, x, z) => d => new Fighter({ side, hero: d.hero, stats: d.stats, tech: d.tech, ch: d.ch, x, z, ai: d.ai });
     this.teams = [(o.pTeam || [o.p]).map(mk(0, 0, -3.2)), (o.eTeam || [o.e]).map(mk(1, 0, 3.2))];
     this.p = this.teams[0][0]; this.e = this.teams[1][0];
+    // 2 contre 2 : les quatre héros se battent en même temps (pas de banc) ; chacun vise un adversaire
+    this.duo = !!o.duo;
+    if (this.duo) {
+      const pos = [[-1.5, -3.2], [1.5, -3.2], [1.5, 3.2], [-1.5, 3.2]];
+      this.teams[0].concat(this.teams[1]).forEach((f, i) => { f.x = pos[i][0]; f.z = pos[i][1]; });
+      if (o.pIdx) this.p = this.teams[0][o.pIdx]; // invité en coopération : il contrôle le 2e héros
+    }
     this.swCd = [0, 0]; this.pend = [null, null];
     this.heal = Object.assign({ n: 0, pct: 0.2, ki: 0, cleanse: false, used: 0 }, o.heal || {}); this.healCd = 0;
     this.time = 0; this.limit = o.limit || 120; this.over = false; this.winner = -1;
@@ -4444,7 +4568,21 @@ const FIGHT3D = (function () {
     this.hits = 0; this.maxCombo = 0; this.comboCount = 0; this.comboT = 0;
     this.cam = { eye: [0, 2.2, -8], at: [0, 1.2, 0] };
   }
-  Fight.prototype.foe = function (f) { return f.side === 0 ? this.e : this.p; };
+  Fight.prototype.foe = function (f) {
+    if (!this.duo) return f.side === 0 ? this.e : this.p;
+    if (!f.tgt || f.tgt.hp <= 0 || f.tgt.state === 'ko') f.tgt = this.pickTgt(f);
+    return f.tgt;
+  };
+  Fight.prototype.all = function () { return this.duo ? this.teams[0].concat(this.teams[1]) : [this.p, this.e]; };
+  Fight.prototype.idx = function (f) { return this.all().indexOf(f); };
+  Fight.prototype.pickTgt = function (f) { const os = this.alive(1 - f.side); if (!os.length) return this.teams[1 - f.side][0]; return os.sort((a, b) => this.dist(f, a) - this.dist(f, b))[0]; };
+  // changer de cible (bouton « Équipe » en 2 contre 2)
+  Fight.prototype.cycleTarget = function (f) {
+    f = f || this.p; const os = this.alive(1 - f.side); if (os.length < 2) return false;
+    f.tgt = os[(os.indexOf(this.foe(f)) + 1) % os.length]; if (f === this.p) this.e = f.tgt;
+    this.ring(f.tgt.x, 0.05, f.tgt.z, [1, 0.85, 0.4], 1.8, 0.4, true); this.events.push({ type: 'target', side: f.side, id: f.tgt.h.id });
+    return true;
+  };
   Fight.prototype.act = function (side) { return side === 0 ? this.p : this.e; };
   Fight.prototype.alive = function (side) { return this.teams[side].filter(f => f.hp > 0 && f.state !== 'ko'); };
   Fight.prototype.nextMate = function (side) {
@@ -4510,7 +4648,7 @@ const FIGHT3D = (function () {
       const tx = f.x + (rx * s * 2.6 + dx * back * 2.2), tz = f.z + (rz * s * 2.6 + dz * back * 2.2);
       this.afterimage(f);
       f.x = tx; f.z = tz; this.clampArena(f);
-      this.events.push({ type: 'vanish', side: f.side });
+      this.events.push({ type: 'vanish', side: f.side, fi: this.idx(f) });
     }
     if (def.kind !== 'dodge') this.events.push({ type: 'move', side: f.side, id });
   };
@@ -4549,7 +4687,7 @@ const FIGHT3D = (function () {
     if (tgt.state === 'act' && tgt.move.def.guard && tgt.move.t >= tgt.move.def.guard[0] && tgt.move.t <= tgt.move.def.guard[1]) {
       this.ring(tgt.x, 1.1, tgt.z, tgt.fx[1], 2.2, 0.35);
       this.burst(tgt.chest(), 24, tgt.fx);
-      this.events.push({ type: 'parry', side: tgt.side });
+      this.events.push({ type: 'parry', side: tgt.side, fi: this.idx(tgt) });
       this.hitstop = 0.14; this.shake = Math.max(this.shake, 0.25);
       if (!src) { att.state = 'stun'; att.stun = 0.8; att.move = null; }
       // riposte dans le dos
@@ -4574,16 +4712,16 @@ const FIGHT3D = (function () {
         v = 0; tgt.ki = Math.min(100, tgt.ki + 20); tgt.ug = Math.min(100, tgt.ug + 10);
         if (att.state === 'act' && att.move && att.move.def.kind === 'melee' || (att.move && att.move.app === false && this.dist(att, tgt) < 3)) { att.state = 'stun'; att.stun = 0.75; att.move = null; att.beam = null; }
         this.num(tgt.head(), 'PARFAIT', [0.6, 0.9, 1], 1.3, true); this.ring(tgt.x, 1.1, tgt.z, [0.7, 0.9, 1], 2.2, 0.35); this.slow = Math.max(this.slow, 0.22);
-        this.events.push({ type: 'parry', side: tgt.side, perfect: true });
+        this.events.push({ type: 'parry', side: tgt.side, fi: this.idx(tgt), perfect: true });
       } else {
         v = Math.max(1, Math.round(v * 0.22));
         tgt.gm -= 7 + (h.heavy ? 14 : 0) + v / tgt.maxHp * 300;
-        this.ring(tgt.x, 1.1, tgt.z, [0.55, 0.8, 1], 1.3, 0.22); this.events.push({ type: 'block', side: tgt.side });
+        this.ring(tgt.x, 1.1, tgt.z, [0.55, 0.8, 1], 1.3, 0.22); this.events.push({ type: 'block', side: tgt.side, fi: this.idx(tgt) });
       }
       this.dmgDone[att.side] += v; this.lastHit[att.side] = v;
       tgt.hp = Math.max(0, tgt.hp - v); tgt.flash = 0.06;
       const [bx, bz] = this.dir(att, tgt); tgt.vx = bx * h.kb * 0.2; tgt.vz = bz * h.kb * 0.2;
-      if (tgt.gm <= 0) { tgt.gm = 0; tgt.gBreak = 2.2; tgt.state = 'stun'; tgt.stun = 1.1; tgt.in.guard = false; this.num(tgt.head(), 'GARDE BRISÉE', [1, 0.55, 0.45], 1.2, true); this.events.push({ type: 'gbreak', side: tgt.side }); }
+      if (tgt.gm <= 0) { tgt.gm = 0; tgt.gBreak = 2.2; tgt.state = 'stun'; tgt.stun = 1.1; tgt.in.guard = false; this.num(tgt.head(), 'GARDE BRISÉE', [1, 0.55, 0.45], 1.2, true); this.events.push({ type: 'gbreak', side: tgt.side, fi: this.idx(tgt) }); }
       if (v > 0) this.num(V.add(tgt.head(), [(Math.random() - 0.5) * 0.4, 0.15, 0]), String(v), [0.62, 0.78, 1], 0.85);
       att.ug = Math.min(100, att.ug + 1.5); tgt.ug = Math.min(100, tgt.ug + 2);
       this.hitstop = Math.max(this.hitstop, 0.04);
@@ -4614,7 +4752,7 @@ const FIGHT3D = (function () {
     this.hitstop = Math.max(this.hitstop, h.heavy ? 0.09 : 0.05);
     this.shake = Math.max(this.shake, h.heavy ? 0.3 : 0.12);
     if (att === this.p) { this.comboCount++; this.comboT = 1.5; this.maxCombo = Math.max(this.maxCombo, this.comboCount); this.hits++; }
-    this.events.push({ type: 'hit', side: tgt.side, v, crit: r.crit, heavy: !!h.heavy, tech: !!(m && /^t[1-4]$|^riposte$/.test(m.id)) || !!(src && src.tech) });
+    this.events.push({ type: 'hit', side: tgt.side, fi: this.idx(tgt), v, crit: r.crit, heavy: !!h.heavy, tech: !!(m && /^t[1-4]$|^riposte$/.test(m.id)) || !!(src && src.tech) });
     if (tgt === this.e) this.checkDrops();
     if (tgt.hp <= 0) this.ko(tgt);
     else if (tgt === this.e) this.bossPhase();
@@ -4664,6 +4802,15 @@ const FIGHT3D = (function () {
     }
   };
   Fight.prototype.ko = function (f) {
+    // 2 contre 2 : un héros tombe, son équipier continue ; en solo, le joueur prend la main sur son équipier
+    if (this.duo && !this.finalKO && this.alive(f.side).some(m => m !== f)) {
+      f.state = 'ko'; f.move = null; f.beam = null; f.hp = 0; f.in.guard = false;
+      const w = this.foe(f), [dx, dz] = this.dir(w, f); f.vx = dx * 6; f.vz = dz * 6;
+      this.slow = Math.max(this.slow, 0.4);
+      this.events.push({ type: 'down', side: f.side, id: f.h.id });
+      if (f === this.p && !this.rules.online) { const a = this.alive(f.side)[0]; a.ai = null; a.buf = null; this.p = a; this.events.push({ type: 'takeover', side: f.side, id: a.h.id }); }
+      return;
+    }
     // équipe : si un équipier est encore debout, il prend le relais au lieu de perdre
     if (!this.finalKO && !(this.rules.train && ((f === this.e && this.rules.immortal) || (f === this.p && this.rules.godP)))) {
       const side = f.side, T = this.teams[side];
@@ -4681,9 +4828,9 @@ const FIGHT3D = (function () {
     }
     f.state = 'ko'; f.move = null; f.beam = null; f.hp = 0;
     const w = this.foe(f); const [dx, dz] = this.dir(w, f); f.vx = dx * 6; f.vz = dz * 6;
-    this.over = true; this.winner = f === this.e ? 0 : 1;
+    this.over = true; this.winner = f.side === 1 ? 0 : 1;
     this.slow = 1.2; this.shake = 0.5; this.flashA = 0.5;
-    w.state = 'win'; w.move = null; w.beam = null;
+    (this.duo ? this.alive(1 - f.side) : [w]).forEach(m => { m.state = 'win'; m.move = null; m.beam = null; });
     this.events.push({ type: 'ko', winner: this.winner });
   };
 
@@ -4743,7 +4890,7 @@ const FIGHT3D = (function () {
       const [dx, dz] = this.dir(f, foe);
       this.afterimage(f);
       f.x = foe.x + dx * 1.3; f.z = foe.z + dz * 1.3; this.clampArena(f); f.hidden = 0.1;
-      this.afterimage(f); this.events.push({ type: 'vanish', side: f.side });
+      this.afterimage(f); this.events.push({ type: 'vanish', side: f.side, fi: this.idx(f) });
     } else if (what === 'eveil') {
       f.sts.rage = { t: 6, v: o.v };
       this.ring(f.x, 0.05, f.z, f.fx[1] || [1, 0.8, 0.4], 2.8, 0.6, true); this.flame(f.chest(), f.fx, 34, 1.3, 2);
@@ -4773,7 +4920,7 @@ const FIGHT3D = (function () {
       if (this.swCd[sd] > 0) this.swCd[sd] = Math.max(0, this.swCd[sd] - dt);
       const pd = this.pend[sd]; if (pd) { pd.t -= dt; if (pd.t <= 0) { this.pend[sd] = null; const nf = this.nextMate(sd); if (nf) { this.switchTo(sd, nf); this.swCd[sd] = 2; } } }
       // les équipiers sur le banc récupèrent doucement
-      this.teams[sd].forEach(m => { if (m !== this.act(sd) && m.hp > 0) { m.hp = Math.min(m.maxHp, m.hp + m.maxHp * 0.008 * dt); m.ki = Math.min(100, m.ki + dt * 6); for (const k in m.cd) if (m.cd[k] > 0) m.cd[k] = Math.max(0, m.cd[k] - dt); } });
+      if (!this.duo) this.teams[sd].forEach(m => { if (m !== this.act(sd) && m.hp > 0) { m.hp = Math.min(m.maxHp, m.hp + m.maxHp * 0.008 * dt); m.ki = Math.min(100, m.ki + dt * 6); for (const k in m.cd) if (m.cd[k] > 0) m.cd[k] = Math.max(0, m.cd[k] - dt); } });
     });
     if (this.healCd > 0) this.healCd = Math.max(0, this.healCd - dt);
     if (this.healCd2 > 0) this.healCd2 = Math.max(0, this.healCd2 - dt);
@@ -4785,15 +4932,28 @@ const FIGHT3D = (function () {
       this.dpsT = (this.dpsT || 0) + dt; this.dpsW = this.dpsW || []; this.dpsW.push([this.time, this.dmgDone[0]]);
       while (this.dpsW.length > 2 && this.time - this.dpsW[0][0] > 4) this.dpsW.shift();
     }
-    if (!this.over && this.e.ai) this.aiThink(this.e, this.p, dt);
-    [this.p, this.e].forEach(f => this.upd(f, dt));
-    // collision des corps
-    const d = this.dist(this.p, this.e);
-    if (d < 1.0 && this.p.state !== 'down' && this.e.state !== 'down') {
-      const [dx, dz] = this.dir(this.p, this.e), push = (1.0 - d) / 2;
-      this.p.x -= dx * push; this.p.z -= dz * push; this.e.x += dx * push; this.e.z += dz * push;
+    if (this.duo) {
+      this.e = this.foe(this.p);
+      if (!this.over) this.all().forEach(f => {
+        if (!f.ai || f.hp <= 0 || f.state === 'ko') return;
+        f.rtT = (f.rtT || 0) - dt; if (f.rtT <= 0) { f.rtT = 1.8 + Math.random() * 1.5; f.tgt = this.pickTgt(f); }
+        this.aiThink(f, this.foe(f), dt);
+      });
+      this.all().forEach(f => this.upd(f, dt));
+    } else {
+      if (!this.over && this.e.ai) this.aiThink(this.e, this.p, dt);
+      [this.p, this.e].forEach(f => this.upd(f, dt));
     }
-    this.clampArena(this.p); this.clampArena(this.e);
+    // collision des corps
+    const L = this.all();
+    for (let i = 0; i < L.length; i++) for (let j = i + 1; j < L.length; j++) {
+      const a = L[i], b = L[j], d = this.dist(a, b);
+      if (d < 1.0 && a.state !== 'down' && b.state !== 'down' && a.state !== 'ko' && b.state !== 'ko') {
+        const [dx, dz] = this.dir(a, b), push = (1.0 - d) / 2;
+        a.x -= dx * push; a.z -= dz * push; b.x += dx * push; b.z += dz * push;
+      }
+    }
+    L.forEach(f => this.clampArena(f));
     this.projStep(dt); this.zoneStep(dt); this.orbStep(dt); this.fxStep(dt);
   };
   Fight.prototype.upd = function (f, dt) {
@@ -5044,15 +5204,16 @@ const FIGHT3D = (function () {
       Math.round(f.shield), f.beam ? [r2(f.beam.dir[0]), r2(f.beam.dir[2]), r2(f.beam.len), r2(f.beam.w), r2(f.beam.t), r2(f.beam.max), f.beam.big ? 1 : 0] : 0,
       r2(f.in.jx || 0), r2(f.in.jy || 0), Object.keys(f.cd).map(k => r2(f.cd[k])), f.flash > 0 ? 1 : 0];
     return {
-      t: r2(this.time), f: [fs(this.p), fs(this.e)], o: this.over ? 1 : 0, w: this.winner, h: [this.heal.n, (this.heal2 || this.heal).n], hc: [r2(this.healCd), r2(this.healCd2 || 0)],
-      pr: this.projs.map(q => [q.owner.side, r2(q.p[0]), r2(q.p[1]), r2(q.p[2]), r2(q.v[0]), r2(q.v[1]), r2(q.v[2]), r2(q.size), q.ground ? 1 : 0]),
-      zn: this.zones.map(z => [z.owner.side, r2(z.x), r2(z.z), r2(z.r), r2(z.t), r2(z.arm), z.kind === 'meteor' ? 1 : 0]),
-      cn: this.cine ? this.cine.f.side : -1, fr: r2(this.freeze)
+      t: r2(this.time), f: this.duo ? this.all().map(fs) : [fs(this.p), fs(this.e)], tg: this.duo ? this.all().map(f => this.idx(this.foe(f))) : 0, o: this.over ? 1 : 0, w: this.winner, h: [this.heal.n, (this.heal2 || this.heal).n], hc: [r2(this.healCd), r2(this.healCd2 || 0)],
+      pr: this.projs.map(q => [this.duo ? this.idx(q.owner) : q.owner.side, r2(q.p[0]), r2(q.p[1]), r2(q.p[2]), r2(q.v[0]), r2(q.v[1]), r2(q.v[2]), r2(q.size), q.ground ? 1 : 0]),
+      zn: this.zones.map(z => [this.duo ? this.idx(z.owner) : z.owner.side, r2(z.x), r2(z.z), r2(z.r), r2(z.t), r2(z.arm), z.kind === 'meteor' ? 1 : 0]),
+      cn: this.cine ? (this.duo ? this.idx(this.cine.f) : this.cine.f.side) : -1, fr: r2(this.freeze)
     };
   };
   // l'invité voit le combat de son côté : le camp 0 de l'hôte devient son camp 1
   Fight.prototype.applySnap = function (S) {
-    const map = [this.e, this.p];
+    // coopération (2 contre 2) : même ordre et même camp chez les deux joueurs
+    const D = this.duo, A = this.all(), map = D ? A : [this.e, this.p], byI = i => A[i] || A[0];
     S.f.forEach((a, i) => {
       const f = map[i], keys = Object.keys(f.cd);
       f.net = { x: a[0], z: a[1], y: a[2], yaw: a[3], st: ST[a[4]] || 'idle', mv: a[5] || null, mt: a[6], app: !!a[7], jx: a[16], jy: a[17] };
@@ -5063,17 +5224,17 @@ const FIGHT3D = (function () {
       (a[18] || []).forEach((v, k) => { if (keys[k]) f.cd[keys[k]] = v; });
       if (a[19]) f.flash = 0.08;
     });
-    this.time = S.t; this.over = !!S.o; this.winner = S.w < 0 ? -1 : 1 - S.w;
-    this.heal.n = S.h[1]; this.healCd = S.hc[1];
-    this.projs = S.pr.map(q => { const ow = q[0] === 0 ? this.e : this.p; return { owner: ow, p: [q[1], q[2], q[3]], v: [q[4], q[5], q[6]], size: q[7], ground: !!q[8], fx: ow.fx, life: 1, net: true }; });
-    this.zones = S.zn.map(z => { const ow = z[0] === 0 ? this.e : this.p; return { owner: ow, x: z[1], z: z[2], r: z[3], t: z[4], arm: z[5], kind: z[6] ? 'meteor' : 'trap', fx: ow.fx, life: 9 }; });
-    if (S.cn >= 0 && !this.cine) { this.cine = { f: S.cn === 0 ? this.e : this.p, t: 0 }; this.freeze = S.fr; } else if (S.cn < 0) this.cine = null;
-    if (!this.snapT) { [this.p, this.e].forEach(f => { if (f.net) { f.x = f.net.x; f.z = f.net.z; f.yaw = f.net.yaw; } }); }
+    this.time = S.t; this.over = !!S.o; this.winner = S.w < 0 ? -1 : D ? S.w : 1 - S.w;
+    if (!D) { this.heal.n = S.h[1]; this.healCd = S.hc[1]; } else if (S.tg) { A.forEach((f, i) => { f.tgt = byI(S.tg[i]); }); this.e = this.p.tgt || this.e; }
+    this.projs = S.pr.map(q => { const ow = D ? byI(q[0]) : q[0] === 0 ? this.e : this.p; return { owner: ow, p: [q[1], q[2], q[3]], v: [q[4], q[5], q[6]], size: q[7], ground: !!q[8], fx: ow.fx, life: 1, net: true }; });
+    this.zones = S.zn.map(z => { const ow = D ? byI(z[0]) : z[0] === 0 ? this.e : this.p; return { owner: ow, x: z[1], z: z[2], r: z[3], t: z[4], arm: z[5], kind: z[6] ? 'meteor' : 'trap', fx: ow.fx, life: 9 }; });
+    if (S.cn >= 0 && !this.cine) { this.cine = { f: D ? byI(S.cn) : S.cn === 0 ? this.e : this.p, t: 0 }; this.freeze = S.fr; } else if (S.cn < 0) this.cine = null;
+    if (!this.snapT) { A.forEach(f => { if (f.net) { f.x = f.net.x; f.z = f.net.z; f.yaw = f.net.yaw; } }); }
     this.snapT = performance.now();
   };
   // effets côté invité à partir des événements de l'hôte (camps inversés)
   Fight.prototype.netEvent = function (ev) {
-    const side = ev.side == null ? null : 1 - ev.side, tgt = side == null ? null : this.act(side);
+    const side = ev.side == null ? null : this.duo ? ev.side : 1 - ev.side, tgt = this.duo && ev.fi != null ? this.all()[ev.fi] : side == null ? null : this.act(side);
     if (ev.type === 'hit' && tgt) {
       const att = this.foe(tgt), hp = V.add(tgt.chest(), [(Math.random() - 0.5) * 0.3, (Math.random() - 0.3) * 0.4, (Math.random() - 0.5) * 0.3]);
       this.burst(hp, ev.heavy ? 26 : 12, att.fx); this.slashes.push({ p: hp, a: Math.random() * PI, len: ev.heavy ? 1.6 : 1.0, life: 0.14, max: 0.14, c: att.fx[1] });
@@ -5086,14 +5247,14 @@ const FIGHT3D = (function () {
     if (ev.type === 'heal' && tgt) { this.flame(tgt.chest(), [[0.9, 1, 0.9], [0.5, 1, 0.6], [0.3, 0.8, 0.5]], 30, 1.2, 1.8); this.ring(tgt.x, 0.05, tgt.z, [0.5, 1, 0.6], 2.4, 0.6, true); }
     if (ev.type === 'vanish' && tgt) this.afterimage(tgt);
     if (ev.type === 'explode' && ev.p) this.explode(ev.p, ev.r || 2, (side == null ? this.p : this.act(side)).fx);
-    const out = Object.assign({}, ev); if (ev.side != null) out.side = side; if (ev.winner != null) out.winner = 1 - ev.winner;
+    const out = Object.assign({}, ev); if (ev.side != null) out.side = side; if (ev.winner != null) out.winner = this.duo ? ev.winner : 1 - ev.winner;
     this.events.push(out);
   };
   Fight.prototype.puppetStep = function (dt) {
     if (this.cine) this.cine.t += dt;
     if (this.freeze > 0) { this.freeze -= dt; this.fxStep(dt * 0.3); if (this.freeze <= 0) this.cine = null; return; }
     const k = Math.min(1, dt * 14);
-    [this.p, this.e].forEach(f => {
+    this.all().forEach(f => {
       const T = f.net; if (!T) return;
       f.t += dt; f.x += (T.x - f.x) * k; f.z += (T.z - f.z) * k; f.y += (T.y - f.y) * k; f.yaw = T.yaw; f.state = T.st;
       if (f.flash > 0) f.flash -= dt; if (f.hidden > 0) f.hidden -= dt;
@@ -5209,7 +5370,7 @@ const FIGHT3D = (function () {
       this.cam.eye = eye; this.cam.at = at;
     } else {
       const [dx, dz] = this.dir(p, e), rx = -dz, rz = dx, d = this.dist(p, e);
-      const ck = this.camK ? this.camK.dist : 1, back = (4.3 + Math.min(3.5, d * 0.25)) * ck;
+      const ck = (this.camK ? this.camK.dist : 1) * (this.duo ? 1.22 : 1), back = (4.3 + Math.min(3.5, d * 0.25)) * ck;
       eye = [p.x - dx * back + rx * 1.9 * ck, 2.5 + Math.min(1.4, d * 0.1) * ck + (ck - 1) * 1.2, p.z - dz * back + rz * 1.9 * ck];
       at = V.add(V.lerp(p.chest(), e.chest(), 0.62), [0, -0.1, 0]);
       const k = 1 - Math.exp(-rdt * 7);
@@ -5219,7 +5380,7 @@ const FIGHT3D = (function () {
     if (this.shake > 0) { const s = this.shake * 0.25 * (this.camK ? this.camK.shake : 1); eye = V.add(eye, [(Math.random() - 0.5) * s, (Math.random() - 0.5) * s, (Math.random() - 0.5) * s]); }
     R3.camera(eye, at, 0.95);
     // personnages
-    [p, e].forEach(f => {
+    this.all().forEach(f => {
       f.ch.root.pos = [f.x, f.y, f.z]; f.ch.root.rot = [0, f.yawS == null ? f.yaw : f.yawS, 0];
       HQ.setPose(f.ch, f.pose, rdt);
       f.ch.root.visible = !(f.hidden > 0);
@@ -5228,10 +5389,10 @@ const FIGHT3D = (function () {
     R3.clear(THEMES[arena.theme].skyC);
     envFor(R3, THEMES[arena.theme]);
     const mid = V.lerp([p.x, 0.9, p.z], [e.x, 0.9, e.z], 0.5);
-    R3.drawSoft([arena.root, p.ch.root, e.ch.root], { center: mid, radius: Math.max(2.4, this.dist(p, e) * 0.5 + 1.6) });
+    R3.drawSoft([arena.root].concat(this.all().map(f => f.ch.root)), { center: this.duo ? [0, 0.9, 0] : mid, radius: this.duo ? 6.5 : Math.max(2.4, this.dist(p, e) * 0.5 + 1.6) });
     // ombre de contact douce sous les pieds
     const dark = [];
-    [p, e].forEach(f => { const s = 0.5; dark.push({ quad: [[f.x - s, 0.02, f.z - s], [f.x + s, 0.02, f.z - s], [f.x - s, 0.02, f.z + s], [f.x + s, 0.02, f.z + s]], c: [0, 0, 0, 0.32] }); });
+    this.all().forEach(f => { const s = 0.5; dark.push({ quad: [[f.x - s, 0.02, f.z - s], [f.x + s, 0.02, f.z - s], [f.x - s, 0.02, f.z + s], [f.x + s, 0.02, f.z + s]], c: [0, 0, 0, 0.32] }); });
     R3.fx(dark, 'dark');
     // effets lumineux
     const Q = [];
@@ -5249,7 +5410,7 @@ const FIGHT3D = (function () {
     this.orbs.forEach(o => { const c = hexToRgb(o.d.c); Q.push({ p: [o.x, o.y, o.z], s: 0.5 + Math.sin(this.time * 6) * 0.06, c: [...c, 0.85] }); Q.push({ p: [o.x, o.y, o.z], s: 0.2, c: [1, 1, 1, 1] }); for (let i = 0; i < 3; i++) Q.push({ p: [o.x, o.y + 0.5 + i * 0.4, o.z], s: 0.12, c: [...c, 0.5 - i * 0.12] }); });
     this.parts.forEach(q => { const k = q.life / q.max; Q.push({ p: q.p, s: q.s * (0.5 + k), c: [...q.c, Math.min(1, k * 1.6)] }); });
     this.projs.forEach(q => { Q.push({ p: q.p, s: q.size * 2.2, c: [...q.fx[2], 0.6] }); Q.push({ p: q.p, s: q.size * 1.3, c: [...q.fx[1], 0.9] }); Q.push({ p: q.p, s: q.size * 0.7, c: [...q.fx[0], 1] }); });
-    [p, e].forEach(f => {
+    this.all().forEach(f => {
       if (f.move && f.move.chargeP) { const s = 0.25 + Math.sin(this.time * 30) * 0.05 + (f.move.def.kind === 'ult' ? 0.25 : 0); Q.push({ p: f.move.chargeP, s: s * 2.2, c: [...f.fx[1], 0.7] }); Q.push({ p: f.move.chargeP, s, c: [...f.fx[0], 1] }); }
       if (f.orb) { Q.push({ p: f.orb.p, s: f.orb.r * 1.6, c: [...f.fx[2], 0.6] }); Q.push({ p: f.orb.p, s: f.orb.r, c: [...f.fx[1], 0.95] }); Q.push({ p: f.orb.p, s: f.orb.r * 0.5, c: [...f.fx[0], 1] }); }
       if (f.shield > 0) { const n = 18; for (let i = 0; i < n; i++) { const a = i / n * PI * 2 + this.time * 2; Q.push({ p: [f.x + Math.cos(a) * 0.9, 1.1 + Math.sin(a * 2 + this.time) * 0.5, f.z + Math.sin(a) * 0.9], s: 0.14, c: [0.6, 0.85, 1, 0.55] }); } }
@@ -5259,7 +5420,7 @@ const FIGHT3D = (function () {
     R3.fx(Q, 'soft');
     // rayons et traînées
     const B = [];
-    [p, e].forEach(f => {
+    this.all().forEach(f => {
       if (f.beam) { const b = f.beam, end = V.add(b.start, V.mul(b.dir, b.len)), k = Math.min(1, (b.max - b.t) * 6) * Math.min(1, b.t * 5), w = b.w * k * (1 + Math.sin(this.time * 50) * 0.08); B.push({ a: b.start, b: end, w: w * 1.6, c: [...f.fx[2], 0.7] }); B.push({ a: b.start, b: end, w: w, c: [...f.fx[1], 0.95] }); B.push({ a: b.start, b: end, w: w * 0.45, c: [...f.fx[0], 1] }); }
       for (let i = 1; i < f.trail.length; i++) { const a = f.trail[i - 1], b = f.trail[i], al = (1 - b.age / 0.14) * (i / f.trail.length); B.push({ quad: [a.a, a.b, b.a, b.b], c: [...f.fx[1], al * 0.85] }); }
     });
@@ -5278,6 +5439,17 @@ const FIGHT3D = (function () {
       if (n.crit) { g.font = `700 ${Math.round(fs * 0.45)}px 'Saira Condensed', sans-serif`; g.strokeText('CRITIQUE', s[0], s[1] - fs * 0.85); g.fillText('CRITIQUE', s[0], s[1] - fs * 0.85); }
     });
     g.globalAlpha = 1;
+    // 2 contre 2 : petite barre de vie au-dessus de chaque héros (vert = équipe, rouge = adversaires, cadre doré = cible)
+    if (this.duo && !this.cine) this.all().forEach(f => {
+      if (f.state === 'ko' || f.hidden > 0) return;
+      const s = R3.project(V.add(f.head(), [0, 0.42, 0])); if (s[2] <= 0) return;
+      const w = 46, h = 5, x = s[0] - w / 2, y = s[1], k = Math.max(0, f.hp / f.maxHp), tg = f === this.e;
+      g.fillStyle = 'rgba(0,0,0,.6)'; g.fillRect(x - 1, y - 1, w + 2, h + 2);
+      g.fillStyle = f.side === 0 ? (f === this.p ? '#7dffb0' : '#3fcf83') : '#ff5a6a'; g.fillRect(x, y, w * k, h);
+      if (tg) { g.strokeStyle = '#ffd23d'; g.lineWidth = 1.5; g.strokeRect(x - 2.5, y - 2.5, w + 5, h + 5); }
+      g.font = "700 11px 'Saira Condensed', 'Arial Narrow', sans-serif"; g.textAlign = 'center'; g.lineWidth = 3; g.strokeStyle = 'rgba(0,0,0,.8)';
+      const nm = f === this.p ? 'TOI' : f.tag || f.h.name.toUpperCase(); g.strokeText(nm, s[0], y - 4); g.fillStyle = f.side === 0 ? '#c8ffe0' : '#ffd0d4'; g.fillText(nm, s[0], y - 4);
+    });
     if (this.cine) { g.fillStyle = 'rgba(0,0,0,.85)'; const bh = H * 0.11 * Math.min(1, this.cine.t * 5); g.fillRect(0, 0, W, bh); g.fillRect(0, H - bh, W, bh); }
   };
   // éclairage doux adapté au thème de l'arène
@@ -5499,23 +5671,24 @@ const NET = (function () {
   N.clubBossAdd = (id, wk, dmg) => Promise.all([A.tx('clubBoss/' + id + '/' + wk + '/total', v => (v || 0) + dmg), A.tx('clubBoss/' + id + '/' + wk + '/by/' + uid(), v => ({ p: N.me.pseudo, d: ((v && v.d) || 0) + dmg }))]);
 
   /* ---------- duels ---------- */
-  N.createRoom = async (hero, friendUid) => {
+  N.createRoom = async (hero, friendUid, extra) => {
     const id = A.key('rooms');
-    await A.set('rooms/' + id, { host: uid(), hp: N.me.pseudo, hh: hero, guest: friendUid || null, state: 'wait', t: Date.now() });
-    if (friendUid) await A.set('invites/' + friendUid + '/' + uid(), { room: id, p: N.me.pseudo, t: Date.now() });
+    await A.set('rooms/' + id, Object.assign({ host: uid(), hp: N.me.pseudo, hh: hero, guest: friendUid || null, state: 'wait', t: Date.now() }, extra || {}));
+    if (friendUid) await A.set('invites/' + friendUid + '/' + uid(), { room: id, p: N.me.pseudo, t: Date.now(), m: (extra && extra.m) || 'duel' });
     return id;
   };
   N.joinRoom = async (id, hero) => { const r = await A.get('rooms/' + id); if (!r || r.state !== 'wait') throw new Error('Ce duel n\'est plus disponible.'); await A.update('rooms/' + id, { guest: uid(), gp: N.me.pseudo, gh: hero, state: 'ready' }); return r; };
-  N.queue = async hero => {
-    // file d'attente : on rejoint le plus ancien joueur qui attend, sinon on attend soi-même
+  N.queue = async (hero, mode) => {
+    // file d'attente : on rejoint le plus ancien joueur qui attend dans le même mode (rapide ou classé), sinon on attend soi-même
+    mode = mode || 'q';
     const q = (await A.get('queue')) || {}, now = Date.now();
-    const other = Object.keys(q).filter(k => k !== uid() && !q[k].room && now - q[k].t < 60000).sort((a, b) => q[a].t - q[b].t)[0];
+    const other = Object.keys(q).filter(k => k !== uid() && !q[k].room && now - q[k].t < 60000 && (q[k].m || 'q') === mode).sort((a, b) => q[a].t - q[b].t)[0];
     if (other) {
-      const id = await N.createRoom(hero, null), r = await A.tx('queue/' + other + '/room', cur => cur ? undefined : id);
+      const id = await N.createRoom(hero, null, { m: mode }), r = await A.tx('queue/' + other + '/room', cur => cur ? undefined : id);
       if (r.ok) { await A.update('rooms/' + id, { guest: other }); return { room: id, host: true }; }
       await A.remove('rooms/' + id);
     }
-    await A.set('queue/' + uid(), { p: N.me.pseudo, t: now, room: null }); A.onDisc('queue/' + uid(), null);
+    await A.set('queue/' + uid(), { p: N.me.pseudo, t: now, room: null, m: mode }); A.onDisc('queue/' + uid(), null);
     return { waiting: true };
   };
   N.leaveQueue = () => uid() ? A.remove('queue/' + uid()) : Promise.resolve();
@@ -6187,7 +6360,7 @@ function startFight0(i, extra) {
   launch(cfg);
 }
 function startFight(i) { startStory(i); }
-let fCfg = null, inGuard = false, keyGuard = false, gpGuard = false, tCharge = false, kCharge = false, gpCharge = false;
+let NEXT_EL = null, fCfg = null, inGuard = false, keyGuard = false, gpGuard = false, tCharge = false, kCharge = false, gpCharge = false;
 function healList(equip) {
   return `<div class="heals">${Object.keys(HEALS).map(k => { const H = HEALS[k], n = P.potions[k] || 0, on = P.healSlot === k;
     return `<div class="healr${on && equip ? ' on' : ''}" style="--hc:${H.c}"><span class="ic">${I.potion}</span><div><b>${H.nom} <span class="num">× ${n}</span></b><small>${H.d}</small></div>
@@ -6212,19 +6385,25 @@ function launch(cfg) {
   if (CINE) { CINE.done = null; cineEnd(); }
   if (DLG) { DLG.done = null; dlgSkip(); }
   closeSheet(); $('#ov-res').classList.remove('on'); $('#ov-chest').classList.remove('on');
+  if (NEXT_EL && !(cfg.rules && cfg.rules.online)) { cfg.el = NEXT_EL; } NEXT_EL = null; // décor choisi dans l'écran de préparation
   fCfg = cfg; fStage = cfg.stage != null ? STAGES[cfg.stage] : null;
   const pid = cfg.hero || P.active, h = HBY[pid], hs = cfg.plvl != null ? { lvl: cfg.plvl, tech: cfg.ptech } : P.heroes[pid], fx = HBY[cfg.foe];
-  const ech = HQ.build(GL.R, HQ.lookOf(fx), fx.idx + 1);
+  const ech = cfg.eCards ? null : HQ.build(GL.R, HQ.lookOf(fx), fx.idx + 1);
   // équipe : chef + jusqu'à 2 équipiers (pas en entraînement)
   const teamIds = cfg.team || (cfg.kind === 'train' ? [pid] : [pid].concat(P.team.filter(id => id !== pid && P.heroes[id])).slice(0, 3));
-  const pTeam = teamIds.map((id, i) => i === 0 ? { hero: h, stats: cfg.pstats || statsFor(pid), tech: cfg.ptech || hs.tech, ch: model(pid) } : { hero: HBY[id], stats: statsFor(id), tech: P.heroes[id].tech, ch: model(id) });
+  const fresh = id => HQ.build(GL.R, HQ.lookOf(HBY[id]), HBY[id].idx + 1);
+  // cartes de héros fournies par un mode (2 contre 2, coopération) : héros pas forcément possédés, doublons possibles
+  const used = {}, pTeam = cfg.pCards ? cfg.pCards.map(c => { const ch = used[c.id] ? fresh(c.id) : model(c.id); used[c.id] = 1; return { hero: HBY[c.id], stats: c.st, tech: c.tech, ch, ai: c.ai || null }; })
+    : teamIds.map((id, i) => i === 0 ? { hero: h, stats: cfg.pstats || statsFor(pid), tech: cfg.ptech || hs.tech, ch: model(pid) } : { hero: HBY[id], stats: statsFor(id), tech: P.heroes[id].tech, ch: model(id) });
+  const eTeam = cfg.eCards ? cfg.eCards.map(c => ({ hero: HBY[c.id], stats: c.st, tech: c.tech, ch: fresh(c.id), ai: c.ai || null })) : null;
   const HS = HEALS[P.healSlot] || HEALS.petite;
   F = new FIGHT3D.Fight({
-    pTeam, e: { hero: fx, stats: cfg.estats, tech: cfg.etech, ch: ech, ai: cfg.ai },
+    pTeam, eTeam, e: eTeam ? null : { hero: fx, stats: cfg.estats, tech: cfg.etech, ch: ech, ai: cfg.ai }, duo: !!cfg.duo, pIdx: cfg.pIdx || 0,
     drops: cfg.drops || [], limit: cfg.limit, rules: cfg.rules,
     heal: { n: cfg.kind === 'train' ? HEAL_MAX : Math.min(HEAL_MAX, P.potions[P.healSlot] || 0), pct: HS.pct, ki: HS.ki, cleanse: HS.cleanse }
   });
-  F.teamIds = teamIds; F.spOf = id => cfg.kind === 'train' && id === pid && cfg.sp ? cfg.sp : (P.heroes[id] && P.heroes[id].sp) || 't1';
+  if (cfg.pCards) F.teamIds = cfg.pCards.map(c => c.id);
+  F.teamIds = F.teamIds || teamIds; F.spOf = id => cfg.kind === 'train' && id === pid && cfg.sp ? cfg.sp : (cfg.pCards && (cfg.pCards.find(c => c.id === id) || {}).sp) || (P.heroes[id] && P.heroes[id].sp) || 't1';
   F.pid = pid; F.cnt = { ult: 0, tech: 0, dodge: 0 };
   if (cfg.noHeal) F.heal.n = 0;
   fightBoosts(cfg);
@@ -6247,7 +6426,7 @@ function launch(cfg) {
   else if (cfg.kind === 'event' || cfg.kind === 'boss') { const tags = cfg.kind === 'boss' ? [`${cfg.limit} secondes`, 'Inflige un maximum de dégâts'] : ruleTags(eventFor(P.event.wk).challenges.find(x => x.id === cfg.id) || {}); lootFeed(tags.join(' · '), '#ffb347'); }
 }
 function t4Locked(cfg, k) { if (k !== 't4') return false; if (cfg && cfg.maxCaps) return false; const hs = P.heroes[(cfg && cfg.hero) || P.active], lv = cfg && cfg.plvl != null ? cfg.plvl : hs ? hs.lvl : 1; return lv < T4_LVL; }
-function stopFight() { if (F && F.e && F.e.ch && GL.R && GL.models.get(F.e.h.id) !== F.e.ch) HQ.dispose(GL.R, F.e.ch); F = null; }
+function stopFight() { if (F && GL.R) F.all().concat(F.teams[1]).forEach(f => { if (f && f.ch && GL.models.get(f.h.id) !== f.ch && !f.ch.gone) { f.ch.gone = true; HQ.dispose(GL.R, f.ch); } }); F = null; }
 function techName(f, id) {
   if (id === 'ult') return f.h.ult.nom;
   const t = f.h.techs.find(x => x.k === id); return t ? t.nom : null;
@@ -6287,6 +6466,7 @@ function cutIn(side) {
 }
 function setW(k, el, v) { if (hudC[k] !== v) { hudC[k] = v; el.style.width = v; } }
 function hud() {
+  if (F && F.duo) duoSync();
   [['p', F.p], ['e', F.e]].forEach(([k, f]) => {
     const r = $('#hud-' + k), hp = (f.hp / f.maxHp * 100).toFixed(1) + '%';
     setW(k + 'h', r.querySelector('.hp'), hp); setW(k + 'l', r.querySelector('.lag'), hp);
@@ -6392,9 +6572,10 @@ function finishBoss() {
   $('#ov-res').classList.add('on');
 }
 function finish() {
+  if (fCfg && fCfg.mfin) { trackFight(); return fCfg.mfin(); } // modes 1 contre 1, 2 contre 2, classé
   if (fCfg && fCfg.tuto) return tutFightEnd();
   if (fCfg && fCfg.kind === 'train') return finishTrain();
-  if (fCfg && fCfg.kind === 'online') return finishOnline();
+  if (fCfg && (fCfg.kind === 'online' || fCfg.kind === 'coop')) return finishOnline();
   if (fCfg && fCfg.kind === 'cboss') { trackFight(); return finishClubBoss(); }
   trackFight();
   if (fCfg && fCfg.kind === 'tower') return finishTower();
@@ -7120,6 +7301,7 @@ function wire() {
     if (shop12Click(t)) return;
     if (tut12Click(t)) return;
     if (fix12Click(t)) return;
+    if (modes12Click(t)) return;
     if (t.closest('#f-seal')) { act('seal'); return; }
     if (storyClick(t)) return;
     if (actClick(t)) return;
@@ -7201,7 +7383,7 @@ function wire() {
     if (t.closest('#f-pause')) { if (F && F.net) { openOnlineMenu(); return; } if (F && !F.over) showPause(false); return; }
     if (t.closest('#p-go')) { hidePause(); return; }
     if (t.closest('#p-mute')) { P.muted = !P.muted; save(); t.closest('#p-mute').textContent = P.muted ? 'Activer le son' : 'Couper le son'; return; }
-    if (t.closest('#p-quit')) { hidePause(); if (fCfg && fCfg.kind === 'train') { go('train'); return; } if (F && !F.over) F.ko(F.p); return; }
+    if (t.closest('#p-quit')) { hidePause(); if (fCfg && fCfg.kind === 'train') { go('train'); return; } if (F && !F.over) { F.finalKO = true; F.quit = true; F.ko(F.p); F.slow = 0; endT = 1.6; } return; } // abandon : tout le match s'arrête d'un coup, sans relais des équipiers
     if (t.closest('#r-again')) { $('#ov-res').classList.remove('on'); if (fCfg.kind === 'event') startChallenge(fCfg.id); else if (fCfg.kind === 'boss') startBoss(); else if (fCfg.kind === 'tower') startTower(); else startFight(STAGES.indexOf(fStage)); return; }
     if (t.closest('#r-next')) { $('#ov-res').classList.remove('on'); const i = STAGES.indexOf(fStage); go('story'); if (i < STAGES.length - 1) openStage(i + 1); return; }
     if (t.closest('#r-hero')) { $('#ov-res').classList.remove('on'); go('hero', P.active); return; }
@@ -7286,7 +7468,8 @@ function wire() {
 function act(a) {
   if (!F || paused) return;
   if (a === 'guard') { if (O().ctl.guardToggle) { inGuard = !inGuard; $('#k-guard').classList.toggle('lock', inGuard); } else inGuard = true; return; }
-  if (F.puppet) { if (a === 'sp') a = F.spOf(F.p.h.id); if (a === 'ult' && F.p.ug < 100) { lootFeed('Jauge ultime pas encore pleine', '#8b8fa1'); return; } if (a !== 'sw') netAct(a); return; }
+  if (F.puppet) { if (a === 'sp') a = F.spOf(F.p.h.id); if (a === 'ult' && F.p.ug < 100) { lootFeed('Jauge ultime pas encore pleine', '#8b8fa1'); return; } if (a !== 'sw' || F.duo) netAct(a); return; }
+  if (a === 'sw' && F.duo) { if (!F.cycleTarget()) lootFeed('Un seul adversaire encore debout', '#8b8fa1'); return; }
   if (a === 'sw') { if (!F.trySwitch(0)) lootFeed(F.nextMate(0) ? (F.swCd[0] > 0 ? 'Changement pas encore prêt' : 'Impossible pendant une attaque') : 'Aucun équipier disponible', '#8b8fa1'); return; }
   if (a === 'heal') { if (!F.useHeal()) lootFeed(F.heal.n <= 0 ? (P.potions[P.healSlot] ? 'Plus de soins pour ce combat' : 'Aucun objet de soin équipé') : F.healCd > 0 ? 'Soin pas encore prêt' : F.p.hp >= F.p.maxHp ? 'PV déjà au maximum' : 'Impossible pendant une attaque', '#8b8fa1'); return; }
   if (a === 'seal') { sealTrigger(); return; }
@@ -7325,7 +7508,7 @@ function start(data) {
    EN LIGNE : connexion, pseudo, compte, amis, club, duels entre joueurs.
    (inséré dans la même portée que ui3.js, juste avant le démarrage)
    ===================================================================== */
-const GAME_VER = '12.0';
+const GAME_VER = '12.1';
 const ONL = { watch: [], gate: false, inviteSeen: {}, q: null, saveT: 0, profT: 0 };
 const logged = () => !!(NET.ready && NET.user && NET.me && NET.me.pseudo);
 function screenUnwatch() { ONL.watch.splice(0).forEach(f => { try { f(); } catch (e) { /* */ } }); }
@@ -7612,8 +7795,8 @@ function watchInvites() {
     if (navigator.webdriver) (window.__dbg = window.__dbg || []).push('inv ' + Object.keys(ONL.inv).length + ' ' + cur);
     Object.keys(ONL.inv).forEach(u => {
       const iv = ONL.inv[u]; if (ONL.inviteSeen[iv.room] || Date.now() - iv.t > 120000) return; ONL.inviteSeen[iv.room] = 1;
-      if (cur !== 'fight') openSheet(`<div class="sh"><h2>Défi !</h2></div><p class="hint"><b>${esc(iv.p)}</b> te défie en duel.</p><div class="duo"><button class="btn prime" data-onl="acc:${u}">Accepter</button><button class="btn" data-onl="ref:${u}">Refuser</button></div>`);
-      else toast(`${iv.p} te défie (va dans En ligne après le combat)`);
+      if (cur !== 'fight') openSheet(`<div class="sh"><h2>${iv.m === 'coop' ? 'Invitation !' : 'Défi !'}</h2></div><p class="hint"><b>${esc(iv.p)}</b> ${iv.m === 'coop' ? "t'invite en 2 contre 2 : vous serez dans la même équipe contre deux robots." : 'te défie en duel.'}</p><div class="duo"><button class="btn prime" data-onl="acc:${u}">Accepter</button><button class="btn" data-onl="ref:${u}">Refuser</button></div>`);
+      else toast(iv.m === 'coop' ? `${iv.p} t'invite en 2 contre 2 (va dans En ligne après le combat)` : `${iv.p} te défie (va dans En ligne après le combat)`);
     });
     if (ONL.drawOnline && cur === 'online') ONL.drawOnline();
   });
@@ -7628,7 +7811,7 @@ function waitRoom(id, host) {
   const t0 = Date.now();
   ONL.roomOff = NET.db().on('rooms/' + id, r => {
     if (!r) return;
-    if (host && r.state === 'ready' && r.gh && !ONL.started) { ONL.started = true; ONL.roomOff(); ONL.roomOff = null; closeSheet(); startDuel(id, r, true); }
+    if (host && r.state === 'ready' && r.gh && !ONL.started) { ONL.started = true; ONL.roomOff(); ONL.roomOff = null; closeSheet(); if (r.m === 'coop') startCoop(id, r, true); else startDuel(id, r, true); }
     if (r.state === 'refused' && host) { toast('Défi refusé'); ONL.roomOff(); ONL.roomOff = null; }
   });
   setTimeout(() => { if (ONL.room === id && !ONL.started && host) { if (ONL.roomOff) { ONL.roomOff(); ONL.roomOff = null; } NET.db().remove('rooms/' + id).catch(() => {}); if (!ONL.q) toast("Personne n'a répondu au défi"); } }, 90000);
@@ -7643,7 +7826,7 @@ async function onlAction(a) {
       ONL.qOff = NET.db().on('queue/' + NET.user.uid + '/room', async room => { if (!room || ONL.started) return; ONL.qOff(); ONL.qOff = null; ONL.q = false; NET.leaveQueue(); await joinDuel(room); });
     }
     if (k === 'resume') { closeSheet(); return; }
-    if (k === 'forfeit') { closeSheet(); if (F && F.net && !F.over) { if (F.net.host) { F.finalKO = true; F.ko(F.p); } else { netAct('forfeit'); F.over = true; F.winner = 1; } } return; }
+    if (k === 'forfeit') { closeSheet(); if (F && F.net && !F.over) { if (F.net.host) { F.finalKO = true; F.ko(F.p); } else { netAct('forfeit'); F.over = true; F.winner = 1; F.quit = true; } } return; }
     if (k === 'cancel') { ONL.q = false; if (ONL.qOff) { ONL.qOff(); ONL.qOff = null; } await NET.leaveQueue(); renderOnline(); }
     if (k === 'acc') { const iv = (ONL.inv || {})[u]; closeSheet(); if (!iv) return; await NET.db().remove('invites/' + NET.user.uid + '/' + u); await joinDuel(iv.room); }
     if (k === 'ref') { const iv = (ONL.inv || {})[u]; closeSheet(); await NET.db().remove('invites/' + NET.user.uid + '/' + u); if (iv) NET.db().update('rooms/' + iv.room, { state: 'refused' }).catch(() => {}); if (cur === 'online') renderOnline(); }
@@ -7651,10 +7834,13 @@ async function onlAction(a) {
 }
 async function joinDuel(room) {
   ONL.started = true;
-  const r = await NET.joinRoom(room, heroCard());
-  startDuel(room, Object.assign({}, r, { gh: heroCard(), gp: NET.me.pseudo }), false);
+  const card = Object.assign(heroCard(), { rk: (P.rank && P.rank.pts) || 0 });
+  const r = await NET.joinRoom(room, card);
+  const R2 = Object.assign({}, r, { gh: card, gp: NET.me.pseudo });
+  if (r.m === 'coop') startCoop(room, R2, false); else startDuel(room, R2, false);
 }
 function startDuel(room, r, host) {
+  if (RS) rankStop(true); // la recherche du mode classé a trouvé un vrai joueur
   const me = host ? r.hh : r.gh, op = host ? r.gh : r.hh, opName = host ? (r.gp || 'Adversaire') : (r.hp || 'Adversaire');
   ONL.q = false;
   launch({ kind: 'online', hero: me.id, pstats: me.st, ptech: me.tech, plvl: me.lvl, sp: me.sp, maxCaps: true, foe: op.id, lvl: op.lvl, estats: op.st, etech: op.tech, ai: null,
@@ -7662,7 +7848,7 @@ function startDuel(room, r, host) {
   F.heal = Object.assign(F.heal, { n: 2, pct: 0.2, ki: 0, cleanse: false, used: 0 }); F.heal2 = Object.assign({}, F.heal);
   F.spOf = id => id === me.id ? me.sp : op.sp;
   F.e.sp = op.sp;
-  F.net = { room, host, seq: 0, last: -1, sendT: 0, inT: 0, gotT: performance.now(), acts: [], aseq: 0, evq: [], opName };
+  F.net = { room, host, seq: 0, last: -1, sendT: 0, inT: 0, gotT: performance.now(), acts: [], aseq: 0, evq: [], opName, ranked: r.m === 'rank', opRk: (host ? r.gh : r.hh).rk || 0 };
   $('#nm-e').innerHTML = `${esc(opName)} <small>${HBY[op.id].name} · NIV ${op.lvl}</small>`;
   setupFightButtons(); $('#k-sw').hidden = true;
   const db = NET.db();
@@ -7683,13 +7869,13 @@ function netTick(dt) {
   const N = F.net, db = NET.db(); if (!N || !db) return;
   if (N.host) {
     // entrées de l'invité appliquées au combattant adverse
-    const gi = N.gi; F.e.ai = null;
-    if (gi) { F.e.in.jx = gi.x || 0; F.e.in.jy = gi.y || 0; F.e.in.guard = !!gi.g; (gi.a || []).forEach(([sq, a]) => { if (sq > (N.gseq || 0)) { N.gseq = sq; if (a === 'forfeit') { if (!F.over) { F.finalKO = true; F.ko(F.e); } } else if (a === 'heal') F.useHeal(1); else F.e.buf = { a, t: 0.35 }; } }); }
+    const gi = N.gi, G = N.coop ? F.teams[0][1] : F.e; if (!N.coop || !N.botG) G.ai = null;
+    if (gi && !N.botG) { G.in.jx = gi.x || 0; G.in.jy = gi.y || 0; G.in.guard = !!gi.g; (gi.a || []).forEach(([sq, a]) => { if (sq > (N.gseq || 0)) { N.gseq = sq; if (a === 'forfeit') { if (N.coop) { N.botG = true; G.ai = aiParams(0.6); lootFeed('Ton équipier est parti : un robot prend sa place', '#ff8a8a'); } else if (!F.over) { F.finalKO = true; F.ko(F.e); } } else if (a === 'sw' && N.coop) F.cycleTarget(G); else if (a === 'heal') { if (!N.coop) F.useHeal(1); } else G.buf = { a, t: 0.35 }; } }); }
     // événements à rejouer chez l'invité
-    F.events.forEach(ev => { if (['hit', 'parry', 'block', 'gbreak', 'heal', 'vanish', 'move', 'ult', 'beam', 'ko'].includes(ev.type)) N.evq.push(ev.type === 'move' ? { type: 'move', side: ev.side, id: ev.id } : ev); });
+    F.events.forEach(ev => { if (['hit', 'parry', 'block', 'gbreak', 'heal', 'vanish', 'move', 'ult', 'beam', 'ko', 'down'].includes(ev.type)) N.evq.push(ev.type === 'move' ? { type: 'move', side: ev.side, id: ev.id } : ev); });
     const now = performance.now();
     if (now - (N.sentAt || 0) >= 66 || (F.over && !N.endSent)) { N.sentAt = now; if (F.over) N.endSent = true; N.seq++; db.set('rooms/' + N.room + '/hs', { n: N.seq, s: F.snapshot(), ev: N.evq.splice(0, 40) }).catch(() => {}); }
-    if (!F.over && performance.now() - N.gotT > 10000 && N.gi) { lootFeed("L'adversaire s'est déconnecté", '#ff8a8a'); F.finalKO = true; F.ko(F.e); }
+    if (!F.over && performance.now() - N.gotT > 10000 && N.gi && !N.botG) { if (N.coop) { N.botG = true; F.teams[0][1].ai = aiParams(0.6); lootFeed('Ton équipier est déconnecté : un robot prend sa place', '#ff8a8a'); } else { lootFeed("L'adversaire s'est déconnecté", '#ff8a8a'); F.finalKO = true; F.ko(F.e); } }
   } else {
     N.sendT -= dt; const now = performance.now();
     const x = Math.round(F.p.in.jx * 100) / 100, y = Math.round(F.p.in.jy * 100) / 100, g = F.p.in.guard ? 1 : 0, key = x + ':' + y + ':' + g + ':' + N.aseq;
@@ -7699,7 +7885,9 @@ function netTick(dt) {
   }
 }
 function finishOnline() {
+  if (F.net && F.net.coop) return finishCoop();
   const N = F.net, win = F.winner === 0, lost = F.netLost;
+  if (N && N.ranked && !lost) return finishRanked(win, false);
   if (ONL.netOff) { ONL.netOff(); ONL.netOff = null; }
   P.online = P.online || { w: 0, l: 0 };
   const lines = [];
@@ -9267,6 +9455,9 @@ function polishClick(t) {
 const MODES = [
   { k: 'story', nom: 'Histoire', sub: () => { const ns = nextStage(); return CHAPTERS[ns.ch].nom + ' · ' + (ns.si + 1) + '/6'; }, c: '#ff8a3d', ic: () => I.event, txt: 'Les régions, leurs personnages et leurs boss.' },
   { k: 'tower', nom: 'Tour des Runes', sub: () => 'Étage ' + ((P.tower && P.tower.floor) || 1), c: '#b48cff', ic: () => I.tower, txt: 'Monte le plus haut possible, un étage après l\'autre.' },
+  { k: 'rank', nom: 'Classé', sub: () => (typeof rankOf === 'function' ? rankOf((P.rank && P.rank.pts) || 0).nom : 'Bronze 1') + ' · ' + ((P.rank && P.rank.pts) || 0) + ' pts', c: '#ffc23d', ic: () => I.star(true), txt: 'Monte de Bronze à All Time. Robots pour l\'instant, vrais joueurs dès qu\'il y a du monde.' },
+  { k: 'v1', nom: '1 contre 1', sub: () => 'Contre un robot ou un ami', c: '#ff5ac8', ic: () => I.atk, txt: 'Choisis ton héros, ton adversaire et le décor.' },
+  { k: 'v2', nom: '2 contre 2', sub: () => 'Avec un robot ou un ami', c: '#2fd3c4', ic: () => I.club, txt: 'Quatre héros en même temps. Le bouton Équipe change de cible.' },
   { k: 'online', nom: 'En ligne', sub: () => 'Duel contre un joueur', c: '#3ddc84', ic: () => I.online, txt: 'Affronte tes amis ou un joueur au hasard.' },
   { k: 'event', nom: 'Événement', sub: () => 'Défis de la semaine', c: '#ff4d6a', ic: () => I.event, txt: 'Défis à règles spéciales et boss de la semaine.' },
   { k: 'train', nom: 'Entraînement', sub: () => 'Teste n\'importe quel héros', c: '#3d9bff', ic: () => I.target, txt: 'Mannequin, capacités au maximum, sans risque.' }
@@ -9276,6 +9467,8 @@ function playMode() {
   const m = modeNow(); SFX.click();
   if (m.k === 'story') openStage(STAGES.indexOf(nextStage()));
   else if (m.k === 'tower') go('tower');
+  else if (m.k === 'rank') openRanked();
+  else if (m.k === 'v1' || m.k === 'v2') modeSheet(m.k);
   else go(m.k);
 }
 function openModes() {
@@ -9287,43 +9480,73 @@ function renderHome() {
   const owned = HEROES.filter(x => P.heroes[x.id]).length, D = P.daily, nd = D.ids.filter(k => D.claimed[k] || (D.prog[k] || 0) >= DQ[k].n).length;
   const nick = (NET.me && NET.me.pseudo) || (NET.ready ? 'Se connecter' : (P.pseudo || 'Invité'));
   const tab = (go, cls, ic, t, sub, badge) => `<button class="htab ${cls}" data-go="${go}">${badge ? '<span class="bdg"></span>' : ''}<span class="ti">${ic}</span><span class="tt"><b>${t}</b><small>${sub}</small></span></button>`;
-  const quick = (attr, ic, t, sub, badge, cls) => `<button class="hq ${cls || ''}" ${attr}>${badge ? '<span class="bdg"></span>' : ''}<span class="qi">${ic}</span><b>${t}</b>${sub ? `<small>${sub}</small>` : ''}</button>`;
+  const quick = (attr, ic, t, sub, badge, cls, pill) => `<button class="hq ${cls || ''}" ${attr}>${badge ? '<span class="bdg"></span>' : ''}<span class="qi">${ic}${pill || ''}</span><b>${t}</b>${sub ? `<small>${sub}</small>` : ''}</button>`;
+  const onl = (typeof FR !== 'undefined' && FR && FR.pres) ? Object.keys(FR.pres).filter(u => FR.pres[u]).length : 0;
   $('#s-home').innerHTML = `<div class="view3d" id="v3home">${GL.R ? '' : '<div class="loading3d">La 3D n\'est pas disponible sur cet appareil.</div>'}</div>
     <div class="hglow" aria-hidden="true"></div>
     <header class="htop">
       <button class="pcard" data-go="profile"><span class="av">${thumbImg(P.active)}</span><span class="pc"><b>${esc(nick)}</b><small>Niv ${hs.lvl}${A_().title ? ' · ' + esc(A_().title) : ''}</small><i class="bar"><i style="width:${hs.lvl >= MAX_LVL ? 100 : hs.xp / xpNeed(hs.lvl) * 100}%"></i></i></span></button>
       <div class="hcur"><span class="cur num">${I.coin}${nf(P.pc)}</span><span class="cur num">${I.shard}${P.ec}</span><button class="ib" id="h-menu" aria-label="Paramètres">${I.gear}</button></div>
     </header>
-    <nav class="htabs" aria-label="Rubriques">
-      ${tab('coll', 't-hero', I.hero, 'Héros', `${owned} / ${HEROES.length}`, B.coll)}
-      ${tab('event', 't-event', I.event, 'Événement', 'Défis', B.event)}
-      ${tab('market', 't-market', I.market, 'Marché', 'Offres', B.market)}
-      ${tab('bag', 't-bag', I.bag, 'Sac', P.chests.length ? P.chests.length + ' coffre' + (P.chests.length > 1 ? 's' : '') : 'Objets', B.bag)}
-    </nav>
     <button class="ib vitb" id="h-vit" aria-label="Héros de l'accueil, décor et photo">${I.hero}<small class="num">${(P.vitrine && P.vitrine.n != null) ? P.vitrine.n : 1}</small></button>
+    <nav class="hrail" aria-label="Raccourcis">
+      ${quick('id="h-chest"', '', 'Coffre', '', false, 'hq-chest')}
+      ${quick('data-go="quests"', I.quest, 'Objectifs', '', B.quests, '', `<i class="qn num${nd >= DAILY_N ? ' full' : ''}">${nd}/${DAILY_N}</i>`)}
+      ${quick('data-go="pass"', I.star(true), 'Saison', '', B.pass, '', `<i class="qn num">${passTier()}</i>`)}
+      ${quick('data-go="act"', I.star(false), 'Activités', '', actBadge())}
+      ${quick('data-go="friends"', I.hero, 'Amis', '', false, '', onl ? `<i class="qn on num">${onl}</i>` : '')}
+      ${quick('data-go="club"', I.club, 'Club', '')}
+      ${quick('data-go="lb"', I.tower, 'Classement', '')}
+    </nav>
     <div class="hhero"><span class="tagline" style="color:${E.c}">${E.nom.toUpperCase()} · ${ROLE[h.role].nom.toUpperCase()}</span><b class="hname">${h.name}</b>
-      <span class="hpow"><small>PUISSANCE</small><b class="num">${powerFor(P.active)}</b></span>${P.streak > 1 ? `<span class="strk">🔥 ${P.streak} victoires d'affilée</span>` : ''}</div>
+      <span class="hpow"><small>PUISSANCE</small><b class="num">${powerFor(P.active)}</b></span>${P.streak > 1 ? `<span class="strk">🔥 ${P.streak} victoires d'affilée</span>` : ''}
+      <span class="htap">Touche ton héros pour le voir bouger</span></div>
     <footer class="hbot">
-      <div class="hquick">
-        ${quick('id="h-chest"', '', 'Coffre', '', false, 'hq-chest')}
-        ${quick('data-go="quests"', I.quest, 'Objectifs', nd + '/' + DAILY_N, B.quests)}
-        ${quick('data-go="pass"', I.star(true), 'Saison', 'Palier ' + passTier(), B.pass)}
-        ${quick('data-go="act"', I.star(false), 'Activités', '', actBadge())}
-        ${quick('data-go="friends"', I.hero, 'Amis', '')}
-        ${quick('data-go="club"', I.club, 'Club', '')}
-        ${quick('data-go="lb"', I.tower, 'Classement', '')}
-      </div>
       <div class="hplay">
         <button class="hmode" id="h-mode" style="--mc:${m.c}"><span class="mi">${m.ic()}</span><span><small>MODE</small><b>${m.nom}</b><em>${m.sub()}</em></span><span class="chev">▲</span></button>
         <button class="hjouer" id="h-fight"><span>JOUER</span></button>
       </div>
+      <nav class="htabs" aria-label="Rubriques">
+        ${tab('coll', 't-hero', I.hero, 'Héros', `${owned} / ${HEROES.length}`, B.coll)}
+        ${tab('event', 't-event', I.event, 'Événement', 'Défis', B.event)}
+        ${tab('market', 't-market', I.market, 'Marché', 'Offres', B.market)}
+        ${tab('bag', 't-bag', I.bag, 'Sac', P.chests.length ? P.chests.length + ' coffre' + (P.chests.length > 1 ? 's' : '') : 'Objets', B.bag)}
+      </nav>
     </footer>`;
-  chestWidget();
+  chestWidget(); home12After();
   mount($('#v3home'), 'menu');
   requestAnimationFrame(homeShift);
   setTimeout(() => { if (cur === 'home' && !F && !TUT) tip('home'); }, 7000); setTimeout(tutMaybe, 800);
 }
+// petits détails : le héros réagit quand on le touche (sans compter les glissements pour le faire tourner)
+let H12 = { down: null, pc: null };
+document.addEventListener('pointerdown', e => { H12.down = GL.mode === 'menu' && e.target === GL.cv ? [e.clientX, e.clientY, performance.now()] : null; });
+document.addEventListener('pointerup', e => {
+  const d = H12.down; H12.down = null;
+  if (!d || cur !== 'home' || GL.mode !== 'menu' || e.target !== GL.cv) return;
+  if (Math.hypot(e.clientX - d[0], e.clientY - d[1]) > 10 || performance.now() - d[2] > 450) return;
+  GL.anim = { seq: SHOW[Math.floor(Math.random() * SHOW.length)], t: 0 }; GL.animT = 0;
+  SFX.vanish && SFX.vanish(); buzz(10);
+  const tp = $('.htap'); if (tp) tp.classList.add('gone');
+});
+// anneau de progression du coffre gratuit et compteur de pièces qui défile
+setInterval(() => {
+  if (cur !== 'home') return;
+  const c = $('#h-chest'); if (c) { const left = Math.max(0, P.chestAt - Date.now()); c.style.setProperty('--cp', (1 - Math.min(1, left / CHEST_EVERY)).toFixed(3)); }
+}, 1000);
+function home12After() {
+  const c = $('#h-chest'); if (c) { const left = Math.max(0, P.chestAt - Date.now()); c.style.setProperty('--cp', (1 - Math.min(1, left / CHEST_EVERY)).toFixed(3)); }
+  const pc = $('.htop .cur'); const from = H12.pc; H12.pc = P.pc;
+  if (pc && from != null && from !== P.pc && !(P.opt && P.opt.acc && P.opt.acc.calm)) {
+    const t0 = performance.now(), a = from, b = P.pc, tn = pc.lastChild;
+    pc.classList.add(b > a ? 'up' : 'dn');
+    const st = now => { const k = Math.min(1, (now - t0) / 800), e = 1 - Math.pow(1 - k, 3); if (tn) tn.textContent = nf(Math.round(a + (b - a) * e)); if (k < 1) requestAnimationFrame(st); else pc.classList.remove('up', 'dn'); };
+    if (tn) tn.textContent = nf(a); requestAnimationFrame(st);
+  }
+  if ((P.homeTaps = (P.homeTaps || 0) + 1) > 6) { const tp = $('.htap'); if (tp) tp.remove(); }
+}
 function home12Click(t) {
+  const tb = t.closest('.htab'); if (tb) { buzz(8); }
   if (t.closest('#h-mode')) { SFX.click(); openModes(); return true; }
   const md = t.closest('[data-mode]'); if (md) { P.homeMode = md.dataset.mode; save(); closeSheet(); SFX.loot(); renderHome(); return true; }
   if (t.closest('#h-fight')) { playMode(); return true; }
@@ -9749,6 +9972,321 @@ function fix12Click(t) {
 setTimeout(checkUpdate, 5000);
 setInterval(checkUpdate, 10 * 60 * 1000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) checkUpdate(); });
+
+/* ===================== v12.1 : PRÉPARATION, 1 CONTRE 1, 2 CONTRE 2, CLASSÉ ===================== */
+const DECOR_NOM = { feu: 'Volcan des cendres', eau: 'Mer de verre', foudre: "Pics de l'orage", terre: 'Racines du monde', ombre: "Vallée d'ombre" };
+const DIFFS = [{ nom: 'Facile', k: 0.25, dl: -2 }, { nom: 'Normal', k: 0.5, dl: 0 }, { nom: 'Difficile', k: 0.75, dl: 3 }, { nom: 'Expert', k: 0.95, dl: 6 }];
+const arenaOf = el => (FIGHT3D.THEMES[el] ? el : 'ombre');
+const techLv = lvl => Math.max(1, Math.min(5, 1 + Math.floor(lvl / 9)));
+function botCard(id, lvl, k) {
+  const h = HBY[id], tl = techLv(lvl);
+  return { id, lvl, st: statsOf(h, { lvl, stars: RAR[h.r].stars }, []), tech: { t1: tl, t2: tl, t3: tl, t4: tl, ult: tl }, sp: 't' + (1 + Math.floor(Math.random() * 3)), ai: aiParams(k) };
+}
+function myCard(id) { const hs = P.heroes[id]; return { id, lvl: hs.lvl, st: statsFor(id), tech: Object.assign({ t4: 1 }, hs.tech), sp: hs.sp || 't1' }; }
+const randHero = not => { const L = HEROES.filter(x => !not.includes(x.id)); return L[Math.floor(Math.random() * L.length)].id; };
+
+/* ---------- écran de préparation ---------- */
+let PREP = null;
+// o : { kind, title, sub, c, team (nb de héros), ally, foes (nb), diff, go(S) }
+function openPrep(o) {
+  P.prep = P.prep || {};
+  const mem = P.prep[o.kind] || {}, own = id => !!P.heroes[id];
+  const team = (mem.team || [P.active].concat(P.team || [])).filter(own).filter((x, i, a) => a.indexOf(x) === i).slice(0, o.team || 1);
+  if (!team.length) team.push(P.active);
+  PREP = { o, team, ally: o.ally ? (mem.ally || randHero(team)) : null, foes: o.foes ? (mem.foes || []).slice(0, o.foes) : [], diff: mem.diff != null ? mem.diff : 1, decor: mem.decor || 'auto', pick: { g: 'team', i: Math.min(team.length, (o.team || 1) - 1) }, el: 'tous' };
+  if ((o.team || 1) === 1) PREP.pick.i = 0;
+  let ov = $('#prep'); if (!ov) { ov = document.createElement('div'); ov.id = 'prep'; document.getElementById('app').appendChild(ov); }
+  ov.classList.add('on'); prepDraw(true); SFX.click && SFX.click();
+}
+function prepClose() { const ov = $('#prep'); if (ov) ov.classList.remove('on'); PREP = null; }
+function prepDraw(first) {
+  const S = PREP, o = S.o, ov = $('#prep'); if (!S || !ov) return;
+  const body = ov.querySelector('.pbody'), sc = body ? body.scrollTop : 0;
+  const slot = (g, i, id, label, rm) => `<button class="pslot${S.pick.g === g && S.pick.i === i ? ' on' : ''}${id ? '' : ' empty'}" data-pslot="${g}:${i}" ${id ? `style="--ec:${EL[HBY[id].el].c}"` : ''}>
+      ${id ? `<span class="ph">${thumbImg(id)}</span><b>${HBY[id].name}</b><small>${g === 'team' ? 'Niv ' + P.heroes[id].lvl : EL[HBY[id].el].nom}</small>` : `<span class="ph plus">+</span><b>${g === 'foes' ? 'Au hasard' : 'Choisir'}</b><small>&nbsp;</small>`}
+      <em>${label}</em>${rm && id ? `<i class="rm" data-prm="${g}:${i}">×</i>` : ''}</button>`;
+  const pw = S.team.filter(Boolean).reduce((a, id) => a + powerFor(id), 0);
+  const g = S.pick.g, pool = (g === 'team' ? HEROES.filter(x => P.heroes[x.id]) : HEROES).filter(x => S.el === 'tous' || x.el === S.el);
+  const chosen = id => (g === 'team' ? S.team : g === 'foes' ? S.foes : [S.ally]).includes(id);
+  ov.style.setProperty('--mc', o.c || '#ffd23d');
+  ov.innerHTML = `<header class="phd"><button class="ib" data-prep="back" aria-label="Retour">${I.back}</button><div><small>PRÉPARATION</small><b>${o.title}</b><span>${o.sub || ''}</span></div></header>
+    <div class="pbody">
+      <section><h4>${(o.team || 1) > 1 ? 'Ton équipe <small>le premier est le chef, les autres entrent en relais</small>' : 'Ton héros'}</h4><div class="pslots">${Array.from({ length: o.team || 1 }, (_, i) => slot('team', i, S.team[i], i === 0 ? ((o.team || 1) > 1 ? 'CHEF' : 'TOI') : 'RELAIS ' + i, i > 0)).join('')}</div></section>
+      ${o.ally ? `<section><h4>Ton équipier <small>un robot joue avec toi</small></h4><div class="pslots">${slot('ally', 0, S.ally, 'ALLIÉ ROBOT')}</div></section>` : ''}
+      ${o.foes ? `<section><h4>Adversaires <small>robots ; vide = au hasard</small></h4><div class="pslots">${Array.from({ length: o.foes }, (_, i) => slot('foes', i, S.foes[i], 'ROBOT ' + (i + 1), true)).join('')}</div></section>` : ''}
+      ${o.diff ? `<section><h4>Difficulté</h4><div class="pchips">${DIFFS.map((d, i) => `<button data-pdiff="${i}" aria-pressed="${S.diff === i}">${d.nom}</button>`).join('')}</div></section>` : ''}
+      <section><h4>Décor du combat</h4><div class="pdecor">${[['auto', 'Automatique']].concat(Object.keys(DECOR_NOM).map(k => [k, DECOR_NOM[k]])).map(([k, n]) => {
+        const T = FIGHT3D.THEMES[k], bg = T ? `linear-gradient(170deg, ${T.sky[2]}, ${T.sky[1]} 45%, ${T.sky[0]})` : 'linear-gradient(135deg,#2f86ff,#b07cff 50%,#ff8a3d)';
+        return `<button class="pdc${S.decor === k ? ' on' : ''}" data-pdecor="${k}" style="--bg:${bg};--gl:${T ? T.glow : '#ffd23d'}"><i></i><b>${n}</b></button>`; }).join('')}</div></section>
+      <section class="ppick"><h4>${g === 'team' ? 'Choisis un héros' : g === 'ally' ? 'Choisis ton allié robot' : 'Choisis un adversaire'} <small>touche une case pour la changer</small></h4>
+        <div class="pchips small">${[['tous', 'Tous']].concat(Object.keys(EL).map(k => [k, EL[k].nom])).map(([k, l]) => `<button data-pel="${k}" aria-pressed="${S.el === k}">${l}</button>`).join('')}</div>
+        <div class="pgrid">${pool.map(x => `<button class="pg${chosen(x.id) ? ' sel' : ''}" data-phero="${x.id}" style="--rc:${RAR[x.r].c};--ec:${EL[x.el].c}">${thumbImg(x.id)}<b>${x.name}</b>${g === 'team' ? `<small class="num">${powerFor(x.id)}</small>` : ''}</button>`).join('')}</div></section>
+    </div>
+    <footer class="pft"><span class="ppow"><small>PUISSANCE</small><b class="num">${nf(pw)}</b></span><button class="hjouer" data-prep="go"><span>${o.cta || 'COMBATTRE'}</span></button></footer>`;
+  const nb = ov.querySelector('.pbody'); if (nb && !first) nb.scrollTop = sc;
+}
+function prepPickHero(id) {
+  const S = PREP, g = S.pick.g, i = S.pick.i;
+  if (g === 'team') {
+    const j = S.team.indexOf(id); if (j >= 0 && j !== i) S.team[j] = S.team[i];
+    S.team[i] = id; S.team = S.team.slice(0, S.o.team || 1);
+    for (let k = 0; k < S.team.length; k++) if (!S.team[k]) S.team.splice(k--, 1);
+    const n = S.o.team || 1; if (S.team.length < n) S.pick.i = S.team.length;
+  } else if (g === 'ally') S.ally = id;
+  else { S.foes[i] = id; if (S.foes.length < S.o.foes && i + 1 < S.o.foes) S.pick.i = i + 1; }
+  SFX.click && SFX.click(); prepDraw();
+}
+function prepGo() {
+  const S = PREP; if (!S || !S.team[0]) { toast('Choisis au moins un héros'); return; }
+  if (S.o.ally && S.ally && S.team.includes(S.ally)) { toast('Ton allié doit être un autre héros'); return; }
+  P.prep[S.o.kind] = { team: S.team.slice(), ally: S.ally, foes: S.foes.slice(), diff: S.diff, decor: S.decor };
+  save(); const o = S.o; prepClose(); SFX.loot && SFX.loot(); o.go(S);
+}
+function prepClick(t) {
+  const ov = t.closest('#prep'); if (!ov) return false;
+  const a = t.closest('[data-prep]'); if (a) { if (a.dataset.prep === 'back') prepClose(); else prepGo(); return true; }
+  const rm = t.closest('[data-prm]'); if (rm) { const [g, i] = rm.dataset.prm.split(':'); if (g === 'team') PREP.team.splice(+i, 1); else PREP.foes[+i] = null; PREP.pick = { g, i: +i }; prepDraw(); return true; }
+  const sl = t.closest('[data-pslot]'); if (sl) { const [g, i] = sl.dataset.pslot.split(':'); PREP.pick = { g, i: g === 'team' ? Math.min(+i, PREP.team.length) : +i }; PREP.el = 'tous'; prepDraw(); return true; }
+  const h = t.closest('[data-phero]'); if (h) { prepPickHero(h.dataset.phero); return true; }
+  const d = t.closest('[data-pdiff]'); if (d) { PREP.diff = +d.dataset.pdiff; prepDraw(); return true; }
+  const dc = t.closest('[data-pdecor]'); if (dc) { PREP.decor = dc.dataset.pdecor; SFX.click && SFX.click(); prepDraw(); return true; }
+  const e = t.closest('[data-pel]'); if (e) { PREP.el = e.dataset.pel; prepDraw(); return true; }
+  return true;
+}
+const fightDecor = (S, def) => (S.decor && S.decor !== 'auto' ? S.decor : arenaOf(def));
+
+/* ---------- Histoire et Tour : la préparation passe avant le combat ---------- */
+function prepStory(i) {
+  const st = STAGES[i], x = HBY[st.foe];
+  openPrep({ kind: 'story', title: x.name, sub: `${CHAPTERS[st.ch].nom} · étape ${st.si + 1}/6`, c: '#ff8a3d', team: 3,
+    go: S => { P.active = S.team[0]; P.team = S.team.slice(); NEXT_EL = S.decor !== 'auto' ? S.decor : null; ensureMeta(); save(); startFight(i); } });
+}
+function prepTower() {
+  openPrep({ kind: 'tower', title: 'Tour des runes', sub: 'Étage ' + P.tower.floor, c: '#b48cff', team: 3,
+    go: S => { P.active = S.team[0]; P.team = S.team.slice(); NEXT_EL = S.decor !== 'auto' ? S.decor : null; ensureMeta(); save(); startTower(); } });
+}
+
+/* ---------- 1 contre 1 et 2 contre 2 ---------- */
+function modeSheet(k) {
+  const v1 = k === 'v1', on = logged(), fr = (typeof FR !== 'undefined' && FR && FR.list) ? Object.keys(FR.list).filter(u => FR.pres[u]) : [];
+  openSheet(`<div class="sh"><h2>${v1 ? '1 contre 1' : '2 contre 2'}</h2><span>${v1 ? 'Un duel, un vainqueur' : 'Quatre héros en même temps'}</span></div>
+    <div class="modecards">
+      <button class="modec" data-mstart="${k}:bot" style="--mc:${v1 ? '#ff5ac8' : '#2fd3c4'}"><span class="mi">${I.target}</span><span><b>${v1 ? 'Contre un robot' : 'Avec un robot'}</b><small>${v1 ? 'Choisis ton adversaire et la difficulté' : 'Un allié robot contre deux robots'}</small><em>Jouable sans Internet</em></span></button>
+      <button class="modec" data-mstart="${k}:friend" style="--mc:#3ddc84" ${on ? '' : 'disabled'}><span class="mi">${I.online}</span><span><b>${v1 ? 'Contre un ami' : 'Avec un ami'}</b><small>${v1 ? 'Défie un ami connecté' : 'Ton ami et toi contre deux robots'}</small><em>${on ? (fr.length ? fr.length + ' ami' + (fr.length > 1 ? 's' : '') + ' en ligne' : 'Tes amis doivent être connectés') : 'Connecte-toi à ton compte'}</em></span></button>
+    </div>`);
+}
+function friendPick(k) {
+  if (!logged()) { toast('Connecte-toi pour jouer avec un ami'); return; }
+  if (k === 'v1') { closeSheet(); go('online'); return; }
+  const L = FR.list || {}, on = Object.keys(L).filter(u => FR.pres[u]);
+  openSheet(`<div class="sh"><h2>Inviter un ami</h2><span>2 contre 2 en coopération</span></div>
+    ${on.length ? on.map(u => `<div class="frow"><span class="fav on">${esc(String(L[u].pseudo || '?')[0])}</span><div><b>${esc(L[u].pseudo)}</b><small><i class="dot"></i>En ligne</small></div><button class="btn small prime" data-coop="${u}">Inviter</button></div>`).join('')
+      : `<p class="empty">Aucun ami connecté pour l'instant. Ajoute des amis dans l'onglet Amis ; ils apparaîtront ici quand ils seront en ligne.</p><button class="btn" data-go="friends" style="width:100%">Mes amis</button>`}`);
+  if (!Object.keys(L).length && typeof swatch === 'function') swatch('friends/' + NET.user.uid, v => { FR.list = v || {}; Object.keys(FR.list).forEach(u => { if (!(u in FR.pres)) { FR.pres[u] = false; swatch('presence/' + u, pv => { FR.pres[u] = !!pv; }); } }); });
+}
+function startV1(S) {
+  const pid = S.team[0], D = DIFFS[S.diff], lvl = Math.max(1, P.heroes[pid].lvl + D.dl), foe = S.foes[0] || randHero([pid]), c = botCard(foe, lvl, D.k);
+  launch({ kind: 'v1', hero: pid, team: [pid], foe, lvl, estats: c.st, etech: c.tech, ai: c.ai, limit: 120, drops: [], rules: {}, el: fightDecor(S, HBY[foe].el), label: '1 CONTRE 1 · ' + D.nom.toUpperCase(),
+    mfin: () => finishMode('v1', S) });
+  F.e.tag = 'ROBOT';
+  $('#nm-e').innerHTML = `<span class="bot">ROBOT</span> ${HBY[foe].name} <small>NIV ${lvl}</small>`;
+}
+function startV2(S) {
+  const pid = S.team[0], D = DIFFS[S.diff], lvl = Math.max(1, P.heroes[pid].lvl + D.dl);
+  const f1 = S.foes[0] || randHero([pid, S.ally]), f2 = S.foes[1] || randHero([pid, S.ally, f1]);
+  const ally = Object.assign(botCard(S.ally, P.heroes[pid].lvl, 0.6), { ai: Object.assign(aiParams(0.6), { agg: 0.75 }) });
+  launch({ kind: 'v2', duo: true, hero: pid, team: [pid, S.ally], pCards: [myCard(pid), ally], eCards: [botCard(f1, lvl, D.k), botCard(f2, lvl, D.k)], foe: f1, lvl, limit: 150, drops: [], rules: {},
+    el: fightDecor(S, HBY[f1].el), label: '2 CONTRE 2 · ' + D.nom.toUpperCase(), mfin: () => finishMode('v2', S) });
+  duoTags([P.heroes[pid].lvl, P.heroes[pid].lvl, lvl, lvl], 'ALLIÉ');
+}
+function duoTags(lvls, allyTag) {
+  F.all().forEach((f, i) => { f.lvl = lvls[i]; if (i === 1) f.tag = allyTag; if (i >= 2) f.tag = 'ROBOT'; });
+  $('#k-sw').hidden = false;
+  const l = $('#k-sw .lb'); if (l) l.textContent = 'CIBLE';
+  lootFeed('Bouton Équipe : change de cible', '#ffd23d');
+}
+// en 2 contre 2, la barre du haut suit ta cible ; si ton héros tombe, tu joues ton équipier
+function duoSync() {
+  const e = F.e, p = F.p;
+  if (hudC.dT !== e && e) { hudC.dT = e; $('#face-e').innerHTML = thumbImg(e.h.id); $('#nm-e').innerHTML = `${e.tag === 'ROBOT' ? '<span class="bot">ROBOT</span> ' : ''}${e.h.name} <small>NIV ${e.lvl || ''}</small>`; }
+  if (hudC.dP !== p) { const first = hudC.dP === undefined; hudC.dP = p; $('#face-p').innerHTML = thumbImg(p.h.id); $('#nm-p').innerHTML = `${p.h.name} <small>NIV ${p.lvl || ''}</small>`; if (!first) { setupFightButtons(); $('#k-sw').hidden = false; const l = $('#k-sw .lb'); if (l) l.textContent = 'CIBLE'; lootFeed(`Tu joues maintenant ${p.h.name}`, '#7dffb0'); } }
+}
+function finishMode(k, S) {
+  const win = F.winner === 0, pid = S.team[0], v2 = k === 'v2', pc = win ? (v2 ? 100 : 80) : (v2 ? 30 : 25), lines = [[I.coin, `+${pc} pièces`, 'var(--gold)', '']];
+  P.pc += pc; // l'XP de saison est déjà donnée par trackFight
+  if (win) { const up = giveXp(pid, v2 ? 50 : 40); lines.push([I.star(true), `+${v2 ? 50 : 40} XP pour ${HBY[pid].name}`, 'var(--gold)', up ? 'NIV +' + up : '']); }
+  save();
+  $('#res').innerHTML = resHTML({ win, title: F.quit ? 'Abandon' : win ? 'Victoire' : 'Défaite', sub: (v2 ? '2 contre 2' : '1 contre 1') + ' · ' + DIFFS[S.diff].nom, t: Math.round(F.time), lines,
+    acts: `<button class="btn prime big" data-again="${k}">Rejouer</button><div class="row"><button class="btn" data-mstart="${k}:bot">Changer</button><button class="btn" id="r-home">Accueil</button></div>` });
+  $('#ov-res').classList.add('on');
+}
+
+/* ---------- 2 contre 2 avec un ami (en ligne) ---------- */
+function coopInvite(friend) {
+  openPrep({ kind: 'coop', title: '2 contre 2 avec un ami', sub: 'Choisis ton héros, les deux robots et le décor', c: '#3ddc84', team: 1, foes: 2, diff: true, cta: 'INVITER',
+    go: async S => {
+      const pid = S.team[0], D = DIFFS[S.diff], lvl = Math.max(1, P.heroes[pid].lvl + D.dl);
+      const f1 = S.foes[0] || randHero([pid]), f2 = S.foes[1] || randHero([pid, f1]);
+      P.active = pid; save();
+      try {
+        const id = await NET.createRoom(myCard(pid), friend, { m: 'coop', eh: [botCard(f1, lvl, D.k), botCard(f2, lvl, D.k)], el: fightDecor(S, HBY[f1].el), df: S.diff });
+        toast('Invitation envoyée, en attente de ton ami…'); waitRoom(id, true);
+      } catch (e) { toast(e.message && !e.code ? e.message : NET.msg(e)); }
+    } });
+}
+function startCoop(room, r, host) {
+  const hc = r.hh, gc = r.gh, partner = host ? (r.gp || 'Ami') : (r.hp || 'Ami'), me = host ? hc : gc;
+  ONL.q = false;
+  launch({ kind: 'coop', duo: true, pIdx: host ? 0 : 1, hero: me.id, plvl: me.lvl, ptech: me.tech, team: [hc.id, gc.id], pCards: [Object.assign({}, hc, { ai: null }), Object.assign({}, gc, { ai: null })],
+    eCards: r.eh.map(c => Object.assign({}, c, { ai: host ? c.ai : null })), foe: r.eh[0].id, lvl: r.eh[0].lvl, limit: 150, drops: [], rules: { online: 1, coop: 1 }, el: r.el || 'feu', label: '2 CONTRE 2 · AVEC ' + String(partner).toUpperCase() });
+  F.heal = Object.assign(F.heal, { n: host ? 2 : 0, pct: 0.2, ki: 0, cleanse: false, used: 0 });
+  F.net = { room, host, coop: true, seq: 0, last: -1, sendT: 0, inT: 0, gotT: performance.now(), acts: [], aseq: 0, evq: [], opName: partner };
+  duoTags([hc.lvl, gc.lvl, r.eh[0].lvl, r.eh[1].lvl], String(partner).toUpperCase());
+  F.teams[0][host ? 1 : 0].tag = String(partner).toUpperCase();
+  if (!host) $('#k-heal').hidden = true;
+  const db = NET.db();
+  if (host) ONL.netOff = db.on('rooms/' + room + '/gi', v => { if (!v || !F || !F.net) return; F.net.gi = v; F.net.gotT = performance.now(); });
+  else {
+    F.puppet = true;
+    ONL.netOff = db.on('rooms/' + room + '/hs', v => {
+      if (!v || !F || !F.net) return; F.net.gotT = performance.now();
+      if (v.n <= F.net.last) return; F.net.last = v.n; F.netLost = false;
+      F.applySnap(v.s); (v.ev || []).forEach(ev => F.netEvent(ev));
+    });
+  }
+  hidePause();
+}
+function netCleanup() {
+  const N = F && F.net;
+  if (ONL.netOff) { ONL.netOff(); ONL.netOff = null; }
+  if (N && N.host) setTimeout(() => NET.db().remove('rooms/' + N.room).catch(() => {}), 4000);
+  ONL.started = false; ONL.room = null;
+}
+function finishCoop() {
+  const N = F.net, win = F.winner === 0, lost = F.netLost && !N.host;
+  netCleanup();
+  const pc = lost ? 0 : win ? 120 : 40, lines = pc ? [[I.coin, `+${pc} pièces`, 'var(--gold)', '']] : [];
+  P.pc += pc; if (!lost) passXp(win ? 25 : 10); save();
+  $('#res').innerHTML = resHTML({ win, title: lost ? 'Connexion perdue' : F.quit ? 'Tu as quitté' : win ? 'Victoire en équipe' : 'Défaite', sub: '2 contre 2 avec ' + esc(N.opName), t: Math.round(F.time), lines,
+    acts: `<button class="btn prime big" data-mstart="v2:friend">Rejouer avec un ami</button><div class="row"><button class="btn" data-go="friends">Amis</button><button class="btn" id="r-home">Accueil</button></div>` });
+  $('#ov-res').classList.add('on');
+}
+
+/* ---------- CLASSÉ ---------- */
+const RANK_T = [['Bronze', '#d08a4c'], ['Argent', '#cfd8e6'], ['Or', '#ffc23d'], ['Diamant', '#7fe3ff']];
+const ALL_TIME = 1200, RANK_CHEST = [null, 1, 2, 3, 4]; // coffre reçu la première fois qu'on atteint Argent, Or, Diamant, All Time
+const RK = () => (P.rank = P.rank || { pts: 0, w: 0, l: 0, streak: 0, best: 0, got: {} });
+function rankOf(pts) {
+  if (pts >= ALL_TIME) return { t: 4, d: 0, nom: 'All Time', c: '#ff5ac8', lo: ALL_TIME, hi: null };
+  const t = Math.floor(pts / 300), d = Math.floor((pts % 300) / 100);
+  return { t, d: d + 1, nom: RANK_T[t][0] + ' ' + (d + 1), c: RANK_T[t][1], lo: t * 300 + d * 100, hi: t * 300 + d * 100 + 100 };
+}
+function rankBadge(pts, big) {
+  const R = rankOf(pts), pips = R.t < 4 ? [1, 2, 3].map(k => `<i class="${k <= R.d ? 'on' : ''}"></i>`).join('') : '<i class="on"></i><i class="on"></i><i class="on"></i>';
+  return `<span class="rkb t${R.t}${big ? ' big' : ''}" style="--rc:${R.c}"><svg viewBox="0 0 40 46" aria-hidden="true"><path d="M20 2 37 11v14c0 10-8 17-17 19C11 42 3 35 3 25V11Z" fill="var(--rc)" fill-opacity=".22" stroke="var(--rc)" stroke-width="2.5"/><path d="M20 10l4 8 8 1-6 6 2 8-8-4-8 4 2-8-6-6 8-1z" fill="var(--rc)"/></svg><span class="pips">${pips}</span></span>`;
+}
+function openRanked() {
+  const R = RK(), cur = rankOf(R.pts), k = cur.hi ? (R.pts - cur.lo) / (cur.hi - cur.lo) : 1;
+  const tiers = RANK_T.map((x, t) => [x[0], x[1], t * 300]).concat([['All Time', '#ff5ac8', ALL_TIME]]);
+  openSheet(`<div class="rkhead" style="--rc:${cur.c}">${rankBadge(R.pts, true)}<div><small>CLASSÉ · SAISON 1</small><b>${cur.nom}</b><span class="num">${R.pts} points${cur.hi ? ` · encore ${cur.hi - R.pts} pour monter` : ''}</span>
+      <i class="rkbar"><i style="width:${Math.round(k * 100)}%"></i></i><em class="num">${R.w} victoire${R.w > 1 ? 's' : ''} · ${R.l} défaite${R.l > 1 ? 's' : ''}${R.streak > 1 ? ` · série de ${R.streak}` : ''}</em></div></div>
+    <p class="hint">Victoire : +25 points (plus avec une série). Défaite : −16 (−10 en Bronze). Une fois un rang atteint (Argent, Or…), tu ne peux plus redescendre en dessous.</p>
+    <div class="rktiers">${tiers.map(([n, c, lo], t) => `<div class="${R.pts >= lo ? 'ok' : ''}" style="--rc:${c}">${rankBadge(lo)}<b>${n}</b><small>${RANK_CHEST[t] != null ? CHESTS[RANK_CHEST[t]].nom : 'Départ'}${R.got[t] ? ' · reçu' : ''}</small></div>`).join('')}</div>
+    <p class="hint rkwho">${logged() ? "On cherche d'abord un vrai joueur pendant quelques secondes. S'il n'y a personne, tu affrontes un robot (toujours signalé « ROBOT »). Les points comptent pareil." : "Sans compte, tu affrontes des robots (signalés « ROBOT »). Connecte-toi pour affronter de vrais joueurs quand il y a du monde."}</p>
+    <div class="acts"><button class="btn prime big" data-rank="go">Jouer en classé</button></div>`);
+}
+let RS = null;
+function rankPrep() {
+  closeSheet();
+  openPrep({ kind: 'rank', title: 'Classé', sub: rankOf(RK().pts).nom, c: '#ffc23d', team: 1, cta: 'CHERCHER', go: S => rankSearch(S) });
+}
+async function rankSearch(S) {
+  const pid = S.team[0]; P.active = pid; ensureMeta(); save();
+  RS = { S, t0: Date.now(), done: false };
+  let ov = $('#rsearch'); if (!ov) { ov = document.createElement('div'); ov.id = 'rsearch'; document.getElementById('app').appendChild(ov); }
+  ov.innerHTML = `<div class="rsbox">${rankBadge(RK().pts, true)}<b>Recherche d'un adversaire…</b><span class="num" id="rs-t">0 s</span><small>${logged() ? 'Joueurs réels en priorité' : 'Hors ligne : un robot va être choisi'}</small><button class="btn" data-rank="cancel">Annuler</button></div>`;
+  ov.classList.add('on');
+  RS.iv = setInterval(() => { const e = $('#rs-t'); if (e) e.textContent = Math.floor((Date.now() - RS.t0) / 1000) + ' s'; }, 500);
+  const toBot = () => { if (!RS || RS.done || ONL.started) return; rankStop(); startRankBot(S); };
+  if (!logged()) { RS.to = setTimeout(toBot, 2200); return; }
+  try {
+    ONL.started = false;
+    const card = Object.assign(heroCard(), { rk: RK().pts });
+    const r = await NET.queue(card, 'rank');
+    if (!RS || RS.done) return;
+    if (r.room) { RS.room = r.room; waitRoom(r.room, true); RS.to = setTimeout(() => { if (ONL.started) return; NET.db().remove('rooms/' + RS.room).catch(() => {}); if (ONL.roomOff) { ONL.roomOff(); ONL.roomOff = null; } toBot(); }, 9000); }
+    else {
+      ONL.qOff = NET.db().on('queue/' + NET.user.uid + '/room', async room => { if (!room || ONL.started || !RS || RS.done) return; if (ONL.qOff) { ONL.qOff(); ONL.qOff = null; } NET.leaveQueue(); rankStop(true); await joinDuel(room); });
+      RS.to = setTimeout(() => { if (ONL.qOff) { ONL.qOff(); ONL.qOff = null; } NET.leaveQueue(); toBot(); }, 12000);
+    }
+  } catch (e) { toBot(); }
+}
+function rankStop(keep) {
+  if (!RS) return; RS.done = true; clearInterval(RS.iv); clearTimeout(RS.to);
+  const ov = $('#rsearch'); if (ov) ov.classList.remove('on');
+  if (!keep) RS = null;
+}
+// tout duel en ligne qui démarre ferme la recherche
+function rankCancel() { if (ONL.qOff) { ONL.qOff(); ONL.qOff = null; } if (logged()) NET.leaveQueue(); if (RS && RS.room) { NET.db().remove('rooms/' + RS.room).catch(() => {}); if (ONL.roomOff) { ONL.roomOff(); ONL.roomOff = null; } } rankStop(); }
+function startRankBot(S) {
+  const pid = S.team[0], R = rankOf(RK().pts), myLvl = P.heroes[pid].lvl, lvl = Math.max(1, myLvl - 2 + R.t * 2 + (R.d || 0));
+  const foe = randHero([pid]), k = Math.min(0.92, 0.3 + R.t * 0.11 + (R.d || 1) * 0.03), c = botCard(foe, lvl, k);
+  launch({ kind: 'rank', hero: pid, team: [pid], foe, lvl, estats: c.st, etech: c.tech, ai: c.ai, limit: 120, drops: [], rules: {}, el: fightDecor(S, HBY[foe].el), label: 'CLASSÉ · ' + R.nom.toUpperCase(),
+    mfin: () => finishRanked(F.winner === 0, true) });
+  F.e.tag = 'ROBOT';
+  $('#nm-e').innerHTML = `<span class="bot">ROBOT</span> ${HBY[foe].name} <small>NIV ${lvl}</small>`;
+}
+function finishRanked(win, bot) {
+  const R = RK(), b = rankOf(R.pts), pid = F.pid || P.active;
+  if (F.net) netCleanup();
+  let d = win ? 25 + Math.min(12, R.streak * 4) : -(b.t === 0 ? 10 : 16);
+  let pts = Math.max(0, R.pts + d);
+  if (!win && b.t >= 1) pts = Math.max(pts, Math.min(ALL_TIME, b.t * 300)); // on ne redescend pas sous un rang atteint
+  d = pts - R.pts; R.pts = pts; R.best = Math.max(R.best || 0, pts);
+  if (win) { R.w++; R.streak++; } else { R.l++; R.streak = 0; }
+  const a = rankOf(pts), pc = win ? 120 : 40, lines = [[I.coin, `+${pc} pièces`, 'var(--gold)', '']];
+  P.pc += pc; if (!bot) passXp(win ? 30 : 10); // contre un robot, trackFight donne déjà l'XP de saison
+  if (win) { const up = giveXp(pid, 60); lines.push([I.star(true), `+60 XP pour ${HBY[pid].name}`, 'var(--gold)', up ? 'NIV +' + up : '']); }
+  for (let t = b.t + 1; t <= a.t; t++) if (RANK_CHEST[t] != null && !R.got[t]) { R.got[t] = 1; P.chests.push(RANK_CHEST[t]); lines.push([chestMini(RANK_CHEST[t]), `${CHESTS[RANK_CHEST[t]].nom} : nouveau rang !`, CHESTS[RANK_CHEST[t]].c, 'RANG']); }
+  if (logged() && NET.lbSet) NET.lbSet('rank', pts).catch(() => {});
+  save();
+  const up = a.nom !== b.nom && pts > (R.pts - d), down = a.nom !== b.nom && !up;
+  $('#res').innerHTML = resHTML({ win, title: F.quit ? 'Abandon' : win ? 'Victoire classée' : 'Défaite', sub: `Classé · ${bot ? 'contre un robot' : 'contre ' + esc((F.net && F.net.opName) || 'un joueur')}`, t: Math.round(F.time), lines,
+    mid: `<div class="rkres" style="--rc:${a.c}">${rankBadge(pts, true)}<div><b>${a.nom}</b><span class="num ${d > 0 ? 'p' : d < 0 ? 'm' : ''}">${d > 0 ? '+' + d : d < 0 ? '−' + -d : '0'} point${Math.abs(d) > 1 ? 's' : ''} · ${pts} au total</span>${!win && d === 0 ? '<small>Protégé : pas de perte en dessous de ton rang</small>' : ''}${up ? '<em>PROMOTION !</em>' : down ? '<em class="m">Rang perdu</em>' : ''}</div></div>`,
+    acts: `<button class="btn prime big" data-rank="again">Rejouer en classé</button><div class="row"><button class="btn" data-rank="info">Mon rang</button><button class="btn" id="r-home">Accueil</button></div>` });
+  $('#ov-res').classList.add('on');
+  if (up) { SFX.chest && SFX.chest(); buzz(80); }
+}
+
+/* ---------- clics ---------- */
+function modes12Click(t) {
+  if (t.closest('#prep')) return prepClick(t);
+  const ms = t.closest('[data-mstart]');
+  if (ms) {
+    const [k, w] = ms.dataset.mstart.split(':'); $('#ov-res').classList.remove('on'); closeSheet();
+    if (cur === 'fight' && F) go('home');
+    if (w === 'friend') { setTimeout(() => friendPick(k), 50); return true; }
+    if (k === 'v1') openPrep({ kind: 'v1', title: '1 contre 1', sub: 'Contre un robot', c: '#ff5ac8', team: 1, foes: 1, diff: true, go: startV1 });
+    else openPrep({ kind: 'v2', title: '2 contre 2', sub: 'Toi et un robot contre deux robots', c: '#2fd3c4', team: 1, ally: true, foes: 2, diff: true, go: startV2 });
+    return true;
+  }
+  const ag = t.closest('[data-again]');
+  if (ag) { const k = ag.dataset.again, m = P.prep && P.prep[k]; if (!m) return false; const S = { team: m.team, ally: m.ally, foes: m.foes || [], diff: m.diff || 1, decor: m.decor || 'auto' }; $('#ov-res').classList.remove('on'); if (k === 'v1') startV1(S); else startV2(S); return true; }
+  const cp = t.closest('[data-coop]'); if (cp) { closeSheet(); coopInvite(cp.dataset.coop); return true; }
+  const rk = t.closest('[data-rank]');
+  if (rk) {
+    const a = rk.dataset.rank; $('#ov-res').classList.remove('on');
+    if (a === 'go') rankPrep();
+    if (a === 'cancel') rankCancel();
+    if (a === 'info') { if (cur === 'fight') go('home'); openRanked(); }
+    if (a === 'again') { const m = P.prep && P.prep.rank; if (m) rankSearch({ team: m.team, decor: m.decor || 'auto' }); else rankPrep(); }
+    return true;
+  }
+  // Histoire et Tour : écran de préparation avant le combat
+  const fg = t.closest('[data-fight]'); if (fg && t.closest('#sheet')) { closeSheet(); prepStory(+fg.dataset.fight); return true; }
+  const tw = t.closest('[data-tower]'); if (tw && tw.dataset.tower === 'go' && !t.closest('#ov-res')) { prepTower(); return true; }
+  return false;
+}
 
 const hot = window.claude && window.claude.hot;
 if (hot && hot.ready) hot.ready(start); else start((hot && hot.data) || {});
