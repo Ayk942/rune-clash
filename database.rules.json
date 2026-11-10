@@ -6,8 +6,14 @@
         ".write": "auth != null && auth.uid === $uid",
         "pseudo": {
           ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_À-ÿ]{3,16}$/)"
+        },
+        "code": {
+          ".validate": "newData.isString() && newData.val().matches(/^[A-Z2-9]{8}$/)"
         }
-      }
+      },
+      ".indexOn": [
+        "code"
+      ]
     },
     "pseudos": {
       ".read": "auth != null",
@@ -120,7 +126,7 @@
         ],
         "$uid": {
           ".write": "auth != null && auth.uid === $uid",
-          ".validate": "newData.hasChildren(['p', 'v']) && newData.child('v').isNumber() && newData.child('v').val() >= 0 && newData.child('v').val() < 10000000 && newData.child('p').isString() && newData.child('p').val().length <= 16"
+          ".validate": "newData.hasChildren(['p', 'v']) && newData.child('v').isNumber() && newData.child('v').val() >= 0 && newData.child('v').val() < 10000000 && newData.child('p').isString() && newData.child('p').val().length <= 16 && (!$board.beginsWith('rk') || (newData.child('t').isNumber() && newData.child('t').val() <= now + 120000 && newData.child('v').val() <= (data.exists() ? data.child('v').val() : 0) + 45 && (!data.child('t').exists() || newData.child('t').val() - data.child('t').val() >= 15000)))"
         }
       }
     },
@@ -129,6 +135,55 @@
         ".read": "auth != null",
         ".write": "auth != null",
         ".validate": "newData.isNumber() && newData.val() >= (data.exists() ? data.val() : 0) && newData.val() <= (data.exists() ? data.val() : 0) + 3"
+      }
+    },
+    "reports": {
+      "$target": {
+        "$by": {
+          ".write": "auth != null && auth.uid === $by && $by !== $target",
+          ".validate": "newData.hasChildren(['why', 't'])",
+          "why": {
+            ".validate": "newData.isString() && newData.val().matches(/^(triche|pseudo|anti|autre)$/)"
+          },
+          "t": {
+            ".validate": "newData.isNumber() && newData.val() <= now + 60000"
+          },
+          "p": {
+            ".validate": "newData.isString() && newData.val().length <= 16"
+          },
+          "v": {
+            ".validate": "newData.isString() && newData.val().length <= 10"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    },
+    "bugs": {
+      "$uid": {
+        "$slot": {
+          ".write": "auth != null && auth.uid === $uid",
+          ".validate": "$slot.matches(/^[0-4]$/) && newData.hasChildren(['txt', 't'])",
+          "txt": {
+            ".validate": "newData.isString() && newData.val().length >= 5 && newData.val().length <= 600"
+          },
+          "t": {
+            ".validate": "newData.isNumber() && newData.val() <= now + 60000"
+          },
+          "v": {
+            ".validate": "newData.isString() && newData.val().length <= 10"
+          },
+          "info": {
+            ".validate": "newData.isString() && newData.val().length <= 1500"
+          },
+          "img": {
+            ".validate": "newData.isString() && newData.val().length <= 90000 && newData.val().beginsWith('data:image/jpeg;base64,')"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
       }
     }
   }
