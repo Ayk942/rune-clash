@@ -9,6 +9,9 @@
         },
         "code": {
           ".validate": "newData.isString() && newData.val().matches(/^[A-Z2-9]{8}$/)"
+        },
+        "bn": {
+          ".validate": "newData.isString() && newData.val().length <= 12"
         }
       },
       ".indexOn": [
@@ -183,6 +186,82 @@
           "$other": {
             ".validate": false
           }
+        }
+      }
+    },
+    "mk": {
+      ".read": "auth != null",
+      ".indexOn": [
+        "t"
+      ],
+      "$id": {
+        ".write": "auth != null && ((!data.exists() && newData.child('u').val() === auth.uid) || (data.exists() && data.child('u').val() === auth.uid && !newData.exists()))",
+        ".validate": "newData.hasChildren(['u', 'p', 'k', 'h', 'n', 't'])",
+        "u": {
+          ".validate": "newData.isString()"
+        },
+        "p": {
+          ".validate": "newData.isString() && newData.val().length <= 16"
+        },
+        "k": {
+          ".validate": "newData.isString() && newData.val().matches(/^(v|t)$/)"
+        },
+        "h": {
+          ".validate": "newData.isString() && newData.val().length <= 16"
+        },
+        "n": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 30"
+        },
+        "pc": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 20000"
+        },
+        "wh": {
+          ".validate": "newData.isString() && newData.val().length <= 16"
+        },
+        "wn": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 30"
+        },
+        "t": {
+          ".validate": "newData.isNumber() && newData.val() <= now + 60000"
+        },
+        "b": {
+          ".write": "auth != null && !data.exists() && newData.val() === auth.uid && data.parent().child('u').exists() && data.parent().child('u').val() !== auth.uid",
+          ".validate": "newData.isString()"
+        },
+        "bp": {
+          ".write": "auth != null && data.parent().child('b').val() === auth.uid",
+          ".validate": "newData.isString() && newData.val().length <= 16"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "mkc": {
+      ".read": "auth != null",
+      ".indexOn": [
+        "t"
+      ],
+      "$id": {
+        ".write": "auth != null && ((!data.exists() && newData.child('u').val() === auth.uid) || (data.exists() && data.child('u').val() === auth.uid && !newData.exists()))",
+        ".validate": "newData.hasChildren(['u', 'p', 'k', 't'])",
+        "u": {
+          ".validate": "newData.isString()"
+        },
+        "p": {
+          ".validate": "newData.isString() && newData.val().length <= 16"
+        },
+        "k": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 5"
+        },
+        "h": {
+          ".validate": "newData.isString() && newData.val().length <= 16"
+        },
+        "t": {
+          ".validate": "newData.isNumber() && newData.val() <= now + 60000"
+        },
+        "$other": {
+          ".validate": false
         }
       }
     }
