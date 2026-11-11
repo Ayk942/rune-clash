@@ -14,7 +14,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Rune Clash">
-<meta name="description" content="Duels de héros en 3D : 52 personnages, événements et marché.">
+<meta name="description" content="Duels de héros en 3D : 99 personnages, événements et marché.">
 <style>
 #inst{position:fixed;left:10px;right:10px;top:calc(10px + env(safe-area-inset-top));z-index:200;display:flex;gap:10px;align-items:center;padding:10px 12px;background:#0c1424;border:1px solid rgba(124,196,255,.5);color:#e9eff9;border-radius:14px;font:13px/1.4 system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 #inst[hidden]{display:none}#inst img{width:40px;height:40px;border-radius:9px;flex:none}#inst div{flex:1}#inst b{display:block;font-size:14px}
@@ -2281,6 +2281,83 @@ button, a, [role="button"], .htab, .hq, .hcard, .b3, .modec, .ivb, .pp, .chip, .
 #s-fight, #s-fight .arena, #s-fight .arena *, #s-fight .pad3, #s-fight .pad3 * { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 @media (pointer: coarse) { input, select, textarea { font-size: 16px !important; } }
 
+/* ===== v17 : tickets à la place des coffres, accueil allégé, comparateur ===== */
+.tk17{display:inline-grid;place-items:center;color:#ffc53d}.tk17 svg{width:100%;height:100%}
+.tk17.cmini{width:22px;height:22px}.tk17.cb2,.tk17.cb3{width:34px;height:34px}
+#r-openchest{display:block}
+/* ticket gratuit : même forme que les autres raccourcis, anneau de recharge */
+#h-chest.hq-chest{position:relative}
+#h-chest .qi{color:#ffc53d;background:conic-gradient(#ffc53d calc(var(--cp,0)*360deg),rgba(255,255,255,.08) 0) border-box;}
+#h-chest .qi svg{width:22px;height:22px}
+#h-chest.ready .qi{animation:tk17p 1.4s ease-in-out infinite;box-shadow:0 0 0 2px #ffc53d,0 0 18px rgba(255,197,61,.55)}
+#h-chest small{display:block;font-size:10px;opacity:.75;line-height:1}
+@keyframes tk17p{50%{transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){#h-chest.ready .qi{animation:none}}
+/* accueil allégé */
+#h-vit{display:none!important}
+@media (max-width:760px){
+  .htabs .htab .tt small{display:none}
+  .htabs .htab.t-inv .tt small{display:block}
+  .htabs .htab{padding-top:8px;padding-bottom:8px;min-height:52px}
+  .nx14{padding:7px 12px!important;min-height:44px}
+  .nx14 small{display:none}
+  .nx14 b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+}
+/* comparateur */
+#ov-cmp{position:fixed;inset:0;z-index:70;display:none;flex-direction:column;background:linear-gradient(180deg,#0d1030,#080a1c);color:#eef0ff;padding:calc(10px + env(safe-area-inset-top)) 12px calc(8px + env(safe-area-inset-bottom))}
+#ov-cmp.on{display:flex}
+.cmp-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.cmp-top h2{margin:0;font-size:20px;letter-spacing:.02em}
+.cmp-top .ib{width:44px;height:44px;font-size:24px;line-height:1}
+.cmp-opts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.cmp-opts .seg{display:flex;gap:4px;background:rgba(255,255,255,.06);border-radius:12px;padding:3px}
+.cmp-opts .seg button{border:0;background:none;color:#b9bfe6;font:inherit;font-size:12.5px;font-weight:700;padding:9px 10px;border-radius:9px;min-height:40px}
+.cmp-opts .seg button[aria-pressed=true]{background:#2a3170;color:#fff}
+.cmp-els{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.cmp-els button{flex:none;border:1.5px solid color-mix(in srgb,var(--ec) 55%,transparent);background:none;color:var(--ec);font:inherit;font-size:12px;font-weight:800;padding:8px 12px;border-radius:99px;min-height:38px}
+.cmp-els button[aria-pressed=true]{background:var(--ec);color:#0a0c1e}
+.cmp-hint{margin:2px 0 8px}
+.cmp-duel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:8px 10px;margin-bottom:8px;font-size:12px}
+.cd-head,.cd-row{display:grid;grid-template-columns:86px repeat(var(--n,1),1fr);gap:8px;align-items:center}
+.cmp-duel.n1{--n:1}.cmp-duel.n2{--n:2}.cmp-duel.n3{--n:3}
+.cd-head button{position:relative;display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;column-gap:6px;align-items:center;text-align:left;border:0;background:none;color:inherit;font:inherit;padding:2px 14px 4px 0;min-width:0}
+.cd-head img{grid-row:1/3;width:34px;height:34px;border-radius:10px;border:2px solid var(--ec);object-fit:cover;background:#151938}
+.cd-head b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cd-head small{font-size:10px;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cd-head i{position:absolute;right:0;top:0;font-style:normal;opacity:.6;font-size:15px}
+.cd-row{padding:3px 0;border-top:1px solid rgba(255,255,255,.06)}
+.cd-row>span{opacity:.75;font-size:11px}
+.cd-row>div{min-width:0}.cd-row b{font-size:12.5px}
+.cd-row i,.cmp-t td i{display:block;height:4px;border-radius:3px;background:rgba(255,255,255,.1);position:relative;overflow:hidden;margin-top:2px}
+.cd-row i::after,.cmp-t td i::after{content:"";position:absolute;inset:0;width:var(--w);background:var(--ec);border-radius:3px}
+.cd-row .best b{color:#ffd66b}.cd-row .best b::after{content:" ★";font-size:10px}
+.cmp-wrap{flex:1;min-height:0;overflow:auto;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.25);-webkit-overflow-scrolling:touch}
+.cmp-t{border-collapse:separate;border-spacing:0;width:100%;font-size:12px}
+.cmp-t th{position:sticky;top:0;z-index:2;background:#161a44;padding:0}
+.cmp-t th button{width:100%;border:0;background:none;color:#b9bfe6;font:inherit;font-size:11px;font-weight:800;letter-spacing:.04em;padding:11px 8px;white-space:nowrap;min-height:42px}
+.cmp-t th button[aria-pressed=true]{color:#ffd66b}
+.cmp-t th.nm,.cmp-t td.nm{position:sticky;left:0;z-index:1;background:#10133a;text-align:left}
+.cmp-t th.nm{z-index:3;background:#161a44}
+.cmp-t td{padding:6px 8px;border-top:1px solid rgba(255,255,255,.06);text-align:right;white-space:nowrap;min-width:58px}
+.cmp-t td.srt b{color:#ffd66b}
+.cmp-t td.nm{display:flex;align-items:center;gap:7px;min-width:138px;max-width:172px;border-left:3px solid var(--rc)}
+.cmp-t td.nm img{width:32px;height:32px;border-radius:9px;border:2px solid var(--ec);object-fit:cover;background:#151938;flex:none}
+.cmp-t td.nm span{min-width:0}.cmp-t td.nm b{display:block;font-size:12.5px;overflow:hidden;text-overflow:ellipsis}
+.cmp-t td.nm small{display:block;font-size:9.5px;opacity:.65;overflow:hidden;text-overflow:ellipsis}
+.cmp-t .rk{flex:none;width:20px;text-align:right;opacity:.55;font-size:10.5px}
+.cmp-t tr.no td.nm img{filter:grayscale(.7) brightness(.8)}
+.cmp-t tr.on td{background:rgba(255,214,107,.1)}.cmp-t tr.on td.nm{background:#2a2a4a;box-shadow:inset 0 0 0 1.5px #ffd66b}
+.cmp-t tbody tr{cursor:pointer}
+.cmp-foot{margin:6px 2px 0;font-size:11px;opacity:.65}
+.cmp-btn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 12px}
+.cmp-btn svg,[data-v17=cmp] svg{width:16px;height:16px;vertical-align:-3px}
+@media (min-width:900px){#ov-cmp{padding:22px max(24px,calc(50vw - 560px))}.cmp-t{font-size:13px}.cmp-t td{padding:7px 12px}}
+
+.cmp-duel{max-height:36vh;overflow:auto}
+@media (max-width:760px){.cd-row{padding:1px 0}.cd-row>span{font-size:10px}}
+@media (min-width:900px){#ov-cmp.on{display:grid;grid-template-columns:400px 1fr;grid-template-rows:auto auto 1fr auto;column-gap:14px}
+  .cmp-top,.cmp-opts,.cmp-foot{grid-column:1/3}.cmp-duel,.cmp-hint{grid-column:1;grid-row:3;max-height:none;align-self:start}.cmp-wrap{grid-column:2;grid-row:3}
+  .cd-row{padding:6px 0}}
+
 </style>
 </head>
 <body>
@@ -2296,7 +2373,7 @@ button, a, [role="button"], .htab, .hq, .hcard, .b3, .modec, .ivb, .pp, .chip, .
     <svg class="b-emb" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="b14g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".5" stop-color="#ffc53d"/><stop offset="1" stop-color="#e0661c"/></linearGradient></defs>
       <path d="M60 6l46 27v54L60 114 14 87V33z" fill="#1a0f26" stroke="url(#b14g)" stroke-width="5" stroke-linejoin="round"/>
       <path d="M36 32l34 30-8 6 24 22-36-18 9-7-27-27z" fill="url(#b14g)"/><path d="M84 32L66 50l6 6zM36 88l16-16 6 6z" fill="#fff3c4"/></svg>
-    <div class="b-ttl"><b>RUNE</b><b class="c">CLASH</b></div><small>L'ÉVEIL DES 52 HÉROS</small>
+    <div class="b-ttl"><b>RUNE</b><b class="c">CLASH</b></div><small>L'ÉVEIL DES 99 HÉROS</small>
   </div>
   <div class="b-foot">
     <div class="b-tip"><small>ASTUCE</small><p id="b-tip">Garde juste avant un coup pour réussir une garde parfaite.</p></div>
@@ -2304,7 +2381,7 @@ button, a, [role="button"], .htab, .hq, .hcard, .b3, .modec, .ivb, .pp, .chip, .
       <div class="b-st"><span id="b-step">Allumage des runes…</span><b id="b-pct">0 %</b></div></div>
     <button id="b-go" hidden>TOUCHE POUR JOUER</button>
   </div>
-  <span class="b-ver">v15.1</span>
+  <span class="b-ver">v17.0</span>
 </div>
 
 <div id="app" style="padding-top: env(safe-area-inset-top)">
@@ -3377,6 +3454,64 @@ const HEROES_RAW = [["taro","Taro","Poing de braise","feu","att",0,"m","spiky","
 ["seren","Seren","L'Étoile perdue","prisme","att",4,"f","long","#ffffff","halo",0,"staff",["Étoile filante:blink","Constellation:volley","Lumière céleste:nova"],"Pluie d'étoiles","ubeam","Cherche les cinq éléments pour rallumer son étoile.","Les cinq éléments étaient ses amis. Son étoile brille au-dessus de l'arène."],
 ["kairo","Kairo","Gardien du temps","prisme","sab",4,"m","short","#9be7ff","halo",1,null,["Arrêt du temps:trap","Écho temporel:blink","Faille du temps:beam"],"Arrêt du temps","umeteor","Cherche la seconde où tout a basculé.","Il l'a trouvée et ne l'a pas changée. Sans elle, il n'aurait pas rencontré les siens."]];
 
+/* v16 : 47 nouveaux héros (total 99). Même format que heroes.js. Ajoutés à la fin : les 52 premiers gardent leur numéro. */
+const HEROES_BASE_N = HEROES_RAW.length;
+HEROES_RAW.push(
+// ---- FEU ----
+["zarok","Zarok","Seigneur des brasiers","feu","att",3,"m","short","#ff7a1a",null,2,null,["Poing de l'éfrit:rush","Colonne de feu:beam","Tempête de braises:meteor"],"Mille soleils","ubarrage","Cherche la lampe où on l'a enfermé mille ans.","Il l'a brisée. Plus personne n'y sera jamais enfermé."],
+["leo","Léo","Crinière solaire","feu","att",2,"m","spiky","#ffb020",null,1,null,["Griffe solaire:rush","Rugissement:nova","Bond du lion:meteor"],"Rugissement du zénith","ubeam","Cherche sa meute, dispersée par la sécheresse.","La meute est revenue avec la pluie. Il marche en tête."],
+["brazo","Brazo","Cœur de lave","feu","def",2,"m","short","#2a1612",null,3,null,["Croûte de basalte:barrier","Coulée ardente:quake","Retour de flamme:counter"],"Éruption","unova","Cherche le volcan d'où il est sorti.","Le volcan dort. Brazo veille dessus, comme sur un parent."],
+["magda","Magda","La Fournaise","feu","def",1,"f","buns","#c4521c",null,2,null,["Porte du four:barrier","Coup de piston:rush","Jet de vapeur:counter"],"Haut-fourneau","unova","Cherche du charbon qui ne s'éteint jamais.","Elle en a trouvé au fond d'une mine. Elle le partage avec le village."],
+["cendre","Cendre","Lanterne errante","feu","sab",1,"m","short","#ffcf7a",null,0,null,["Lueur trompeuse:trap","Langue de feu:drain","Feux follets:volley"],"Nuit des lanternes","umeteor","Cherche la fête où on l'a oubliée, allumée.","Il a trouvé mieux : des amis qui ne l'éteignent jamais."],
+["pompa","Pompa","Gardien des champs","feu","sab",1,"m","short","#d9a441",null,1,null,["Botte de paille:trap","Nuée de corbeaux:volley","Pas de l'épouvantail:blink"],"Moisson ardente","umeteor","Cherche le champ qu'il devait garder.","Le champ a brûlé, puis refleuri. Il le garde toujours."],
+["fumi","Fumi","Petite flamme","feu","soin",0,"f","bob","#ffd98a",null,0,null,["Chaleur douce:heal","Étincelles:volley","Cire protectrice:barrier"],"Veillée","uheal","Cherche quelqu'un à éclairer.","Elle éclaire maintenant toute une équipe."],
+["tika","Tika","Voix du volcan","feu","soin",0,"m","spiky","#3a1c14",null,2,null,["Chant du cratère:heal","Fumée tiède:barrier","Pierres chaudes:volley"],"Danse du volcan","uheal","Cherche le chant que le volcan a perdu.","Le volcan chantait faux. Tika lui a appris la mesure."],
+// ---- EAU ----
+["abyssa","Abyssa","Lueur des abysses","eau","sab",3,"f","long","#101a3a",null,1,null,["Leurre:trap","Morsure des fonds:drain","Pression noire:meteor"],"Gueule de l'abîme","umeteor","Cherche ce qui brille au fond de la fosse.","C'était sa propre lumière, reflétée. Elle n'a plus peur du noir."],
+["borg","Borg","Roi des neiges","eau","def",2,"m","short","#eef6ff",null,0,null,["Mur de neige:barrier","Avalanche:quake","Étreinte glacée:counter"],"Blizzard","unova","Cherche le sommet où il ne neige plus.","Il y a planté son camp, et la neige est revenue."],
+["frimas","Frimas","Lame de givre","eau","att",2,"m","short","#bfe8ff",null,0,"katana",["Entaille gelée:rush","Rayon polaire:beam","Chute de stalactites:meteor"],"Hiver éternel","ubarrage","Cherche l'armure qui ne fond pas.","Il la portait déjà. Elle était faite de son propre froid."],
+["koa","Koa","Saut d'étang","eau","sab",1,"m","short","#3fbf5f",null,1,null,["Langue éclair:drain","Bond du nénuphar:blink","Pluie de têtards:volley"],"Mousson","umeteor","Cherche l'étang le plus calme du monde.","Il l'a trouvé. Il y fait des ricochets tous les soirs."],
+["karka","Karka","Pinces de marée","eau","att",1,"m","short","#e0562c",null,2,null,["Pince broyeuse:rush","Marche de côté:quake","Jet d'écume:beam"],"Grande pince","ubarrage","Cherche une carapace à sa taille.","Trop grand pour toutes. Il s'en est forgé une."],
+["narval","Narval","Corne des glaces","eau","soin",1,"m","long","#9fc4d8",null,0,"lance",["Chant du large:heal","Percée de corne:beam","Banquise:barrier"],"Aurore polaire","uheal","Cherche la banquise où est née sa mère.","Elle a fondu. Il en protège une autre, plus au nord."],
+["pingo","Pingo","Petit empereur","eau","def",0,"m","short","#1a2230",null,0,null,["Glissade:rush","Mur de glace:barrier","Coup de bec:counter"],"Parade de la colonie","unova","Cherche son œuf, roulé au bas de la falaise.","L'œuf a éclos en bas. Le poussin l'attendait."],
+["axo","Axo","Sourire des sources","eau","soin",0,"f","bob","#ffb6c9",null,0,null,["Repousse:heal","Bulles roses:volley","Écume douce:barrier"],"Source de jouvence","uheal","Cherche pourquoi elle guérit si vite.","Peu importe : elle guérit les autres aussi vite."],
+// ---- FOUDRE ----
+["ryujin","Ryûjin","Dragon des nuées","foudre","sab",3,"m","long","#2f6fd0",null,1,null,["Souffle statique:trap","Vol d'orage:drain","Pluie d'éclairs:meteor"],"Colère du ciel","umeteor","Cherche la perle qui commande à la pluie.","Il l'a rendue à la mer. La pluie tombe quand elle veut."],
+["tesla","Tesla","Sabre chargé","foudre","att",2,"m","short","#c8d2e0",null,0,"katana",["Coupe ionique:rush","Arc tranchant:beam","Surcharge:nova"],"Mille volts","ubarrage","Cherche qui l'a construit.","Personne ne sait. Il a choisi lui-même à qui obéir : à personne."],
+["stratos","Stratos","Œil du cyclone","foudre","def",2,"m","short","#e8ecf4",null,1,null,["Mur de nuages:barrier","Pas du titan:quake","Regard foudroyant:counter"],"Œil de la tempête","unova","Cherche un ciel assez grand pour lui.","Il s'est assis sur la plus haute montagne. Ça ira."],
+["zephyr","Zéphyr","Souffle des cimes","foudre","soin",1,"m","ponytail","#f4f7ff",null,1,null,["Brise:heal","Nuage porteur:barrier","Grêlons:volley"],"Vent du renouveau","uheal","Cherche la lampe de son cousin Zarok.","Trop tard, elle était cassée. Tant mieux."],
+["magno","Magno","Pôle nord","foudre","def",1,"m","short","#b0342c",null,2,null,["Champ magnétique:barrier","Attraction:rush","Répulsion:counter"],"Inversion des pôles","unova","Cherche son pôle sud.","C'était sa sœur. Depuis, ils ne se quittent plus."],
+["hoot","Hoot","Veilleur de nuit","foudre","soin",1,"m","short","#8a6a3a",null,1,"staff",["Sagesse:heal","Plumes statiques:volley","Aile protectrice:barrier"],"Nuit blanche","uheal","Cherche le dernier livre de la grande bibliothèque.","Il n'était pas écrit. Hoot a commencé la première page."],
+["fuse","Fuse","Queue d'éclair","foudre","sab",0,"m","spiky","#ffe680",null,0,null,["Morsure vive:drain","Zigzag:blink","Étincelles:volley"],"Court-jus","umeteor","Cherche l'orage où il est né.","Il en naît un chaque été. Il les suit tous."],
+["gong","Gong","Ventre tambour","foudre","att",0,"m","short","#7a5a3a",null,1,null,["Coup de ventre:rush","Onde de tambour:nova","Feuille volante:volley"],"Grand tambour","ubeam","Cherche le rythme qui fait danser le tonnerre.","Il l'a trouvé en riant. Le tonnerre rit avec lui."],
+// ---- TERRE ----
+["jade","Jade","Sentinelle de jade","terre","att",3,"m","ponytail","#1f5c46",null,1,"lance",["Charge de la garde:rush","Lance impériale:beam","Mille soldats:meteor"],"Armée d'argile","ubarrage","Cherche l'empereur qu'il gardait.","Parti depuis mille ans. Jade garde maintenant les vivants."],
+["bront","Bront","Corne de granit","terre","def",2,"m","short","#8a8f96",null,2,null,["Cuir épais:barrier","Charge:rush","Coup de corne:counter"],"Ruée","unova","Cherche un mur qu'il ne peut pas traverser.","Il n'en a pas trouvé. Il construit des ponts, à la place."],
+["sylvan","Sylvan","Flûte des bois","terre","sab",2,"m","spiky","#6a4526",null,1,null,["Air envoûtant:trap","Ruade:rush","Feuilles tranchantes:volley"],"Bal de la forêt","umeteor","Cherche l'air que jouait son grand-père.","Il l'a retrouvé en sifflant sans y penser."],
+["mamut","Mamut","Mémoire des glaces","terre","def",1,"m","short","#6b4a30",null,2,null,["Défenses:counter","Pas lourd:quake","Laine épaisse:barrier"],"Marche du troupeau","unova","Cherche le chemin que suivait son troupeau.","Le chemin est sous la glace. Il en trace un nouveau."],
+["sirocco","Sirocco","Voile des sables","terre","sab",1,"m","hood","#d8c9a0",null,1,null,["Bandelettes:trap","Souffle sec:drain","Tempête de sable:volley"],"Malédiction du désert","umeteor","Cherche son nom, effacé de sa tombe.","Il s'en est choisi un nouveau. Il lui va mieux."],
+["gemma","Gemma","Cœur de géode","terre","soin",1,"f","long","#b48cff",null,0,"staff",["Éclat pur:heal","Prisme:beam","Paroi de quartz:barrier"],"Mille facettes","uheal","Cherche la pierre qui manque à son cœur.","Il ne manquait rien. Elle brillait déjà entière."],
+["champi","Champi","Chapeau moussu","terre","soin",0,"m","short","#e8dcc0",null,0,null,["Spores de vie:heal","Poussière dorée:volley","Chapeau abri:barrier"],"Rond de sorcière","uheal","Cherche un coin d'ombre bien humide.","Il a trouvé toute une forêt. Il y invite ses amis."],
+["spino","Spino","Fleur du désert","terre","att",0,"m","short","#3f9a4a",null,1,null,["Coup d'épines:rush","Salve de piquants:volley","Floraison explosive:nova"],"Mille épines","ubeam","Cherche de l'eau. Juste un peu.","Il a trouvé une oasis. Il y fleurit une fois par an."],
+// ---- OMBRE ----
+["erebos","Erebos","Dragon d'os","ombre","def",3,"m","short","#e8e2d0",null,0,null,["Cage thoracique:barrier","Queue d'os:quake","Mâchoire:counter"],"Réveil du dragon","unova","Cherche les os qui lui manquent.","Il les a laissés où ils étaient. On n'a pas besoin d'être entier pour être fort."],
+["noct","Noct","Hurlement","ombre","att",2,"m","spiky","#4a4e5c",null,1,null,["Griffes de lune:rush","Hurlement:nova","Traque:meteor"],"Pleine lune","ubarrage","Cherche à ne plus avoir peur de la lune.","Il lui hurle dessus pour rire, maintenant."],
+["nyx","Nyx","Regard de pierre","ombre","sab",2,"f","long","#3f8a5a",null,1,null,["Regard figeant:trap","Morsure de vipère:drain","Nid de serpents:volley"],"Mille regards","umeteor","Cherche quelqu'un qui ose la regarder en face.","Son équipe le fait tous les jours. Personne ne s'est changé en pierre."],
+["onyx","Onyx","Pas de velours","ombre","att",1,"f","short","#16141c",null,3,null,["Coup de patte:rush","Bond silencieux:quake","Griffes noires:counter"],"Chasse nocturne","ubarrage","Cherche une proie digne d'elle.","Elle a trouvé des rivaux. C'est plus amusant."],
+["corvus","Corvus","Docteur des brumes","ombre","soin",1,"m","short","#1a1a20",null,0,"staff",["Remède amer:heal","Fumigation:barrier","Fioles:volley"],"Grande cure","uheal","Cherche le remède à la brume noire.","Il fallait seulement ouvrir les fenêtres."],
+["gloom","Gloom","Flaque de nuit","ombre","def",1,"m","short","#5a2f8a",null,0,null,["Corps mou:barrier","Engloutir:counter","Vague gluante:quake"],"Marée noire","unova","Cherche une forme qui lui plaise.","Il en change tous les jours. Aujourd'hui : héros."],
+["vespera","Vespera","Aile du soir","ombre","soin",0,"f","bob","#5a3a6a",null,0,null,["Écho apaisant:heal","Ultrasons:volley","Aile repliée:barrier"],"Berceuse du crépuscule","uheal","Cherche une grotte où dormir la tête en bas.","Elle dort très bien dans le dortoir de l'équipe. À l'envers."],
+["mimi","Mimi","Coffre gourmand","ombre","sab",0,"m","short","#7a4a22",null,1,null,["Faux trésor:trap","Coup de langue:drain","Pluie de pièces:volley"],"Jackpot","umeteor","Cherche le trésor qu'on a mis dans sa tête.","Il l'a mangé sans faire exprès. Il était très bon."],
+// ---- PRISME ----
+["astra","Astra","Licorne des étoiles","prisme","soin",4,"f","long","#f6e8ff",null,0,"staff",["Corne de lumière:heal","Rayon d'étoile:beam","Voile lacté:barrier"],"Nuit des vœux","uheal","Cherche l'étoile qui exauce les vœux.","Elle n'existe pas. Astra exauce ceux qu'elle peut, elle-même."],
+["nebula","Nebula","Enfant de la galaxie","prisme","def",4,"m","short","#2a1f6a",null,3,null,["Champ d'étoiles:barrier","Trou noir:counter","Onde stellaire:quake"],"Naissance d'une étoile","unova","Cherche le bord de l'univers.","Il n'y en a pas. Il s'est arrêté ici : c'est joli."],
+["zenith","Zénith","Porteur des six lames","prisme","att",4,"m","long","#fff3c4",null,0,"katana",["Lame de l'aube:rush","Six lames:beam","Jugement du zénith:meteor"],"Constellation des lames","ubarrage","Cherche la septième lame.","C'était lui. Les six autres le savaient depuis le début."],
+["prisma","Prisma","Cristal aux sept couleurs","prisme","att",3,"f","buns","#ffffff",null,0,null,["Éclat rouge:rush","Rayon arc-en-ciel:beam","Pluie de cristaux:meteor"],"Spectre total","ubeam","Cherche sa huitième couleur.","Elle l'a inventée. Personne ne sait la nommer."],
+["iris","Iris","Ailes de lumière","prisme","sab",3,"f","bob","#ffc2e8",null,0,null,["Poussière d'ailes:trap","Battement:blink","Nuée irisée:volley"],"Métamorphose","umeteor","Cherche le jardin où elle était chenille.","Il est toujours là. Elle y pond des arcs-en-ciel."],
+["lumen","Lumen","Roue aux cent yeux","prisme","soin",3,"m","short","#1fa890",null,1,null,["Parade:heal","Regard de la roue:beam","Éventail:barrier"],"Grande parade","uheal","Cherche quelqu'un de plus beau que lui.","Il a trouvé des amis. Il dit que ça compte."],
+["sphinx","Sphinx","Gardienne des énigmes","prisme","def",3,"f","long","#1a1430",null,2,null,["Énigme:counter","Patte de pierre:quake","Sable du temps:barrier"],"Dernière énigme","unova","Cherche une énigme qu'elle ne sait pas résoudre.","« Pourquoi rester seule ? » Elle a mis mille ans à répondre."]
+);
+
 </script>
 <script>
 /* ===== Données : 52 héros, techniques, équipement, chapitres, coffres ===== */
@@ -3531,7 +3666,7 @@ function powerOf(s, tech) {
 /* ---- chapitres : un par élément, 6 étapes chacun ---- */
 const CH_NAMES = { feu: 'Le Sentier des cendres', eau: 'La Mer de verre', foudre: 'Les Pics d’orage', terre: 'Les Racines du monde', ombre: 'La Nuit sans lune' };
 const CHAPTERS = ['feu', 'eau', 'foudre', 'terre', 'ombre'].map((el, ci) => {
-  const pool = HEROES.filter(h => h.el === el).sort((a, b) => a.r - b.r);
+  const pool = HEROES.filter(h => h.el === el && h.idx < HEROES_BASE_N).sort((a, b) => a.r - b.r);   // l'Histoire garde ses adversaires d'origine
   const picks = [pool[0], pool[1], pool[2], pool[4], pool[7], pool[9]];
   return { el, nom: CH_NAMES[el], stages: picks.map((h, si) => {
     const n = ci * 6 + si;
@@ -3643,7 +3778,7 @@ const WEEKLY = [
   { k: 'w-daily', t: 'Termine tous les objectifs du jour {n} fois', n: 5, ev: 'dailyAll', rw: { chest: 4 } }
 ];
 const ACH = [
-  { k: 'heroes', nom: 'Collectionneur', t: 'Possède {n} héros', tiers: [5, 10, 20, 35, 52], rw: [{ pc: 600 }, { chest: 1 }, { chest: 2 }, { chest: 3 }, { chest: 4 }] },
+  { k: 'heroes', nom: 'Collectionneur', t: 'Possède {n} héros', tiers: [5, 15, 35, 60, 99], rw: [{ pc: 600 }, { chest: 1 }, { chest: 2 }, { chest: 3 }, { chest: 4 }] },
   { k: 'story', nom: 'Conquérant', t: "Termine {n} étapes de l'Histoire", tiers: [6, 12, 18, 24, 30], rw: [{ chest: 1 }, { chest: 2 }, { chest: 2 }, { chest: 3 }, { chest: 4 }] },
   { k: 'wins', nom: 'Vétéran', t: 'Gagne {n} combats', tiers: [10, 50, 150, 400, 1000], rw: [{ pc: 500 }, { chest: 1 }, { chest: 2 }, { chest: 3 }, { chest: 4 }] },
   { k: 'upgrades', nom: 'Forgeron', t: 'Fais {n} améliorations', tiers: [10, 50, 150, 400], rw: [{ ec: 80 }, { ec: 200 }, { chest: 2 }, { chest: 3 }] },
@@ -4807,13 +4942,20 @@ const VRMC = (function () {
     return loading;
   }
   // quel modèle pour quel héros : garçons -> « male », filles -> « avf » (cheveux complets) ou « female »
-  function modelFor(look) { if (look.body !== 'f') return 'male'; return (hashId(look.id) % 4 === 0) ? 'avf' : 'female'; }
+  function modelFor(look) { if (look.body !== 'f') return 'male'; if (look.race) return 'female'; /* héros redessinés : coiffure et pièces de tête posées par le jeu */ return (hashId(look.id) % 4 === 0) ? 'avf' : 'female'; }
   const hashId = s => { let h = 0; for (let i = 0; i < (s || '').length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; };
   function texOf(R, d, f) { const k = R.id + f; if (!d.tex.has(k) && d.imgs[f]) d.tex.set(k, R.texture(d.imgs[f])); return d.tex.get(k); }
   const mix = (a, b, t) => a.map((v, i) => v * (1 - t) + b[i] * t), mulc = (a, k) => a.map(v => Math.min(1, v * k));
   function matFor(R, d, m, look) {
     const o = { col: m.col.slice(), map: m.tex ? texOf(R, d, m.tex) : null, rough: 0.85, spec: 0.06, wrap: 0.55, rim: 0.3, rimC: look.rim || [0.6, 0.8, 1] };
     if (m.kind === 'SKIN') { o.sss = 0.22; o.sssC = [1, 0.45, 0.35]; o.wrap = 0.7; if (look.skin) o.col = mix([1, 1, 1], mulc(look.skin, 1.12), 0.35); if (look.skinCol) { o.col = look.skinCol.slice(); o.sssC = look.skinCol.map(v => v * 0.8); } }
+    // v16 : la tenue d'origine devient une peau (créatures), une combinaison unie ou du métal — plus d'uniforme
+    if (m.kind === 'CLOTH' && look.suit) {
+      const nm = m.name, sk = look.suit === 'skin';
+      o.col = (sk ? look.skinCol : /Shoes/.test(nm) ? look.bootC : /Bottoms/.test(nm) ? (look.pants || look.sec) : look.main).slice(); o.map = null;
+      if (look.suit === 'metal') { o.spec = 0.6; o.rough = 0.35; } else if (sk) { o.wrap = 0.7; }
+      if (m.two) o.twoSide = true; return o;
+    }
     if (m.kind === 'FACE' || m.kind === 'EYE') { o.unlit = true; o.noCast = true; o.decal = m.blend >= 2 || m.kind === 'EYE'; }
     if (m.kind === 'HAIR') { o.aniso = true; o.spec = 0.35; o.rough = 0.45; }
     if (m.tint) {
@@ -6371,7 +6513,7 @@ function fitGL() {
 }
 function makeThumb(id) {
   const R = GL.R; if (!R) return;
-  const tk = 's15:' + id + ':' + skinOf(id), cu = THC.get(tk); if (cu) { GL.thumbs.set(id, cu); $$(`img[data-th="${id}"]`).forEach(im => { im.src = cu; }); return; } // déjà calculée lors d'un lancement précédent
+  const tk = 's16:' + id + ':' + skinOf(id), cu = THC.get(tk); if (cu) { GL.thumbs.set(id, cu); $$(`img[data-th="${id}"]`).forEach(im => { im.src = cu; }); return; } // déjà calculée lors d'un lancement précédent
   const ok = R.cv.width >= 200 && R.cv.height >= 250;
   if (!ok) R.resize(200, 250, 1);
   const cached = GL.models.has(id), ch = model(id), h = HBY[id];
@@ -6385,7 +6527,7 @@ function makeThumb(id) {
   // libère les héros affichés seulement en vignette (mémoire du téléphone)
   if (!cached && id !== P.active && id !== GL.view && !vitrineIds().includes(id)) { HQ.dispose(R, ch); GL.models.delete(id); }
   const url = c.toDataURL('image/jpeg', 0.86);
-  GL.thumbs.set(id, url); if (VRMC.isReady()) THC.put('s15:' + id + ':' + skinOf(id), url);
+  GL.thumbs.set(id, url); if (VRMC.isReady()) THC.put('s16:' + id + ':' + skinOf(id), url);
   $$(`img[data-th="${id}"]`).forEach(im => { im.src = url; });
 }
 function menuEnv(R, h) {
@@ -6409,8 +6551,8 @@ function renderMenu(dt) {
   HQ.setPose(ch, HQ.springPose(ch, pose, dt, GL.anim ? 26 : 12), dt);
   if (!GL.drag) GL.rot += dt * 0.25;
   ch.root.pos = [0, 0, 0]; ch.root.rot = [0, GL.rot, 0];
-  const home = GL.host && GL.host.id === 'v3home', sx = home ? camShiftX(4.1, (R.vw || R.W) / (R.vh || R.H), 0.62) : 0;
-  R.camera(home ? [sx, 1.2, 4.1] : [0, 1.15, 3.6], home ? [sx, 1.02, 0] : [0, 1.0, 0], 0.62);
+  const home = GL.host && GL.host.id === 'v3home', asp = (R.vw || R.W) / (R.vh || R.H), dH = asp < 0.8 ? 5.9 : 4.4, sx = home ? camShiftX(dH, asp, 0.62) : 0;
+  R.camera(home ? [sx, asp < 0.8 ? 1.3 : 1.2, dH] : [0, 1.15, 3.6], home ? [sx, asp < 0.8 ? 0.62 : 1.02, 0] : [0, 1.0, 0], 0.62);
   if (home) { R.clear(decorSky(h.el)); menuEnv(R, { el: decorEl(h.el) || h.el }); } else { R.clear(SKY[h.el]); menuEnv(R, h); } R.drawSoft([ch.root], { center: [0, 0.9, 0], radius: 1.3 });
   const E = EL[h.el], Q = [];
   for (let i = 0; i < 40; i++) { const a = i / 40 * Math.PI * 2 + GL.animT * 0.3; Q.push({ p: [Math.cos(a) * 0.95, 0.02, Math.sin(a) * 0.95], s: 0.06, c: [...E.fx[1], 0.55] }); }
@@ -6538,7 +6680,7 @@ function finishTower() {
   save();
   $('#res').innerHTML = resHTML({ win, title: win ? `Étage ${n} réussi` : 'Défaite', sub: `Tour des Runes · ${HBY[f.foe].name}`, t: Math.round(F.time), lines,
     mid: win ? `<p class="sub" style="margin-top:8px">${P.tower.best === n ? 'Nouveau record !' : ''}${P.streak > 1 ? ` Série de ${P.streak} victoires !` : ''}</p>` : `<p class="sub" style="margin-top:8px">Il restait ${Math.round(F.e.hp / F.e.maxHp * 100)} % de vie à ${HBY[f.foe].name}. Améliore ton équipe ou change de spécial.</p>`,
-    after: f.boss && win ? '<button class="btn" id="r-openchest" style="width:100%;margin-top:10px">Ouvrir le coffre maintenant</button>' : '',
+    after: f.boss && win ? '<button class="btn" id="r-openchest" style="width:100%;margin-top:10px">Aller aux invocations</button>' : '',
     acts: `<button class="btn prime big" data-tower="${win ? 'next' : 'go'}">${win ? 'Étage suivant' : 'Réessayer'}</button><div class="row"><button class="btn" data-tower="view">La Tour</button><button class="btn" id="r-home">Accueil</button></div>` });
   $('#ov-res').classList.add('on');
 }
@@ -6708,7 +6850,7 @@ function renderColl() {
     <div class="teamrow">${[0, 1, 2].map(i => { const id = P.team[i]; return id ? `<button class="tslot" data-hero="${id}" style="--ec:${EL[HBY[id].el].c}">${thumbImg(id)}<span><small>${i ? 'ÉQUIPIER' : 'CHEF'}</small><b>${HBY[id].name}</b></span></button>` : `<div class="tslot empty"><span><small>LIBRE</small><b>Ouvre un héros → Ajouter à l'équipe</b></span></div>`; }).join('')}</div>
     <div class="seg">${[['tous', 'Tous']].concat(Object.keys(EL).map(k => [k, EL[k].nom])).map(([k, l]) => `<button data-el="${k}" aria-pressed="${collEl === k}">${l}</button>`).join('')}</div>${collTools()}<div class="coll" id="collg">`;
   h += collList().map(collCard).join('') || `<p class="empty" style="grid-column:1/-1">${U13.coll.fav ? 'Aucun favori ici. Ouvre un héros et touche l\'étoile pour l\'ajouter.' : 'Aucun héros ne correspond.'}</p>`;
-  h += `</div><p class="hint">Les fragments s'obtiennent dans le coffre toutes les 20 minutes et en battant les héros de l'Histoire.</p>`;
+  h += `</div><p class="hint">Les fragments s'obtiennent avec les invocations et en battant les héros de l'Histoire.</p>`;
   $('#coll').innerHTML = h;
 }
 
@@ -6725,7 +6867,7 @@ function renderHero(id) {
   if (!hs) {
     const need = RAR[x.r].unlock;
     h += `<div class="awak"><div><b>Héros verrouillé</b><span>${fr} / ${need} fragments</span></div><button class="btn prime" data-unlock="${id}" ${fr >= need ? '' : 'disabled'}>Débloquer</button></div>
-      <p class="hint">Trouve ses fragments dans le coffre toutes les 20 minutes${STAGES.some(s => s.foe === id) ? ' ou bats-le dans l\'Histoire' : ''}.</p>
+      <p class="hint">Trouve ses fragments avec les invocations${STAGES.some(s => s.foe === id) ? ' ou bats-le dans l\'Histoire' : ''}.</p>
       <button class="btn" data-trtry="${id}" style="width:100%;margin-top:8px">Essayer ${x.name} en entraînement</button>`;
   } else {
     const need = xpNeed(hs.lvl), trainC = 80 * hs.lvl, sc = starCost(hs.stars);
@@ -6823,9 +6965,9 @@ function renderBag0() {
     h += `<p class="hint" style="margin:0 0 10px">L'objet équipé est utilisé par le bouton Soin en combat, ${HEAL_MAX} fois maximum par combat.</p>` + healList(true);
   } else if (bagTab === 'mats') {
     h += `<div class="mats">
-      <div class="mat">${I.coin}<div><b>Pièces</b><span>Combats et coffres. Entraînement et améliorations.</span></div><span class="q num">${P.pc}</span></div>
-      <div class="mat">${I.shard}<div><b>Éclats de rune</b><span>Combats, coffres et recyclage. Améliorent l'équipement.</span></div><span class="q num">${P.ec}</span></div>
-      <div class="mat">${I.scroll}<div><b>Parchemins</b><span>Combats et coffres. Améliorent les techniques.</span></div><span class="q num">${P.parch}</span></div></div>`;
+      <div class="mat">${I.coin}<div><b>Pièces</b><span>Combats et invocations. Entraînement et améliorations.</span></div><span class="q num">${P.pc}</span></div>
+      <div class="mat">${I.shard}<div><b>Éclats de rune</b><span>Combats, invocations et recyclage. Améliorent l'équipement.</span></div><span class="q num">${P.ec}</span></div>
+      <div class="mat">${I.scroll}<div><b>Parchemins</b><span>Combats et invocations. Améliorent les techniques.</span></div><span class="q num">${P.parch}</span></div></div>`;
   } else {
     const list = Object.keys(P.frag).filter(id => P.frag[id] > 0).sort((a, b) => P.frag[b] - P.frag[a]);
     h += list.length ? `<div class="mats">${list.map(id => { const x = HBY[id], hs = P.heroes[id]; return `<button class="mat" data-hero="${id}" style="text-align:left;width:100%">${I.frag(EL[x.el].c)}<div><b>${x.name}</b><span>${hs ? `Éveil : ${starCost(hs.stars)} fragments` : `Déblocage : ${RAR[x.r].unlock} fragments`}</span></div><span class="q num">${P.frag[id]}</span></button>`; }).join('')}</div>` : `<p class="empty">Pas encore de fragments. Ouvre le coffre de l'accueil.</p>`;
@@ -7083,7 +7225,7 @@ function finishEvent() {
   save();
   $('#res').innerHTML = resHTML({ win: ok, title: ok ? 'Défi réussi' : 'Défi échoué', sub: c.nom + ' · ' + E.nom, t: Math.round(F.time), lines,
     mid: ok ? (first ? '<p class="sub" style="margin-top:8px;color:var(--gold)">Récompense de la semaine obtenue !</p>' : '<p class="sub" style="margin-top:8px">Déjà réussi cette semaine.</p>') : `<p class="sub" style="margin-top:8px">${why}</p>`,
-    after: first && c.rw.chest != null ? '<button class="btn" id="r-openchest" style="width:100%;margin-top:10px">Ouvrir le coffre maintenant</button>' : '',
+    after: first && c.rw.chest != null ? '<button class="btn" id="r-openchest" style="width:100%;margin-top:10px">Aller aux invocations</button>' : '',
     acts: `<button class="btn prime big" id="r-again">${ok ? 'Rejouer' : 'Réessayer'}</button><div class="row"><button class="btn" id="r-event">Événement</button><button class="btn" id="r-home">Accueil</button></div>` });
   $('#ov-res').classList.add('on');
 }
@@ -7098,7 +7240,7 @@ function finishBoss() {
   const nxt = B.tiers[reached];
   $('#res').innerHTML = resHTML({ win: true, title: nf(dmg) + ' dégâts', sub: 'Boss de l\'événement · ' + HBY[B.foe].name, t: Math.round(F.time), lines,
     mid: `<p class="sub" style="margin-top:8px">${rec ? 'Nouveau record de la semaine !' : 'Record : ' + nf(P.event.bossBest)}${nxt ? ` · prochain palier à ${nf(nxt)}` : ' · tous les paliers atteints'}</p>`,
-    after: got ? '<button class="btn" id="r-openchest" style="width:100%;margin-top:10px">Ouvrir le coffre maintenant</button>' : '',
+    after: got ? '<button class="btn" id="r-openchest" style="width:100%;margin-top:10px">Aller aux invocations</button>' : '',
     acts: `<button class="btn prime big" id="r-again">Recommencer</button><div class="row"><button class="btn" id="r-event">Événement</button><button class="btn" id="r-home">Accueil</button></div>` });
   $('#ov-res').classList.add('on');
 }
@@ -7188,7 +7330,7 @@ function track(ev, n) {
   const D = P.daily;
   D.ids.forEach(k => { const q = DQ[k]; if (!q || q.ev !== ev) return; D.prog[k] = q.max ? Math.max(D.prog[k] || 0, n) : (D.prog[k] || 0) + n; });
   WEEKLY.forEach(q => { if (q.ev === ev) P.weekly.prog[q.k] = (P.weekly.prog[q.k] || 0) + n; });
-  const map = { win: 'wins', fight: 'fights', upgrade: 'upgrades', awaken: 'stars', eventWin: 'events', trade: 'trades', chest: 'chests' };
+  const map = { win: 'wins', fight: 'fights', upgrade: 'upgrades', awaken: 'stars', eventWin: 'events', trade: 'trades', chest: 'chests', summon: 'chests' };
   if (map[ev]) P.stats[map[ev]] += n;
 }
 const topLvl = () => Math.max(...Object.values(P.heroes).map(h => h.lvl));
@@ -7216,7 +7358,7 @@ function chestSVG(cls, t) {
     <path d="M8 30h48" stroke="${C.c}" stroke-width="3"/><rect x="27" y="25" width="10" height="13" rx="2" fill="${C.c}"/><circle cx="32" cy="31" r="2" fill="${C.c2}"/>
     <path d="M20 19v37M44 19v37" stroke="${C.c}" stroke-width="1.4" opacity=".5"/>${t >= 3 ? `<circle cx="32" cy="20" r="3" fill="#fff" opacity=".8"/>` : ''}</svg>`;
 }
-const chestMini = t => chestSVG('cmini', t);
+let chestMini = t => chestSVG('cmini', t);
 function rwHTML(rw) {
   let h = '';
   if (rw.pc) h += `<span class="rwc">${I.coin}${nf(rw.pc)}</span>`;
@@ -7523,7 +7665,7 @@ function renderQuests() {
       h += questRow({ t: `${a.nom} ${roman(c + 1)} · ${a.t}`, n: a.tiers[c], rw: a.rw[c] }, v, false, 'ach:' + a.k);
     });
   } else {
-    h += `<p class="hint" style="margin:-4px 0 12px">Connecte-toi chaque jour pour récupérer la récompense suivante. Le 7e jour : un coffre d'or.</p>` + loginHTML();
+    h += `<p class="hint" style="margin:-4px 0 12px">Connecte-toi chaque jour pour récupérer la récompense suivante. Le 7e jour : 3 tickets d'invocation.</p>` + loginHTML();
   }
   $('#quests').innerHTML = h;
 }
@@ -7544,7 +7686,7 @@ function renderEvent() {
   const reached = B.tiers.filter(t => P.event.bossBest >= t).length;
   let h = `<div class="evb" style="--ec:${el.c}"><small>ÉVÉNEMENT DE LA SEMAINE · ${el.nom.toUpperCase()}</small><h2>${E.nom}</h2><span>Fin dans <b class="num" data-cd="week">${dhm(nextWeekAt() - Date.now())}</b> · ${done}/${E.challenges.length} défis réussis</span></div>
     <button class="bossc" data-boss="1" style="--ec:${el.c}"><span class="th">${thumbImg(B.foe)}</span><div class="bt"><small>BOSS DE L'ÉVÉNEMENT · ${B.limit} S</small><b>${bf.name}, ${bf.title}</b>
-      <span>Inflige un maximum de dégâts. Chaque palier donne un coffre.</span>
+      <span>Inflige un maximum de dégâts. Chaque palier donne des tickets d'invocation.</span>
       <div class="tiers">${B.tiers.map((t, i) => `<div class="${P.event.bossBest >= t ? 'on' : ''}" style="--cc:${CHESTS[B.rw[i].chest].c}">${chestMini(B.rw[i].chest)}<small class="num">${t >= 1000 ? t / 1000 + ' k' : t}</small></div>`).join('')}</div>
       <span class="rec">Record de la semaine : <b class="num">${nf(P.event.bossBest)}</b> · ${reached}/${B.tiers.length} paliers</span></div></button>
     <div class="lbl">Défis · une victoire par semaine</div><div class="evlist">`;
@@ -7839,6 +7981,7 @@ function wire() {
     if (modes13Click(t)) return;
     if (hero13Click(t)) return;
     if (ui13Click(t)) return;
+    if (v17Click(t)) return;
     if (v14Click(t)) return;
     if (v15Click(t)) return;
     if (t.closest('#f-seal')) { act('seal'); return; }
@@ -7881,7 +8024,7 @@ function wire() {
     const tmb = t.closest('[data-team]'); if (tmb && !tmb.disabled) { const id = tmb.dataset.team; if (P.team.includes(id)) P.team = P.team.filter(x => x !== id); else { if (P.team.length >= 3) P.team = [P.team[0], P.team[2]]; P.team.push(id); } save(); SFX.click(); toast(P.team.includes(id) ? `${HBY[id].name} rejoint l'équipe` : `${HBY[id].name} quitte l'équipe`); renderHero(); return; }
     const trt = t.closest('[data-trtry]'); if (trt) { TR.hero = trt.dataset.trtry; TR.pick = 'foe'; go('train'); return; }
     if (t.closest('#h-fight')) { openStage(STAGES.indexOf(nextStage())); return; }
-    if (t.closest('#h-chest')) { if (Date.now() >= P.chestAt) openChest('free'); else toast('Le coffre sera prêt dans ' + mmss(P.chestAt - Date.now())); return; }
+    if (t.closest('#h-chest')) { if (Date.now() >= P.chestAt) openChest('free'); else toast('Prochain ticket gratuit dans ' + mmss(P.chestAt - Date.now())); return; }
     if (t.closest('[data-bagchests]')) { bagTab = 'chests'; go('bag'); return; }
     const oc = t.closest('[data-openc]'); if (oc) { openChest(oc.dataset.openc); return; }
     if (t.closest('#c-openlast')) { openChest('last'); return; }
@@ -8052,7 +8195,7 @@ function start(data) {
    EN LIGNE : connexion, pseudo, compte, amis, club, duels entre joueurs.
    (inséré dans la même portée que ui3.js, juste avant le démarrage)
    ===================================================================== */
-const GAME_VER = '15.1';
+const GAME_VER = '17.0';
 const ONL = { watch: [], gate: false, inviteSeen: {}, q: null, saveT: 0, profT: 0 };
 const logged = () => !!(NET.ready && NET.user && NET.me && NET.me.pseudo);
 function screenUnwatch() { ONL.watch.splice(0).forEach(f => { try { f(); } catch (e) { /* */ } }); }
@@ -8711,7 +8854,7 @@ function renderSettings() {
   let h = `<div class="sh shl"><button class="ib back2" data-go="home" aria-label="Retour">${I.back}</button><h2>Paramètres</h2><span class="ver">v${GAME_VER}</span></div>
     <div class="stabs" role="tablist">${SET_TABS.map(([k, n]) => `<button role="tab" data-stab2="${k}" aria-selected="${setTab === k}" class="${setTab === k ? 'on' : ''}">${n}</button>`).join('')}</div><div class="setbody">`;
   if (setTab === 'ctl') h += setCtl(o);
-  if (setTab === 'snd') h += `<div class="setg"><h4>Volume</h4>${row('Volume général', rng('vol.all', o.vol.all, 0, 100, 5, ' %'))}${row('Rythmes', rng('vol.rth', o.vol.rth == null ? 60 : o.vol.rth, 0, 100, 5, ' %'), 'Percussions et sons de la nature, sans instruments')}${row('Ambiance', rng('vol.amb', o.vol.amb, 0, 100, 5, ' %'), 'Vent et souffle des runes, sans instruments')}${row('Effets sonores', rng('vol.sfx', o.vol.sfx, 0, 100, 5, ' %'), 'Coups, techniques, coffres, menus')}
+  if (setTab === 'snd') h += `<div class="setg"><h4>Volume</h4>${row('Volume général', rng('vol.all', o.vol.all, 0, 100, 5, ' %'))}${row('Rythmes', rng('vol.rth', o.vol.rth == null ? 60 : o.vol.rth, 0, 100, 5, ' %'), 'Percussions et sons de la nature, sans instruments')}${row('Ambiance', rng('vol.amb', o.vol.amb, 0, 100, 5, ' %'), 'Vent et souffle des runes, sans instruments')}${row('Effets sonores', rng('vol.sfx', o.vol.sfx, 0, 100, 5, ' %'), 'Coups, techniques, invocations, menus')}
       ${tog('muted', P.muted, 'Couper tout le son')}</div><button class="btn" data-set="sndtest">${I.sound}<span>Tester le son</span></button>`;
   if (setTab === 'gfx') h += `<div class="setg"><h4>Graphismes</h4>
       ${row('Qualité graphique', sel('gfx.q', o.gfx.q, [['auto', 'Automatique (conseillé)'], ['low', 'Basse : plus fluide'], ['mid', 'Moyenne'], ['high', 'Haute : plus net']]), 'Automatique baisse la qualité si l\'appareil ralentit')}
@@ -8723,7 +8866,7 @@ function renderSettings() {
       <div class="setg"><h4>Notifications</h4>${tog('notif.toast', o.notif.toast, 'Messages rapides', 'Petits messages en haut de l\'écran')}${tog('notif.badges', o.notif.badges, 'Pastilles rouges', 'Signalent une récompense ou une nouveauté')}${tog('notif.noqm', !!o.notif.noqm, 'Masquer les messages rapides des autres', 'Les messages prédéfinis pendant les combats en ligne')}${tog('notif.brk', o.notif.brk !== false, 'Rappel de pause', 'Un petit message toutes les 45 minutes de jeu')}</div>
       <div class="setg"><h4>Accueil</h4><div class="setrow"><span><b>Héros sur l'accueil</b><small>De 0 à 3, choisis lesquels</small></span><div class="sc"><button class="btn sm" data-set="vitrine">${I.hero}<span>Choisir</span></button></div></div></div>
       <div class="setg"><h4>Tutoriel</h4><div class="setrow"><span><b>Rejouer le tutoriel</b><small>Combat guidé avec Maître Ilyas, puis visite de l'accueil</small></span><div class="sc"><button class="btn sm" data-tut="replay">${I.book || ''}<span>Lancer</span></button></div></div></div>
-      <div class="setg"><h4>Coffres</h4>${tog('fastChest', o.fastChest, 'Récupération automatique', 'Les objets se ramassent seuls, un par un')}</div>`;
+      `;
   if (setTab === 'acc') h += `<div class="setg"><h4>Lecture</h4>${tog('acc.big', o.acc.big, 'Texte plus grand')}${tog('acc.hc', o.acc.hc, 'Contraste renforcé', 'Textes et bordures plus marqués')}${tog('acc.cb', !!o.acc.cb, 'Mode daltonien', 'Symboles pour les éléments, lettres pour les raretés, couleurs de vie bleu et orange')}</div>
       <div class="setg"><h4>Confort</h4>${tog('acc.calm', o.acc.calm, 'Réduire les flashs et secousses', 'Moins d\'éclairs et de tremblements à l\'écran')}${tog('ctl.vib', o.ctl.vib, 'Vibrations', 'Téléphone et manette')}${tog('ctl.simple', !!o.ctl.simple, 'Commandes simplifiées', 'Maintiens Frapper : combo automatique, puis ta technique si tu as assez de ki')}${tog('ctl.guardToggle', o.ctl.guardToggle, 'Garde par simple appui', 'Un appui active la garde, un autre l\'enlève (au lieu de maintenir)')}</div>`;
   if (setTab === 'acct') h += setAcct();
@@ -9020,7 +9163,7 @@ function runeCardHTML(big) {
 const EL_PLACE = { feu: 'les forges du Sentier des cendres', eau: 'les quais de la Mer de verre', foudre: 'les refuges des Pics d\'orage', terre: 'les villages des Racines du monde', ombre: 'les ruelles de la Nuit sans lune', prisme: 'les ruines du Cœur du Prisme' };
 const ROLE_VERB = { att: 'frapper le premier', def: 'se tenir devant les autres', soin: 'relever ceux qui tombent', sab: 'frapper là où personne ne regarde' };
 const MEM_NOM = ['Origine', 'Serment', 'Secret'];
-const MEM_HOW = ['Gagne un combat avec ce héros comme chef d\'équipe.', 'Gagne avec lui en réussissant 2 gardes parfaites ou un sceau de rune.', 'Gagne une faille avec lui, ou trouve-la dans un coffre (rare).'];
+const MEM_HOW = ['Gagne un combat avec ce héros comme chef d\'équipe.', 'Gagne avec lui en réussissant 2 gardes parfaites ou un sceau de rune.', 'Gagne une faille avec lui.'];
 function memText(h, i) {
   const pl = EL_PLACE[h.el] || 'un pays lointain', v = h.idx % 4, R = ROLE_VERB[h.role] || 'se battre';
   if (i === 0) return [
@@ -9049,7 +9192,7 @@ const SECRETS = [
   { k: 'parfait3', nom: 'Mur de verre', hint: 'Trois fois, au dernier instant.', how: 'Réussir 3 gardes parfaites dans un même combat', rw: { ec: 40, pc: 500 } },
   { k: 'pacifiste', nom: 'Les mains nues', hint: 'Les techniques ne sont pas tout.', how: 'Gagner sans technique, sans ultime et sans sceau', rw: { ec: 50, pc: 600 } },
   { k: 'david', nom: 'Le petit contre le grand', hint: 'Plus l\'adversaire est fort, plus la victoire est belle.', how: 'Battre un adversaire 30 % plus puissant que toi', rw: { ec: 60, pc: 800 } },
-  { k: 'nuit', nom: 'Coffre de minuit', hint: 'Les coffres ont un autre son, la nuit…', how: 'Ouvrir un coffre entre minuit et 5 h', rw: { ec: 30, pc: 400 } },
+  { k: 'nuit', nom: 'Invocation de minuit', hint: 'Les portails brillent autrement, la nuit…', how: 'Faire une invocation entre minuit et 5 h', rw: { ec: 30, pc: 400 } },
   { k: 'curieux', nom: 'Curiosité', hint: 'Et si tu touchais le héros de l\'accueil ?', how: 'Toucher 7 fois de suite le héros de l\'accueil', rw: { ec: 20, pc: 300 } },
   { k: 'relais', nom: 'Relais parfait', hint: 'Une équipe, c\'est fait pour tourner.', how: 'Changer 4 fois de héros dans un combat gagné', rw: { ec: 40, pc: 500 } },
   { k: 'eclair', nom: 'Éclair', hint: 'Certains combats se gagnent avant d\'avoir commencé.', how: 'Gagner un combat en moins de 25 secondes', rw: { ec: 50, pc: 600 } },
@@ -9064,7 +9207,7 @@ function secretDone(k) {
   S[k] = Date.now(); const s = SEC_BY[k];
   if (!A_().titles.includes(s.nom)) A_().titles.push(s.nom);
   grant(s.rw); save();
-  setTimeout(() => toast(`Mission secrète réussie : « ${s.nom} » (+${s.rw.ec} éclats, +${nf(s.rw.pc)} pièces${s.rw.chest != null ? ', un coffre' : ''})`, true), 600);
+  setTimeout(() => toast(`Mission secrète réussie : « ${s.nom} » (+${s.rw.ec} éclats, +${nf(s.rw.pc)} pièces${s.rw.chest != null ? ', des tickets' : ''})`, true), 600);
 }
 
 /* ---------- 4. Failles cachées ---------- */
@@ -9102,7 +9245,7 @@ function openRift() {
   const x = HBY[r.rule === 'miroir' ? P.active : r.foe], R0 = RIFT_RULES[r.rule];
   openSheet(`<div class="sh"><h2>Faille découverte !</h2><span>se referme dans ${dhm(r.end - Date.now())}</span></div>
     <div class="riftc" style="--ec:${EL[x.el].c}"><span class="th">${thumbImg(x.id)}</span><div><small>RÈGLE : ${R0.nom.toUpperCase()}</small><b>${r.rule === 'miroir' ? 'Ton reflet' : x.name}</b><span>${R0.txt}</span></div></div>
-    <p class="hint">Victoire : éclats de faille, un coffre, et peut-être la <b>mémoire secrète</b> de ton héros. Une seule tentative gagnante par faille.</p>
+    <p class="hint">Victoire : éclats de faille, des tickets d'invocation, et peut-être la <b>mémoire secrète</b> de ton héros. Une seule tentative gagnante par faille.</p>
     <div class="acts"><button class="btn prime big" data-riftgo="${r.w}">Entrer dans la faille</button></div>`);
 }
 function startRift() {
@@ -10201,21 +10344,21 @@ function heals12() {
 }
 
 /* ---------- sac ---------- */
-const BTABS = () => [['gear', 'Équipement', I.arme('currentColor'), '#2f86ff'], ['chests', 'Coffres', I.bag, '#f5a623', P.chests.length || ''], ['heal', 'Soins', I.potion, '#22c06e'], ['mats', 'Ressources', I.shard, '#13b5d8'], ['frags', 'Fragments', I.hero, '#ff4d8f']];
+let BTABS = () => [['gear', 'Équipement', I.arme('currentColor'), '#2f86ff'], ['chests', 'Coffres', I.bag, '#f5a623', P.chests.length || ''], ['heal', 'Soins', I.potion, '#22c06e'], ['mats', 'Ressources', I.shard, '#13b5d8'], ['frags', 'Fragments', I.hero, '#ff4d8f']];
 function itemTile12(it, n) {
   const own = ownerOf(it);
   return `<button class="it12" data-item="${it.id}" style="--rc:${G_RAR[it.r].c};--i:${n}" aria-label="${it.name}"><span class="ic">${slotIcon(it.slot, it.r)}</span>${it.up ? `<span class="u num">+${it.up}</span>` : ''}
     ${own ? `<span class="eq">${thumbImg(own)}</span>` : ''}${it.fresh ? '<span class="nw">NOUVEAU</span>' : ''}<small>${G_RAR[it.r].nom}</small></button>`;
 }
 function renderBag() {
-  let h = `<div class="sh"><h2>Sac</h2><span class="bstat"><b class="num">${P.inv.length}</b> objets · <b class="num">${P.chests.length}</b> coffres</span></div>` + tabs12('btab', BTABS(), bagTab, 'bag');
+  let h = `<div class="sh"><h2>Sac</h2><span class="bstat"><b class="num">${P.inv.length}</b> objets</span></div>` + tabs12('btab', BTABS(), bagTab, 'bag');
   if (bagTab === 'gear') {
     const cnt = k => P.inv.filter(i => k === 'all' || i.slot === k).length;
     h += `<div class="chips12">${[['all', 'Tout'], ['arme', 'Armes'], ['armure', 'Armures'], ['relique', 'Reliques']].map(([k, l]) => `<button data-bslot="${k}" aria-pressed="${bagSlot === k}">${l}<i class="num">${cnt(k)}</i></button>`).join('')}</div>`;
     const list = P.inv.filter(i => bagSlot === 'all' || i.slot === bagSlot).sort((a, b) => (!!ownerOf(b) - !!ownerOf(a)) || b.r - a.r || b.up - a.up);
     h += `<div class="bulkrow"><button class="btn small ghost" data-bulksheet>Recycler en lot</button></div>`;
     h += list.length ? `<div class="items12">${list.map(itemTile12).join('')}</div><p class="hint12">Touche un objet pour l'équiper, l'améliorer ou le recycler. Le visage indique le héros qui le porte.</p>`
-      : `<div class="empty12">${I.arme('#7f8aa3')}<b>Rien ici pour l'instant</b><span>Les objets s'obtiennent dans les coffres, au marché et en battant des boss.</span></div>`;
+      : `<div class="empty12">${I.arme('#7f8aa3')}<b>Rien ici pour l'instant</b><span>Les objets s'obtiennent à la Forge runique (invocation), au marché et en battant des boss.</span></div>`;
   } else if (bagTab === 'chests') {
     const cnt = CHESTS.map((_, t) => P.chests.filter(x => x === t).length);
     h += P.chests.length ? `<div class="cpile">${CHESTS.map((C, t) => [C, t]).reverse().map(([C, t]) => cnt[t] ? `<div class="cp" style="--cc:${C.c};--i:${t}"><span class="cbx">${chestSVG('cb12', t)}</span><b>${C.nom}</b><span class="cn num">× ${cnt[t]}</span><button class="btn small prime" data-openc="${t}">Ouvrir</button></div>` : '').join('')}</div>`
@@ -10224,14 +10367,14 @@ function renderBag() {
   } else if (bagTab === 'heal') {
     h += `<p class="hint12">Le soin équipé est utilisé par le bouton Soin en combat, ${HEAL_MAX} fois maximum par combat.</p>` + healList(true);
   } else if (bagTab === 'mats') {
-    const R = [[I.coin, 'Pièces', 'Combats et coffres. Entraînement et améliorations.', P.pc, '#ffc23d'], [I.shard, 'Éclats de rune', "Combats, coffres et recyclage. Améliorent l'équipement.", P.ec, '#7fd6ff'], [I.scroll, 'Parchemins', 'Combats et coffres. Améliorent les techniques.', P.parch, '#f2d38a']];
+    const R = [[I.coin, 'Pièces', 'Combats et coffres. Entraînement et améliorations.', P.pc, '#ffc23d'], [I.shard, 'Éclats de rune', "Combats, invocations et recyclage. Améliorent l'équipement.", P.ec, '#7fd6ff'], [I.scroll, 'Parchemins', 'Combats et invocations. Améliorent les techniques.', P.parch, '#f2d38a']];
     h += `<div class="mats12">${R.map(([ic, nm, d, q, c], n) => `<div class="m12" style="--mc:${c};--i:${n}"><span class="mi">${ic}</span><div><b>${nm}</b><span>${d}</span></div><span class="q num">${nf(q)}</span></div>`).join('')}</div>`;
   } else {
     const list = Object.keys(P.frag).filter(id => P.frag[id] > 0).sort((a, b) => P.frag[b] - P.frag[a]);
     h += list.length ? `<div class="frags12">${list.map((id, n) => { const x = HBY[id], hs = P.heroes[id], need = hs ? starCost(hs.stars) : RAR[x.r].unlock, have = P.frag[id], ok = have >= need && !(hs && hs.stars >= MAX_STARS);
       return `<button class="fr12${ok ? ' ok' : ''}" data-hero="${id}" style="--ec:${EL[x.el].c};--rc:${RAR[x.r].c};--i:${n}"><span class="th">${thumbImg(id)}</span><div><b>${x.name}</b><span>${hs ? (hs.stars >= MAX_STARS ? 'Éveil maximum' : `Éveil ${hs.stars + 1} étoiles`) : 'Déblocage du héros'}</span>
         <span class="pb"><i style="width:${Math.min(100, have / need * 100)}%"></i></span></div><span class="q num">${have}<small>/${need}</small></span>${ok ? '<span class="rdy">PRÊT</span>' : ''}</button>`; }).join('')}</div>`
-      : `<div class="empty12">${I.hero}<b>Pas encore de fragments</b><span>Ouvre le coffre de l'accueil et gagne des combats d'histoire.</span></div>`;
+      : `<div class="empty12">${I.hero}<b>Pas encore de fragments</b><span>Fais des invocations et gagne des combats d'histoire.</span></div>`;
   }
   $('#bag').innerHTML = h; after12($('#bag'), bagTab + bagSlot);
 }
@@ -10303,11 +10446,11 @@ const TUT_STEPS = [
 const TOUR = [
   ['#h-fight', 'Jouer', 'Le gros bouton lance le mode affiché juste à côté. Commence par l\'Histoire : cinq terres à sauver, combat après combat.'],
   ['#h-mode', 'Choisis ton mode', 'Histoire, Tour des runes, En ligne, Événement ou Entraînement : touche ici pour changer.'],
-  ['#h-chest', 'Coffre gratuit', 'Il se recharge tout seul. Ce qu\'il peut contenir est toujours affiché : pas de surprise cachée.'],
+  ['#h-chest', 'Ticket gratuit', 'Il se recharge tout seul. Un ticket = une invocation ; les chances sont affichées sur chaque portail.'],
   ['.t-hero', 'Héros', 'Tes héros, leur équipement, leurs techniques et leur éveil. Débloque-les avec des fragments.'],
-  ['.t-event', 'Événement', 'Chaque semaine : de nouveaux défis et un boss avec des coffres à gagner.'],
+  ['.t-event', 'Événement', 'Chaque semaine : de nouveaux défis et un boss avec des tickets à gagner.'],
   ['.t-market', 'Marché', 'Achète, vends et échange avec les pièces gagnées en jouant. Jamais d\'argent réel.'],
-  ['.t-bag', 'Sac', 'Ton équipement et tes coffres. Ton cadeau de bienvenue t\'y attend !'],
+  ['.t-bag', 'Sac', 'Ton équipement, tes soins et tes ressources.'],
   ['.hquick', 'Raccourcis', 'Objectifs du jour, saison, activités, amis, club et classement.'],
   ['#h-menu', 'Paramètres', 'Change les commandes (clavier, manette, tactile), le son, la langue… et rejoue ce tutoriel quand tu veux.']
 ];
@@ -11305,7 +11448,7 @@ function bossCard(lvl) { const id = raidBoss(), c = botCard(id, lvl, 0.75); c.st
 function raidSheet() {
   const id = raidBoss(), on = logged();
   openSheet(`<div class="sh"><h2>Raid de boss</h2><span>À deux contre un géant</span></div><div class="daily"><span>${thumbImg(id)}<b>${HBY[id].name} géant</b><small>change chaque semaine</small></span></div>
-    <p class="hint">Un boss énorme avec 7 fois plus de vie. Récompense : 300 pièces et un coffre d'or.</p>
+    <p class="hint">Un boss énorme avec 7 fois plus de vie. Récompense : 300 pièces et 3 tickets d'invocation.</p>
     <div class="modecards"><button class="modec" data-m13="raidbot" style="--mc:#ff4d6a"><span class="mi">${I.target}</span><span><b>Avec un robot</b><small>Un allié robot t'accompagne</small></span></button>
     <button class="modec" data-m13="raidfr" style="--mc:#3ddc84" ${on ? '' : 'disabled'}><span class="mi">${I.online}</span><span><b>Avec un ami</b><small>${on ? 'Invite un ami connecté' : 'Connecte-toi à ton compte'}</small></span></button></div>`);
 }
@@ -11541,7 +11684,7 @@ function bellItems() {
   const L = [], now = Date.now(), B = homeBadges(), day = dayKey();
   const add = (id, ic, t, s, run) => L.push({ id, ic, t, s, run });
   if (P.login.day !== day) add('login:' + day, I.star(true), 'Récompense de connexion', 'À récupérer aujourd\'hui', () => openSheet(`<div class="sh"><h2>Bon retour !</h2><span>Récompense de connexion</span></div>` + loginHTML()));
-  if (B.chest) add('chest:' + P.chestAt, I.bag, 'Coffre gratuit prêt', 'Ouvre-le maintenant', () => openChest('free'));
+  if (B.chest) add('chest:' + P.chestAt, I.bag, 'Ticket gratuit prêt', 'Récupère-le maintenant', () => openChest('free'));
   if (P.chests.length) add('bag:' + P.chests.length, I.bag, P.chests.length + ' coffre' + (P.chests.length > 1 ? 's' : '') + ' dans ton sac', 'À ouvrir quand tu veux', () => go('bag'));
   const nq = claimables(); if (nq > 0) add('q:' + day + ':' + nq, I.quest, 'Objectifs terminés', nq + ' récompense' + (nq > 1 ? 's' : '') + ' à récupérer', () => go('quests'));
   const np = typeof passClaimable === 'function' ? passClaimable() : 0; if (np > 0) add('pass:' + np + ':' + passTier(), I.star(true), 'Palier de saison atteint', np + ' récompense' + (np > 1 ? 's' : '') + ' à récupérer', () => go('pass'));
@@ -12477,7 +12620,7 @@ function next14() {
   const V = V14();
   if (V.exp.some(expDone)) return { t: 'Une expédition est terminée', run: openExp };
   if (claimables() > 0) return { t: 'Récupère tes récompenses d\'objectifs', run: () => go('quests') };
-  if (Date.now() >= P.chestAt) return { t: 'Ouvre ton coffre gratuit', run: () => openChest('free') };
+  if (Date.now() >= P.chestAt) return { t: 'Récupère ton ticket gratuit', run: () => openChest('free') };
   if (HEROES.some(h => !P.heroes[h.id] && (P.frag[h.id] || 0) >= RAR[h.r].unlock)) return { t: 'Un héros peut être débloqué', run: () => go('coll') };
   if (albReady()) return { t: 'Un album est terminé', run: openAlbums };
   if (MK.sold) return { t: 'Une vente est conclue au marché', run: () => { MK.tab = 'sell'; go('market'); } };
@@ -12513,7 +12656,7 @@ function openAgenda() {
     if (sEnd >= d.getTime() && sEnd < d.getTime() + 864e5) it.push(['Fin de la saison classée', 'hot']);
     h += `<div class="agd${i ? '' : ' today'}"><b><small>${i ? JN[wd] : 'AUJ.'}</small>${d.getDate()}</b><ul>${it.map(([t, c]) => `<li class="${c}">${t}</li>`).join('')}</ul></div>`;
   }
-  openSheet(h + `</div><p class="hint">Chaque jour aussi : objectifs du jour, coffre gratuit toutes les 20 minutes, nouvelles offres à la Boutique toutes les 4 heures.</p>`);
+  openSheet(h + `</div><p class="hint">Chaque jour aussi : objectifs du jour, ticket gratuit toutes les 20 minutes, nouvelles offres à la Boutique toutes les 4 heures.</p>`);
 }
 
 /* ---------- 16 : contenu des coffres affiché (rien de caché) ---------- */
@@ -12572,7 +12715,7 @@ function v14Click(t) {
   else if (a === 'alb') { const al = albums().find(x => x.k === b.dataset.k); if (al && al.n >= al.need && !V.alb[al.k]) { V.alb[al.k] = 1; const lines = grant(al.rw); save(); closeSheet(); showReward('Album : ' + al.nom, lines); } }
   else if (a === 'ban') { const bn = BAN14.find(x => x.id === id); if (bn && banOk(bn)) { V.ban = bn.id; save(); openMe(); if (cur === 'home') home14After(); if (logged() && typeof ONL !== 'undefined') ONL.profT = 0; } else if (bn) toast(bn.ec ? 'En vente à la Boutique, onglet Spécial' : 'À débloquer : ' + bn.how); }
   else if (a === 'odds') openOdds();
-  else if (a === 'wish') { V.wish = V.wish === id ? null : id; save(); toast(V.wish ? `${HBY[id].name} est ton héros visé : chaque coffre contiendra ses fragments` : 'Plus de héros visé'); const r = $('#s-hero .v14row'); if (r) r.remove(); renderHero(); }
+  else if (a === 'wish') { V.wish = V.wish === id ? null : id; save(); toast(V.wish ? `${HBY[id].name} est ton héros visé : chaque invocation ×10 donnera ses fragments en plus` : 'Plus de héros visé'); const r = $('#s-hero .v14row'); if (r) r.remove(); renderHero(); }
   else if (a === 'pre') openPreset(i);
   else if (a === 'presave') { V.pre[i] = [P.active].concat(P.team.filter(x => x !== P.active && P.heroes[x])).slice(0, 3); save(); closeSheet(); toast(`Équipe ${i + 1} enregistrée`); renderColl(); }
   else if (a === 'preload') { const p = (V.pre[i] || []).filter(x => P.heroes[x]); if (p.length) { P.active = p[0]; P.team = p.slice(0, 3); ensureMeta(); save(); closeSheet(); toast(`Équipe ${i + 1} en place`); renderColl(); } }
@@ -12616,6 +12759,7 @@ const RACES = {
   tetsu:  { nom: 'Golem de foudre', skin: [0.5, 0.56, 0.7], hair: [0.3, 0.33, 0.42], eye: [1, 0.95, 0.4], main: [0.3, 0.33, 0.42], sec: [0.95, 0.85, 0.3], pants: [0.24, 0.26, 0.34], s: 1.14, js: { shL: 1.22, shR: 1.22, head: 0.86, chest: 1.06 }, plate: [0.36, 0.4, 0.52], parts: ['crystalsHead', 'crystalsBack', 'pauldronRock', 'plate', 'belt'] }
 };
 const raceOf = id => RACES[id] || null;
+let RACE_API = null;   // outils de fabrication partagés avec design16.js
 (function () {
   const { ellipsoid: EL3, tube, lathe, merge, xformGeo, grid, Node, Mesh, M } = G3, PI = Math.PI;
   const at = (g, pos, rot, s) => xformGeo(g, M.compose(pos || [0, 0, 0], rot || [0, 0, 0], s || 1));
@@ -12684,25 +12828,374 @@ const raceOf = id => RACES[id] || null;
       ch.swing.push({ n, base: n.rot.slice(), kf: 0.04, ks: 0.04, ky: -0.02, idle: 0.16, x: [0, 0, 0], v: [0, 0, 0] }); })); },
     orbs(ch, J, hd, R) { const n = new Node('r_orbs'); n.pos = [0, 0.16, 0]; J.chest.add(n); for (let i = 0; i < 3; i++) { const a = i / 3 * PI * 2; n.meshes.push(new Mesh(at(EL3(0.04, 0.04, 0.04, 10, 8), [Math.cos(a) * 0.44, (i - 1) * 0.12, Math.sin(a) * 0.44]), glow(R.eye))); } (ch.spin = ch.spin || []).push(n); }
   };
+  RACE_API = { PARTS, addTo, at, hp, mt, dk, cone, spike, metal, glow, P16: {} };
   function applyRace(ch, look) {
     const R = RACES[look.race]; if (!R || ch.raced) return ch; ch.raced = true;
     const J = ch.J, hd = (ch.hq || ch).J.hd;
     ch.raceS = R.s || 1; ch.root.s = (typeof ch.root.s === 'number' ? ch.root.s : 1) * ch.raceS;
     Object.keys(R.js || {}).forEach(k => { if (J[k]) J[k].s = (typeof J[k].s === 'number' ? J[k].s : 1) * R.js[k]; });
     R.parts.forEach(p => { try { if (PARTS[p] && (hd || !/^(horns|crest|tusks|elf|goblin|fin|coral|circlet|beard|helmet|wizard|crown|crystalsHead)/.test(p))) PARTS[p](ch, J, hd, R, look); } catch (e) { console.warn('race', p, e); } });
+    // v16 : pièces paramétrées (design16.js) ; crâne nu si la tête est couverte ou remplacée
+    const hx = (ch.hq || ch).J.hd;
+    if (R.bald && hx) { const strip = n => { n.meshes = n.meshes.filter(m => !/^(hair|tie|hairCap|hood|hoodHem)$/.test(m.slot || '')); n.kids.forEach(strip); }; strip(hx); }
+    const ctx = { ch, J, hd, R, L: look };
+    (R.p || []).forEach(a => { const f = RACE_API.P16[a[0]]; try { if (f) f.apply(null, [ctx].concat(a.slice(1))); else console.warn('race pièce inconnue', a[0]); } catch (e) { console.warn('race', look.race, a[0], e.message); } });
     return ch;
   }
   // couleurs du héros : peau, cheveux, yeux et tenue de la race
   const _lookOf = HQ.lookOf;
   HQ.lookOf = function (h) {
     const L = _lookOf(h), R = RACES[h.id];
-    if (R && !L.race) Object.assign(L, { race: h.id, skinCol: R.skin, skin: R.skin, hairRoot: dk(R.hair, 0.7), hairTip: R.hair.map(v => Math.min(1, v * 1.15)), browC: dk(R.hair, 0.6), eye: R.eye, eyeL: R.eye.map(v => Math.min(1, v * 1.2)), eyeD: dk(R.eye, 0.4), main: R.main, sec: R.sec, pants: R.pants, shirt: dk(R.main, 0.7), acc: null, cape: false, rim: R.eye });
+    if (R && !L.race) Object.assign(L, { race: h.id, skinCol: R.skin, skin: R.skin, hairRoot: dk(R.hair, 0.7), hairTip: R.hair.map(v => Math.min(1, v * 1.15)), browC: dk(R.hair, 0.6), eye: R.eye, eyeL: R.eye.map(v => Math.min(1, v * 1.2)), eyeD: dk(R.eye, 0.4), main: R.main, sec: R.sec, pants: R.pants, shirt: dk(R.main, 0.7), acc: null, cape: false, rim: R.eye, suit: R.suit || 'flat', bootC: R.boot || dk(R.main, 0.45), hair: R.hairStyle || L.hair, scar: false, mark: null });
     return L;
   };
   const _build = HQ.build;
   HQ.build = function (R, look, seed) { const ch = _build(R, look, seed); return look && look.race ? applyRace(ch, look) : ch; };
   const _setPose = HQ.setPose;
   HQ.setPose = function (ch, p, dt) { _setPose(ch, p, dt); if (ch.spin && dt) ch.spin.forEach(n => { n.rot[1] += dt * 1.6; }); };
+})();
+
+/* ===================== v16 : 99 HÉROS, 99 CRÉATURES DIFFÉRENTES =====================
+   Chaque héros a son espèce, sa peau, ses proportions et ses pièces (tête, dos, queue, tenue).
+   La tenue d'origine des modèles n'est plus visible : elle devient peau, combinaison unie ou métal (voir vrm.js > look.suit).
+   P16 = pièces paramétrées ; RACES (race15.js) reçoit ici les 89 fiches qui manquaient. */
+(function () {
+  const { ellipsoid: E, tube, lathe, merge, xformGeo, grid, capsule, Node, Mesh, M } = G3, PI = Math.PI;
+  const { PARTS, addTo: add, at, hp, mt, dk, cone, spike, metal, glow, P16 } = RACE_API;
+  const hx = h => { const n = parseInt(String(h).slice(1), 16); return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255]; };
+  const RB = ['#ff5a5a', '#ffb02a', '#ffe14d', '#5ad06a', '#3ab0ff', '#8a5aff', '#ff7ae0'];
+  const C = (h, i) => (h === 'rainbow' ? hx(RB[(i || 0) % RB.length]) : Array.isArray(h) ? h : hx(h));
+  const S = f => [-1, 1].forEach(f);
+  const fcone = (w, h, sz, n) => lathe([[w, 0], [w * 0.72, h * 0.4], [w * 0.32, h * 0.8], [0.008, h]], n || 8, { sz: sz || 0.3 });
+  const fin = (w, h) => lathe([[w, 0], [w * 0.8, h * 0.35], [w * 0.4, h * 0.75], [0.008, h]], 8, { sx: 0.12 });
+  const ring = (r, t, n) => lathe([[r, -t], [r + t, 0], [r, t], [r - t, 0], [r, -t]], n || 16);
+  const blobs = L => merge(L.map(([x, y, z, r, ry]) => at(E(r, ry || r, r, 9, 7), [x, y, z])));
+  const cloth = (c, o) => mt(c, Object.assign({ rough: 0.95, twoSide: true, rim: 0.15 }, o || {}));
+  const glass = (c, a) => mt(c, { unlit: true, noCast: true, twoSide: true, alpha: a || 0.55 });
+  const shiny = c => mt(c, { spec: 0.9, rough: 0.15, rim: 0.9 });
+  const mixc = (x, y, t) => x.map((v, i) => v * (1 - t) + y[i] * t);
+  const bone = [0.93, 0.9, 0.82], dark = [0.08, 0.07, 0.09], white = [1, 1, 1];
+  const sw = (c, n, idle, kf) => c.ch.swing.push({ n, base: n.rot.slice(), kf: kf || 0.1, ks: 0.1, ky: -0.04, idle: idle || 0.05, x: [0, 0, 0], v: [0, 0, 0] });
+  const spin = (c, n) => (c.ch.spin = c.ch.spin || []).push(n);
+  const jn = (c, k) => c.J[k];
+  const H = f => function (c) { if (c.hd) f.apply(null, arguments); };   // pièce de tête : seulement si la tête existe
+
+  /* ================= TÊTE (repère de la tête : rayon 1, face vers +z) ================= */
+  P16.horns = H((c, kind, col, k, fx) => {
+    const hd = c.hd, m = fx === 'glow' ? glow(C(col || '#fff0c0')) : mt(C(col || '#ede6cc'), { spec: 0.35, rough: 0.45 }); k = k || 1;
+    if (kind === 'uni') { add(hd, 'acc_horn', spike([[0, 0, 0], [0, 0.5 * k, 0.14], [0, 1.0 * k, 0.24], [0, 1.45 * k, 0.3]], 0.13, 10), m, hp(0, 0.72, 0.95)); return; }
+    if (kind === 'antler') { S(g => add(hd, 'acc_horn', merge([spike([[0, 0, 0], [g * 0.2, 0.4, 0], [g * 0.45, 0.8, -0.05], [g * 0.5, 1.25, 0]], 0.09, 8), at(spike([[0, 0, 0], [g * 0.3, 0.25, 0.1]], 0.06, 6), [g * 0.2, 0.4, 0]), at(spike([[0, 0, 0], [g * 0.32, 0.22, -0.1]], 0.055, 6), [g * 0.42, 0.75, -0.04]), at(spike([[0, 0, 0], [-g * 0.15, 0.3, 0.05]], 0.05, 6), [g * 0.33, 0.6, 0])]), m, hp(g * 0.6, 0.5, 0.93))); return; }
+    if (kind === 'magnet') { S(g => { const p = hp(g * 1.2, 0.85, 0.95); add(hd, 'acc_horn', tube([[0, 0, 0], [g * 0.3, 0.2, 0], [g * 0.4, 0.6, 0], [g * 0.25, 1.0, 0]], () => [0.14, 0.14], 8), m, p); add(hd, 'acc_horn', at(E(0.16, 0.14, 0.16, 8, 6), [g * 0.25, 1.05, 0]), metal(C(k === 1 ? '#e8e8f0' : k)), p); }); return; }
+    const K = { ram: g => [[0, 0, 0], [g * 0.35, 0.25, -0.1], [g * 0.62, 0.05, -0.3], [g * 0.56, -0.32, -0.25], [g * 0.36, -0.42, 0.02], [g * 0.3, -0.2, 0.22]], bull: g => [[0, 0, 0], [g * 0.45, 0.02, 0], [g * 0.82, 0.22, 0.05], [g * 0.92, 0.65, 0.1]],
+      small: g => [[0, 0, 0], [g * 0.05, 0.2, 0.02], [g * 0.08, 0.38, 0.06]], oni: g => [[0, 0, 0], [g * 0.08, 0.32, 0.05], [g * 0.04, 0.66, 0.14]], long: g => [[0, 0, 0], [g * 0.15, 0.5, -0.1], [g * 0.22, 1.0, -0.3], [g * 0.12, 1.5, -0.36]] }[kind];
+    const side = kind === 'bull' || kind === 'ram', r0 = kind === 'small' ? 0.11 : kind === 'ram' ? 0.2 : 0.16;
+    S(g => add(hd, 'acc_horn', spike(K(g), r0, 10), m, hp(g * (side ? 1.3 : 0.6), side ? 1.0 : 0.55, 0.93)));
+  });
+  P16.ears = H((c, kind, col, inner) => {
+    const hd = c.hd, m = mt(C(col || c.R.skin)), mi = mt(C(inner || '#ffc0d0'));
+    const tri = (w, h, th, ph, rz) => S(g => { const p = hp(g * ph, th, 0.92); add(hd, 'acc_ear', at(fcone(w, h, 0.34), [0, 0, 0], [0, 0, -g * rz]), m, p); add(hd, 'acc_ear', at(fcone(w * 0.55, h * 0.7, 0.2), [0, 0.03, 0.07], [0, 0, -g * rz]), mi, p); });
+    if (kind === 'fox') tri(0.34, 0.78, 0.62, 0.62, 0.22); else if (kind === 'cat') tri(0.3, 0.5, 0.62, 0.68, 0.3); else if (kind === 'wolf') tri(0.27, 0.66, 0.6, 0.6, 0.15); else if (kind === 'bat') tri(0.36, 0.95, 0.75, 0.85, 0.5); else if (kind === 'feather') tri(0.13, 0.55, 0.55, 0.7, 0.45);
+    else if (kind === 'bunny') S(g => { const p = hp(g * 0.42, 0.42, 0.9); add(hd, 'acc_ear', at(E(0.15, 0.62, 0.08, 10, 8), [g * 0.08, 0.55, 0], [0, 0, -g * 0.14]), m, p); add(hd, 'acc_ear', at(E(0.08, 0.46, 0.03, 8, 6), [g * 0.08, 0.55, 0.07], [0, 0, -g * 0.14]), mi, p); });
+    else if (kind === 'flap') S(g => add(hd, 'acc_ear', at(E(0.55, 0.65, 0.07, 12, 8), [g * 0.45, -0.1, 0], [0, -g * 0.35, 0]), m, hp(g * 1.5, 1.45, 0.9)));
+    else S(g => { const p = hp(g * 0.78, 0.68, 0.98); add(hd, 'acc_ear', E(0.26, 0.26, 0.1, 10, 8), m, p); add(hd, 'acc_ear', at(E(0.15, 0.15, 0.05, 8, 6), [0, 0, 0.07]), mi, p); });
+  });
+  P16.muzzle = H((c, kind, col, c2, k) => {
+    const hd = c.hd, m = mt(C(col || c.R.skin)); k = k || 1;
+    const beast = s => { add(hd, 'acc_muz', at(E(0.4 * s, 0.32 * s, 0.42 * s, 12, 9), [0, -0.36, 0.8]), m); add(hd, 'acc_nose', at(E(0.12, 0.085, 0.07, 8, 6), [0, -0.25, 0.8 + 0.42 * s]), mt(C(c2 || '#1a1210'), { spec: 0.5 })); };
+    if (kind === 'beast') beast(k);
+    else if (kind === 'snout') { add(hd, 'acc_muz', at(E(0.3, 0.24, 0.55, 12, 9), [0, -0.38, 0.95]), m); S(g => add(hd, 'acc_nose', at(E(0.04, 0.04, 0.04, 6, 5), [g * 0.1, -0.27, 1.47]), mt(dark))); }
+    else if (kind === 'beak') add(hd, 'acc_muz', at(cone(0.21, 0.62 * (typeof c2 === 'number' ? c2 : k), 8), [0, -0.3, 0.86], [PI / 2, 0, 0]), mt(C(col), { spec: 0.4 }));
+    else if (kind === 'beakS') add(hd, 'acc_muz', at(E(0.3, 0.2, 0.3, 10, 8), [0, -0.4, 0.86]), m);
+    else if (kind === 'beakLong') { add(hd, 'acc_mask', at(E(0.86, 0.78, 0.3, 14, 10), [0, 0.0, 0.76]), m); add(hd, 'acc_muz', at(cone(0.27, 1.15, 10), [0, -0.2, 0.9], [PI / 2 + 0.16, 0, 0]), m); S(g => add(hd, 'acc_lens', at(E(0.2, 0.2, 0.06, 10, 8), [g * 0.36, 0.14, 1.02]), glow(C(c2 || '#3affb0')))); }
+    else if (kind === 'rhino') { beast(1.12); add(hd, 'acc_horn', spike([[0, 0, 0], [0, 0.3, 0.14], [0, 0.62, 0.14]], 0.15, 9), mt(C(c2 || '#e8e0d0'), { spec: 0.4 }), [0, -0.2, 1.2]); add(hd, 'acc_horn', spike([[0, 0, 0], [0, 0.22, 0.05]], 0.1, 8), mt(C(c2 || '#e8e0d0')), [0, 0.1, 1.02]); }
+    else if (kind === 'trunk') { add(hd, 'acc_muz', tube([[0, -0.25, 0.9], [0, -0.7, 1.25], [0, -1.3, 1.3], [0, -1.75, 1.1], [0, -1.9, 0.88]], t => [0.2 - t * 0.1, 0.2 - t * 0.1], 9), m); S(g => add(hd, 'acc_tusk', spike([[g * 0.3, -0.55, 0.85], [g * 0.5, -1.0, 1.2], [g * 0.56, -0.9, 1.7], [g * 0.45, -0.55, 1.95]], 0.09, 8), mt(C(c2 || '#f4ecd8'), { spec: 0.4 }))); }
+    else if (kind === 'nose') add(hd, 'acc_nose', at(E(0.2 * k, 0.24 * k, 0.24 * k, 10, 8), [0, -0.15, 1.0]), m);
+    else if (kind === 'seahorse') add(hd, 'acc_muz', tube([[0, -0.3, 0.85], [0, -0.4, 1.4], [0, -0.42, 1.85]], t => [0.2 - t * 0.09, 0.2 - t * 0.09], 9), m);
+  });
+  P16.hat = H((c, kind, col, c2) => {
+    const hd = c.hd, m = cloth(C(col)), P = [0, 0.1, -0.05], Rr = [-0.12, 0, 0.04];
+    if (kind === 'kasa') add(hd, 'acc_hat', lathe([[0.02, 1.5], [0.9, 0.98], [1.72, 0.55], [1.74, 0.5], [0.9, 0.9]], 22), m, P, Rr);
+    else if (kind === 'gnome') { add(hd, 'acc_hat', lathe([[0.01, 2.7], [0.22, 2.0], [0.58, 1.25], [0.98, 0.62], [1.06, 0.45], [0.96, 0.4]], 22), m, P, [-0.3, 0, 0.1]); add(hd, 'acc_hat', lathe([[1.0, 0.44], [1.1, 0.54], [1.0, 0.64]], 22), mt(C(c2 || '#ffe14d')), P, [-0.3, 0, 0.1]); }
+    else if (kind === 'straw') add(hd, 'acc_hat', lathe([[0.02, 1.3], [0.6, 1.24], [0.86, 0.98], [0.9, 0.56], [1.75, 0.46], [1.77, 0.4], [0.9, 0.5]], 22), m, P, Rr);
+    else if (kind === 'plague') add(hd, 'acc_hat', lathe([[0.02, 1.55], [0.72, 1.55], [0.84, 1.42], [0.88, 0.56], [1.65, 0.46], [1.67, 0.4], [0.88, 0.5]], 22), m, P, Rr);
+    else if (kind === 'topknot') { add(hd, 'acc_knot', at(E(0.22, 0.3, 0.22, 10, 8), [0, 1.2, -0.12]), mt(C(col))); add(hd, 'acc_knot', lathe([[0.2, 0.96], [0.24, 1.0], [0.2, 1.04]], 12), metal(C(c2 || '#e8d48a')), [0, 0, -0.12]); }
+  });
+  P16.helm = H((c, kind, col, c2, c3) => {
+    const hd = c.hd, m = metal(C(col || '#8a8f96')), g2 = glow(C(c2 || c.R.eye));
+    if (kind === 'full') { add(hd, 'acc_helm', lathe([[0.02, 1.32], [0.6, 1.24], [1.06, 0.92], [1.26, 0.3], [1.26, -0.6], [1.06, -1.0], [0.9, -1.06]], 24), m); add(hd, 'acc_vis', at(E(0.78, 0.065, 0.2, 12, 6), [0, 0.06, 1.13]), g2); add(hd, 'acc_vis', at(E(0.05, 0.42, 0.12, 6, 8), [0, -0.4, 1.2]), mt(dark));
+      add(hd, 'acc_plume', tube([[0, 1.25, 0.2], [0, 1.75, -0.1], [0, 1.6, -0.8], [0, 1.0, -1.25]], t => [0.1 + Math.sin(t * PI) * 0.12, 0.16 + Math.sin(t * PI) * 0.2], 8), cloth(C(c3 || '#c8321e'))); }
+    else if (kind === 'kabuto') { add(hd, 'acc_helm', lathe([[0.02, 1.24], [0.6, 1.16], [1.0, 0.86], [1.2, 0.42], [1.24, 0.32]], 24), m); add(hd, 'acc_helm', lathe([[1.2, 0.36], [1.5, -0.2], [1.62, -0.34], [1.56, -0.36]], 20, { phi0: PI * 0.5, phiLen: PI }), m);
+      S(g => add(hd, 'acc_crest', spike([[0, 0, 0], [g * 0.4, 0.3, 0], [g * 0.62, 0.8, 0], [g * 0.46, 1.25, 0]], 0.075, 8), metal(C(c2 || '#c9a03a')), [0, 0.72, 1.02])); add(hd, 'acc_crest', at(E(0.1, 0.1, 0.05, 8, 6), [0, 0.72, 1.06]), metal(C(c2 || '#c9a03a'))); }
+    else if (kind === 'robotdome') { add(hd, 'acc_helm', E(1.3, 1.3, 1.3, 20, 14), m); add(hd, 'acc_vis', lathe([[1.31, -0.08], [1.34, 0.08], [1.31, 0.24]], 18, { phi0: -PI * 0.36, phiLen: PI * 0.72 }), g2); S(g => add(hd, 'acc_bolt', at(E(0.16, 0.16, 0.1, 8, 6), [g * 1.28, 0, 0], [0, g * PI / 2, 0]), metal(dk(C(col), 0.6)))); add(hd, 'acc_ant', capsule([0, 1.25, 0], [0, 1.7, 0], 0.03, 0.03, 6), metal(dk(C(col), 0.6))); add(hd, 'acc_ant', at(E(0.09, 0.09, 0.09, 8, 6), [0, 1.75, 0]), g2); }
+    else if (kind === 'sack') { add(hd, 'acc_helm', E(1.26, 1.36, 1.26, 18, 12), cloth(C(col), { twoSide: false })); S(g => add(hd, 'acc_eye', at(E(0.17, 0.2, 0.06, 8, 6), [g * 0.38, 0.12, 1.2]), mt(dark))); for (let i = 0; i < 5; i++) add(hd, 'acc_st', at(E(0.03, 0.12, 0.03, 5, 4), [(i - 2) * 0.17, -0.45 + Math.abs(i - 2) * 0.05, 1.16]), mt(dark)); add(hd, 'acc_rope', lathe([[0.86, -1.0], [0.96, -0.92], [0.86, -0.84]], 16), mt([0.5, 0.36, 0.2])); }
+    else if (kind === 'lantern') { add(hd, 'acc_helm', lathe([[0.5, 1.5], [1.1, 1.3], [1.32, 1.0], [1.22, 0.9], [1.38, 0.6], [1.26, 0.5], [1.4, 0.2], [1.28, 0.1], [1.4, -0.2], [1.26, -0.3], [1.34, -0.6], [1.1, -0.9], [0.5, -1.1]], 22, { sub: 2 }), glow(C(col || '#ffcf7a'))); [1.5, -1.12].forEach(y => add(hd, 'acc_cap', lathe([[0.02, y + 0.1], [0.56, y + 0.1], [0.6, y], [0.56, y - 0.1], [0.02, y - 0.1]], 16, { sub: 1 }), mt(C(c2 || '#1a1010'))));
+      add(hd, 'acc_eye', at(E(0.36, 0.36, 0.1, 12, 8), [0, 0.42, 1.34]), mt(white, { unlit: true })); add(hd, 'acc_eye', at(E(0.16, 0.2, 0.06, 8, 6), [0, 0.42, 1.43]), mt(dark, { unlit: true })); add(hd, 'acc_tongue', tube([[0, -0.42, 1.25], [0, -0.75, 1.5], [0, -1.2, 1.45]], t => [0.2 - t * 0.06, 0.06], 7), mt([0.86, 0.18, 0.22])); }
+    else if (kind === 'chest') { const wood = mt(C(col), { rough: 0.8 }), box = (r, y0, y1) => at(lathe([[0.01, y1], [r, y1], [r, y0], [0.01, y0]], 4, { sub: 1 }), [0, 0, 0], [0, PI / 4, 0]);
+      add(hd, 'acc_helm', box(1.8, -1.0, 0.2), wood); add(hd, 'acc_lid', at(box(1.8, 0, 0.5), [0, 0.42, -0.25], [-0.32, 0, 0]), wood); [-1.0, 0.16].forEach(y => add(hd, 'acc_band', box(1.84, y, y + 0.1), metal(C(c2 || '#e8c040')))); add(hd, 'acc_lock', at(E(0.16, 0.2, 0.08, 8, 6), [0, -0.3, 1.3]), metal(C(c2 || '#e8c040')));
+      for (let i = 0; i < 7; i++) add(hd, 'acc_tooth', at(cone(0.09, 0.26, 4), [(i - 3) * 0.33, 0.2, 1.2]), mt(white)); S(g => add(hd, 'acc_eye', at(E(0.14, 0.14, 0.08, 8, 6), [g * 0.42, 0.52, 0.9]), glow(C(c3 || '#ff3a5a')))); add(hd, 'acc_in', at(E(1.1, 0.3, 1.0, 10, 6), [0, 0.3, 0]), mt(dark, { unlit: true })); }
+    else if (kind === 'skull') { const b = mt(C(col || '#e8e4d8'), { rough: 0.6 }); add(hd, 'acc_helm', at(E(1.06, 1.12, 1.08, 18, 12), [0, 0.06, 0.02]), b); S(g => { add(hd, 'acc_eye', at(E(0.25, 0.29, 0.1, 10, 8), [g * 0.36, 0.1, 1.02]), mt(dark, { unlit: true })); add(hd, 'acc_eye', at(E(0.08, 0.08, 0.05, 6, 5), [g * 0.36, 0.1, 1.1]), g2); }); add(hd, 'acc_nose', at(E(0.08, 0.13, 0.05, 6, 5), [0, -0.28, 1.08]), mt(dark, { unlit: true })); add(hd, 'acc_jaw', at(E(0.62, 0.34, 0.5, 12, 8), [0, -0.82, 0.48]), b); for (let i = 0; i < 6; i++) add(hd, 'acc_tooth', at(E(0.055, 0.1, 0.04, 5, 4), [(i - 2.5) * 0.14, -0.66, 0.98 - Math.abs(i - 2.5) * 0.03]), mt(dark, { unlit: true })); }
+    else if (kind === 'mask') { add(hd, 'acc_helm', at(E(0.86, 1.3, 0.2, 14, 12), [0, 0.12, 1.02]), mt(C(col), { rough: 0.7 })); S(g => { add(hd, 'acc_eye', at(E(0.2, 0.1, 0.06, 8, 6), [g * 0.36, 0.2, 1.2], [0, 0, g * 0.25]), g2); add(hd, 'acc_paint', at(E(0.07, 0.36, 0.03, 6, 6), [g * 0.5, -0.4, 1.17]), mt(C(c3 || '#ffffff'), { unlit: true })); }); add(hd, 'acc_mouth', at(E(0.3, 0.09, 0.05, 8, 6), [0, -0.7, 1.16]), mt(dark, { unlit: true })); add(hd, 'acc_paint', at(E(0.08, 0.3, 0.03, 6, 6), [0, 0.95, 1.15]), mt(C(c3 || '#ffffff'), { unlit: true })); }
+    else if (kind === 'bone') { const b = mt(C(col || '#e8e2d0'), { rough: 0.6 }); add(hd, 'acc_helm', at(E(1.2, 0.78, 1.25, 16, 10), [0, 0.8, 0.1]), b); add(hd, 'acc_helm', at(E(0.52, 0.3, 0.75, 12, 8), [0, 0.52, 1.3]), b); S(g => { add(hd, 'acc_horn', spike([[0, 0, 0], [g * 0.2, 0.3, -0.5], [g * 0.3, 0.5, -1.1], [g * 0.2, 0.9, -1.6]], 0.2, 9), b, [g * 0.7, 1.1, -0.3]); add(hd, 'acc_eye', at(E(0.2, 0.16, 0.12, 8, 6), [g * 0.52, 0.7, 1.02]), mt(dark, { unlit: true })); add(hd, 'acc_eye', at(E(0.08, 0.08, 0.06, 6, 5), [g * 0.52, 0.7, 1.1]), g2); for (let i = 0; i < 4; i++) add(hd, 'acc_tooth', at(cone(0.06, 0.2, 4), [g * (0.42 - i * 0.03), 0.34, 1.0 + i * 0.26], [PI, 0, 0]), b); }); }
+    else if (kind === 'nemes') { add(hd, 'acc_helm', lathe([[0.2, 1.26], [0.9, 1.12], [1.22, 0.62], [1.32, -0.2], [1.52, -1.25], [1.46, -1.3]], 22, { phi0: PI * 0.3, phiLen: PI * 1.4 }), cloth(C(col))); add(hd, 'acc_band', lathe([[1.04, 0.5], [1.1, 0.6], [1.04, 0.7]], 22), metal(C(c2 || '#2a5ab0'))); add(hd, 'acc_gem', at(E(0.1, 0.16, 0.08, 8, 6), [0, 0.72, 1.06]), glow(C(c.R.eye)));
+      for (let i = 0; i < 4; i++) add(hd, 'acc_stripe', lathe([[1.27 + i * 0.05, 0.2 - i * 0.36], [1.31 + i * 0.05, 0.14 - i * 0.36], [1.29 + i * 0.05, 0.06 - i * 0.36]], 20, { phi0: PI * 0.3, phiLen: PI * 1.4 }), cloth(C(c2 || '#2a5ab0'))); }
+    else if (kind === 'winged') { add(hd, 'acc_helm', lathe([[1.04, 0.3], [1.11, 0.46], [1.04, 0.62]], 24), m); add(hd, 'acc_helm', at(E(0.07, 0.3, 0.05, 6, 6), [0, 0.1, 1.06]), m); S(g => [0, 1, 2].forEach(i => add(hd, 'acc_wing', at(E(0.07, 0.46 - i * 0.09, 0.17, 8, 8), [g * 0.12, 0.42 - i * 0.02, -0.02 - i * 0.14], [0, 0, -g * (0.25 + i * 0.3)]), mt(C(c2 || '#ffffff')), [g * 1.02, 0.5, 0]))); }
+    else if (kind === 'mushroom') { add(hd, 'acc_helm', lathe([[0.02, 1.95], [0.9, 1.8], [1.72, 1.24], [2.02, 0.72], [1.92, 0.5], [1.0, 0.6], [0.6, 0.72]], 24), mt(C(col), { rough: 0.6, spec: 0.25 })); [[0, 1.93, 0, 0.3], [0.9, 1.6, 0.5, 0.26], [-0.8, 1.62, 0.6, 0.22], [0.3, 1.5, -1.1, 0.26], [-1.1, 1.3, -0.6, 0.24], [1.3, 1.2, -0.4, 0.2], [-0.2, 1.36, 1.3, 0.2]].forEach(([x, y, z, r]) => add(hd, 'acc_spot', at(E(r, r * 0.4, r, 8, 5), [x, y, z]), mt(C(c2 || '#ffffff')))); }
+    else if (kind === 'jelly') { add(hd, 'acc_helm', lathe([[0.02, 1.65], [0.8, 1.55], [1.36, 1.04], [1.52, 0.42], [1.42, 0.2]], 22), glass(C(col), 0.6)); const L = []; for (let i = 0; i < 9; i++) { const a = i / 9 * PI * 2, x = Math.sin(a) * 1.3, z = Math.cos(a) * 1.3; if (z > 0.7) continue; L.push(tube([[x, 0.3, z], [x * 1.1, -0.4, z * 1.1], [x * 0.95, -1.1, z * 0.95], [x * 1.08, -1.8, z * 1.08]], t => [0.07 - t * 0.04, 0.07 - t * 0.04], 5)); } add(hd, 'acc_tent', merge(L), glow(C(c2 || col))); }
+    else if (kind === 'hood') add(hd, 'acc_helm', lathe([[0.02, 1.36], [0.72, 1.28], [1.18, 0.82], [1.28, 0.1], [1.22, -0.7], [1.02, -1.12]], 22, { phi0: PI * 0.2, phiLen: PI * 1.6 }), cloth(C(col)));
+    else if (kind === 'cobra') { add(hd, 'acc_helm', lathe([[0.3, 1.32], [1.2, 1.02], [1.72, 0.3], [1.5, -0.6], [0.8, -1.32]], 20, { phi0: PI * 0.5, phiLen: PI, sz: 0.5 }), mt(C(col), { twoSide: true })); S(g => add(hd, 'acc_spot', at(E(0.2, 0.26, 0.04, 8, 6), [g * 1.1, 0.3, -0.08]), mt(C(c2 || '#e8d060'), { unlit: true }))); }
+    else if (kind === 'dome') add(hd, 'acc_helm', at(E(1.34, 1.3, 1.34, 20, 14), [0, 0.1, 0]), glass(C(col), 0.5));
+    else if (kind === 'pyramid') { add(hd, 'acc_helm', at(lathe([[0.01, 2.3], [2.0, -1.0], [0.01, -1.0]], 3, { sub: 1 }), [0, 0, 0], [0, PI, 0]), glass([0.92, 0.95, 1], 0.4)); for (let i = 0; i < 3; i++) { const a = PI + i * PI * 2 / 3; add(hd, 'acc_edge', capsule([0, 2.3, 0], [Math.sin(a) * 2.0, -1.0, Math.cos(a) * 2.0], 0.035, 0.035, 5), glow(C('rainbow', i * 2))); } }
+  });
+  P16.crown = H((c, kind, a, b, k) => {
+    const hd = c.hd;
+    if (kind === 'flame') { const s = k || 1, fl = (r, h) => lathe([[r * 0.8, 0], [r, h * 0.25], [r * 0.6, h * 0.62], [0.01, h]], 8), P = [[0, 0, 1.25], [0.5, 0.25, 0.9], [-0.5, 0.2, 0.95], [0.25, -0.45, 0.85], [-0.3, -0.4, 0.8], [0.0, 0.55, 0.7], [0.7, -0.2, 0.6], [-0.72, -0.15, 0.62]];
+      add(hd, 'acc_flame', merge(P.map(([x, z, h]) => at(fl(0.36 * s, h * 1.1 * s), [x * 0.8, 0.72, z * 0.8 - 0.05]))), glow(C(a))); add(hd, 'acc_flame', merge(P.map(([x, z, h]) => at(fl(0.2 * s, h * 0.75 * s), [x * 0.8, 0.76, z * 0.8 - 0.05]))), glow(C(b || '#ffe27a'))); }
+    else if (kind === 'leaf') { const L = []; for (let i = 0; i < 11; i++) { const an = i / 11 * PI * 2; L.push(at(at(fcone(0.17, 0.55, 0.25), [0, 0, 1.0], [0.55, 0, 0]), [0, 0.42, 0], [0, an, 0])); } add(hd, 'acc_leaf', merge(L), mt(C(a))); }
+    else if (kind === 'flower') { const fl = s => merge([0, 1, 2, 3, 4].map(i => at(at(E(0.1 * s, 0.035 * s, 0.17 * s, 8, 6), [0, 0, 0.17 * s]), [0, 0, 0], [0, i * PI * 2 / 5, 0]))), big = k === 'big', pos = b === 1 || big ? [[0.62, 1.0, 0.3]] : [hp(0.9, 0.82, 1.03), hp(-0.9, 0.82, 1.03), hp(0, 0.46, 1.03)];
+      pos.forEach(p => { add(hd, 'acc_flower', at(fl(big ? 2.6 : 1.2), [0, 0, 0], [PI / 2 - 0.5, 0, 0]), mt(C(a)), p); add(hd, 'acc_flower', E(big ? 0.2 : 0.09, big ? 0.2 : 0.09, big ? 0.2 : 0.09, 8, 6), mt([1, 0.85, 0.3]), [p[0], p[1] + 0.03, p[2] + 0.05]); }); }
+    else if (kind === 'ice' || kind === 'crystal') { const n = 7; for (let i = 0; i < n; i++) { const an = (i - 3) * 0.42, h = 0.95 - Math.abs(i - 3) * 0.17; add(hd, 'acc_ice', at(cone(0.17, h, 5), [0, -0.12, 0], [-0.28, 0, -an * 0.5]), kind === 'ice' ? shiny(C(a, i)) : glow(C(a, i)), hp(an, 0.74, 0.97)); } }
+    else if (kind === 'tiara') { add(hd, 'acc_tiara', lathe([[1.03, 0.44], [1.08, 0.5], [1.03, 0.56]], 18, { phi0: -PI * 0.42, phiLen: PI * 0.84 }), metal(C(a))); add(hd, 'acc_gem', at(E(0.1, 0.16, 0.07, 8, 6), [0, 0.6, 1.02]), glow(C(b || c.R.eye))); S(g => add(hd, 'acc_gem', at(E(0.06, 0.09, 0.05, 6, 5), [g * 0.42, 0.56, 0.95]), glow(C(b || c.R.eye)))); }
+    else if (kind === 'feather') { for (let i = 0; i < 5; i++) add(hd, 'acc_feather', at(E(0.08, 0.5 - Math.abs(i - 2) * 0.07, 0.17, 8, 8), [0, 0.45, 0], [-0.5, 0, -(i - 2) * 0.34]), mt(C(a, i)), [0, 0.86, -0.35]); }
+    else if (kind === 'snakes') { const L = [], Hh = []; for (let i = 0; i < 10; i++) { const p = hp(i / 10 * PI * 2 + 0.3, 0.55 + (i % 3) * 0.22, 0.95), q = p.map(v => v * 1.45), r = p.map(v => v * 1.85), e = p.map(v => v * 2.0); q[1] += 0.25; r[1] += 0.1 + (i % 2) * 0.3; e[1] += -0.15 + (i % 2) * 0.35; L.push(tube([p, q, r, e], t => [0.1 - t * 0.04, 0.1 - t * 0.04], 6)); Hh.push(at(E(0.11, 0.08, 0.11, 6, 5), e)); } add(hd, 'acc_snake', merge(L), mt(C(a))); add(hd, 'acc_snake', merge(Hh), mt(dk(C(a), 0.7))); }
+    else if (kind === 'gills') S(g => [0, 1, 2].forEach(i => add(hd, 'acc_gill', tube([[0, 0, 0], [g * 0.35, 0.2 - i * 0.22, -0.05], [g * 0.75, 0.42 - i * 0.42, -0.12]], t => [0.09 - t * 0.06, 0.09 - t * 0.06], 6), mt(C(a)), hp(g * 1.5, 1.35 + i * 0.16, 0.92))));
+    else if (kind === 'eyes') [[0.2, 0.46, 0.94], [-0.2, 0.46, 0.94], [0.45, 0.4, 0.84], [-0.45, 0.4, 0.84]].forEach(p => add(hd, 'acc_eye', at(E(0.075, 0.075, 0.05, 6, 5), p), glow(C(a))));
+    else if (kind === 'eyesGlow') S(g => add(hd, 'acc_eye', at(E(0.2, 0.12, 0.07, 8, 6), [g * 0.37, 0.07, 0.93], [0, 0, g * 0.12]), glow(C(a))));
+    else if (kind === 'stalk') { const frog = a === 'frog', col = mt(C(b || c.R.skin)); S(g => { const p = frog ? [g * 0.5, 0.88, 0.42] : [g * 0.42, 1.5, 0.55]; if (!frog) add(hd, 'acc_stalk', capsule([g * 0.34, 0.85, 0.45], p, 0.06, 0.05, 6), col); add(hd, 'acc_eye', at(E(frog ? 0.34 : 0.17, frog ? 0.34 : 0.17, frog ? 0.34 : 0.17, 10, 8), p), frog ? col : mt(white, { unlit: true })); if (frog) add(hd, 'acc_eye', at(E(0.22, 0.22, 0.1, 8, 6), [p[0], p[1] + 0.03, p[2] + 0.27]), mt(white, { unlit: true })); add(hd, 'acc_eye', at(E(0.09, 0.11, 0.06, 6, 5), [p[0], p[1] + (frog ? 0.03 : 0), p[2] + (frog ? 0.35 : 0.14)]), mt(dark, { unlit: true })); }); }
+    else if (kind === 'lure') { add(hd, 'acc_lure', tube([[0, 0.85, 0.5], [0, 1.55, 0.7], [0, 1.75, 1.25], [0, 1.45, 1.6]], () => [0.035, 0.035], 6), mt(dk(c.R.skin, 0.8))); add(hd, 'acc_lure', at(E(0.15, 0.15, 0.15, 10, 8), [0, 1.42, 1.62]), glow(C(a))); }
+    else if (kind === 'antenna') S(g => { const col = C(b || '#3a2a1a'); add(hd, 'acc_ant', tube(a === 'curl' ? [[g * 0.25, 0.9, 0.3], [g * 0.45, 1.5, 0.45], [g * 0.75, 1.8, 0.5], [g * 0.9, 1.6, 0.5], [g * 0.78, 1.48, 0.5]] : [[g * 0.25, 0.9, 0.3], [g * 0.4, 1.5, 0.42], [g * 0.52, 1.92, 0.62]], () => [0.03, 0.03], 5), mt(a === 'ball' ? dk(col, 0.5) : col)); if (a === 'ball') add(hd, 'acc_ant', at(E(0.1, 0.1, 0.1, 8, 6), [g * 0.52, 1.95, 0.63]), glow(col)); if (a === 'feather') add(hd, 'acc_ant', at(E(0.14, 0.42, 0.03, 8, 8), [g * 0.46, 1.5, 0.48], [0.3, 0, -g * 0.3]), mt(col)); });
+    else if (kind === 'whiskers') S(g => add(hd, 'acc_whisk', tube([[g * 0.2, -0.36, 0.95], [g * 0.7, -0.3, 0.9], [g * 1.3, -0.1, 0.4], [g * 1.6, 0.3, -0.3]], t => [0.04 - t * 0.028, 0.04 - t * 0.028], 5), mt(C(a))));
+    else if (kind === 'mane') { const L = []; for (let i = 0; i < 16; i++) { const an = i / 16 * PI * 2; L.push([Math.sin(an) * 1.18, Math.cos(an) * 1.18 + 0.05, -0.18 + (i % 2) * 0.12, 0.42]); } for (let i = 0; i < 9; i++) { const an = i / 9 * PI * 2; L.push([Math.sin(an) * 0.8, 0.2 + Math.cos(an) * 0.8, -0.8, 0.45]); } add(hd, 'acc_mane', blobs(L), mt(C(a), { rough: 1 })); }
+    else if (kind === 'cyclops') { add(hd, 'acc_eye', at(E(0.46, 0.44, 0.2, 14, 10), [0, 0.1, 0.9]), mt(white, { unlit: true })); add(hd, 'acc_eye', at(E(0.25, 0.25, 0.1, 10, 8), [0, 0.1, 1.06]), glow(C(a))); add(hd, 'acc_eye', at(E(0.11, 0.11, 0.06, 8, 6), [0, 0.1, 1.14]), mt(dark, { unlit: true })); add(hd, 'acc_brow', at(E(0.52, 0.1, 0.14, 10, 6), [0, 0.56, 0.9]), mt(dk(c.R.skin, 0.7))); }
+    else if (kind === 'goggles') { const y = k === 'eyes' ? 0.1 : 0.55, z = k === 'eyes' ? 0.96 : 0.92; S(g => { add(hd, 'acc_gog', at(ring(0.22, 0.045, 12), [g * 0.34, y, z], [PI / 2, 0, 0]), metal(C(a))); add(hd, 'acc_gog', at(E(0.2, 0.2, 0.05, 10, 6), [g * 0.34, y, z + 0.01]), glow(C(b || '#7fffff'))); }); add(hd, 'acc_gog', lathe([[1.02, y - 0.07], [1.05, y], [1.02, y + 0.07]], 20), mt([0.2, 0.14, 0.1])); }
+    else if (kind === 'visor') add(hd, 'acc_vis', lathe([[1.0, 0.0], [1.06, 0.1], [1.0, 0.2]], 18, { phi0: -PI * 0.4, phiLen: PI * 0.8 }), glow(C(a)));
+    else if (kind === 'fin') add(hd, 'acc_fin', at(fin(0.36, 0.95), [0, 0.72, -0.25], [-0.55, 0, 0]), mt(C(a)));
+    else if (kind === 'drop') add(hd, 'acc_drop', lathe([[0.01, 2.3], [0.14, 1.95], [0.46, 1.5], [0.72, 1.12], [0.62, 0.94], [0.3, 0.9]], 16), shiny(C(a)));
+    else if (kind === 'mantle') add(hd, 'acc_mantle', at(E(0.95, 1.05, 1.15, 16, 12), [0, 0.65, -0.7]), mt(C(a)));
+    else if (kind === 'rocks') add(hd, 'acc_rock', merge([[0, 1.0, 0, 0.5], [0.5, 0.85, -0.2, 0.36], [-0.5, 0.8, 0.1, 0.34], [0.1, 0.9, -0.6, 0.4]].map(([x, y, z, r]) => at(E(r, r * 0.8, r, 6, 4), [x, y, z]))), mt(C(a), { rough: 0.95 }));
+    else if (kind === 'nosering') add(hd, 'acc_ring', at(ring(0.11, 0.025, 10), [0, -0.43, 1.2], [PI / 2, 0, 0]), metal(C(a)));
+    else if (kind === 'brow') S(g => add(hd, 'acc_brow', at(E(0.34, 0.08, 0.1, 8, 6), [g * 0.42, 0.42, 0.86], [0, 0, g * 0.5]), mt(C(a))));
+    else if (kind === 'patches') S(g => add(hd, 'acc_patch', at(E(0.3, 0.24, 0.08, 8, 6), [g * 0.38, 0.08, 0.9], [0, 0, -g * 0.4]), mt(C(a))));
+    else if (kind === 'shards') { const n = new Node('acc_shards'); n.pos = [0, 1.55, 0]; hd.add(n); const L = []; for (let i = 0; i < 8; i++) { const an = i / 8 * PI * 2; L.push(at(cone(0.09, 0.42 - (i % 2) * 0.14, 4), [Math.sin(an) * 0.78, 0, Math.cos(an) * 0.78])); } n.meshes.push(new Mesh(merge(L), glow(C(a)))); spin(c, n); }
+  });
+  P16.face = H((c, kind, a) => {
+    const hd = c.hd;
+    if (kind === 'fangs') S(g => add(hd, 'acc_fang', at(cone(0.045, 0.2 * (typeof a === 'number' ? a : 1), 5), [g * 0.17, -0.5, 0.9], [PI, 0, 0]), mt(white)));
+    else if (kind === 'cloudbeard') add(hd, 'acc_beard', blobs([[0, -0.98, 0.7, 0.32], [0.42, -0.82, 0.6, 0.29], [-0.42, -0.82, 0.6, 0.29], [0.72, -0.5, 0.42, 0.26], [-0.72, -0.5, 0.42, 0.26], [0, -1.36, 0.6, 0.26], [0.3, -1.2, 0.5, 0.22], [-0.3, -1.2, 0.5, 0.22]]), mt(C(a), { rough: 1, rim: 0.6 }));
+    else if (kind === 'tentaclebeard') { const L = []; for (let i = 0; i < 5; i++) { const x = (i - 2) * 0.2; L.push(tube([[x, -0.6, 0.85], [x * 1.2, -1.1, 1.0], [x * 1.5, -1.6, 0.85], [x * 1.3, -1.95, 0.95]], t => [0.1 - t * 0.06, 0.1 - t * 0.06], 6)); } add(hd, 'acc_beard', merge(L), mt(C(a))); }
+  });
+
+  /* ================= CORPS (repère des articulations, en mètres) ================= */
+  const cuirass = () => lathe([[0.06, 0.25], [0.15, 0.21], [0.178, 0.1], [0.168, -0.02], [0.142, -0.12], [0.13, -0.145]], 18, { sz: 0.74 });
+  P16.torso = (c, kind, a, b) => {
+    const J = c.J.chest; if (!J) return;
+    if (kind === 'cuirass') add(J, 'r_cuir', cuirass(), metal(C(a)));
+    else if (kind === 'lamellar') { add(J, 'r_cuir', cuirass(), mt(C(a), { rough: 0.7 })); [0.16, 0.07, -0.02, -0.1].forEach(y => add(J, 'r_band', lathe([[0.176, y + 0.02], [0.186, y], [0.176, y - 0.02]], 18, { sz: 0.74 }), metal(C(b || '#e8d48a')))); }
+    else if (kind === 'poncho') add(J, 'r_poncho', lathe([[0.07, 0.25], [0.2, 0.17], [0.33, -0.02], [0.38, -0.2], [0.36, -0.22]], 20, { sz: 0.8 }), cloth(C(a)));
+    else if (kind === 'fur' || kind === 'cloudcollar') { const L = []; for (let i = 0; i < 12; i++) { const an = i / 12 * PI * 2; L.push([Math.sin(an) * 0.17, 0.2 + (i % 2) * 0.015, Math.cos(an) * 0.11, kind === 'fur' ? 0.075 : 0.09]); } add(J, 'r_fur', blobs(L), mt(C(a || '#ffffff'), { rough: 1, rim: 0.5 })); }
+    else if (kind === 'scarf') { add(J, 'r_scarf', lathe([[0.085, 0.2], [0.125, 0.245], [0.085, 0.29]], 16, { sz: 0.85 }), cloth(C(a))); const n = add(J, 'r_scarft', grid(3, 6, (u, v) => ({ p: [(u - 0.5) * 0.1, -v * 0.5, -v * 0.1 - Math.sin(v * 6) * 0.01] })), cloth(C(a)), [0.05, 0.24, -0.1]); sw(c, n, 0.06, 0.2); }
+    else if (kind === 'ribs') { const L = []; S(g => [0.2, 0.13, 0.06, -0.01].forEach((y, i) => L.push(tube([[0, y, -0.1], [g * 0.17, y - 0.02, 0], [g * (0.12 - i * 0.01), y - 0.04, 0.125], [g * 0.02, y - 0.03, 0.15]], () => [0.013, 0.013], 5)))); L.push(capsule([0, 0.2, 0.15], [0, -0.05, 0.145], 0.018, 0.014, 6)); add(J, 'r_ribs', merge(L), mt(C(a || '#e8e2d0'), { rough: 0.6 })); }
+    else if (kind === 'furnace') { add(J, 'r_furn', at(E(0.125, 0.115, 0.05, 12, 8), [0, 0.0, 0.115]), mt(dark)); add(J, 'r_furn', at(E(0.1, 0.09, 0.05, 10, 8), [0, 0.0, 0.128]), glow(C(a))); add(J, 'r_furn', merge([-0.05, 0, 0.05].map(x => capsule([x, -0.08, 0.175], [x, 0.08, 0.175], 0.009, 0.009, 5))), mt(dark)); }
+    else if (kind === 'drum') { add(J, 'r_drum', at(E(0.145, 0.15, 0.07, 14, 10), [0, -0.03, 0.105]), mt(C(a))); add(J, 'r_drum', at(ring(0.1, 0.008, 14), [0, -0.03, 0.172], [PI / 2, 0, 0]), mt([0.5, 0.3, 0.16])); }
+    else if (kind === 'core') { add(J, 'r_core', at(E(0.045, 0.045, 0.03, 10, 8), [0, 0.1, 0.132]), glow(C(a))); add(J, 'r_core', at(ring(0.058, 0.01, 12), [0, 0.1, 0.13], [PI / 2, 0, 0]), metal([0.3, 0.3, 0.34])); }
+    else if (kind === 'petalCollar') { const s = b || 1, L = []; for (let i = 0; i < 9; i++) L.push(at(at(E(0.05 * s, 0.014, 0.12 * s, 8, 5), [0, -0.035, 0.13 * s], [0.32, 0, 0]), [0, 0.215, 0], [0, i / 9 * PI * 2, 0])); add(J, 'r_petal', merge(L), mt(C(a), { twoSide: true })); }
+    else if (kind === 'apron') add(J, 'r_apron', grid(3, 5, (u, v) => ({ p: [(u - 0.5) * (0.2 + v * 0.06), 0.16 - v * 0.72, 0.135 + Math.sin(v * PI) * 0.03] })), cloth(C(a)));
+    else if (kind === 'necklace') { const L = []; for (let i = 0; i < 9; i++) { const an = (i - 4) * 0.27; L.push(at(cone(0.017, 0.055, 5), [Math.sin(an) * 0.125, 0.2 - Math.cos(an) * 0.075, 0.07 + Math.cos(an) * 0.055], [PI, 0, 0])); } add(J, 'r_neck', merge(L), mt(C(a), { spec: 0.4 })); }
+    else if (kind === 'belly') { const s = b || 1; add(J, 'r_belly', at(E(0.118 * s, 0.185 * s, 0.07 * s, 12, 10), [0, -0.01, 0.075]), mt(C(a))); }
+    else if (kind === 'jabot') add(J, 'r_jabot', merge([at(E(0.065, 0.05, 0.04, 8, 6), [0, 0.17, 0.125]), at(E(0.05, 0.05, 0.035, 8, 6), [0, 0.11, 0.135]), at(E(0.035, 0.04, 0.03, 8, 6), [0, 0.06, 0.135])]), mt(C(a)));
+  };
+  P16.back = (c, kind, a, b) => {
+    const J = c.J.chest, Hp = c.J.hips; if (!J) return;
+    if (kind === 'shell') { add(J, 'r_shell', at(E(0.215, 0.255, 0.125, 16, 12), [0, 0.03, -0.125]), mt(C(a), { spec: 0.3, rough: 0.5 })); add(J, 'r_shell', merge([[0, 0.05, 0.075], [0.1, 0.14, 0.055], [-0.1, 0.14, 0.055], [0.1, -0.06, 0.055], [-0.1, -0.06, 0.055], [0, 0.2, 0.05], [0, -0.12, 0.05]].map(([x, y, r]) => at(E(r, r, 0.035, 8, 5), [x, y, -0.235 + Math.abs(x) * 0.25 + Math.abs(y - 0.03) * 0.12]))), mt(C(b || a))); }
+    else if (kind === 'tank') { S(g => add(J, 'r_tank', capsule([g * 0.075, -0.08, -0.155], [g * 0.075, 0.2, -0.155], 0.058, 0.058, 10), metal(C(a)))); S(g => add(J, 'r_tank', at(E(0.04, 0.02, 0.04, 8, 5), [g * 0.075, 0.262, -0.155]), glow(C(b || '#ffe14d')))); }
+    else if (kind === 'fin') add(J, 'r_fin', at(fin(0.13, 0.32), [0, 0.1, -0.1], [-1.05, 0, 0]), mt(C(a)));
+    else if (kind === 'spikes') { add(J, 'r_spk', merge([0, 1, 2, 3].map(i => at(cone(0.035, 0.15 - i * 0.015, 5), [0, 0.24 - i * 0.095, -0.1], [-1.25, 0, 0]))), mt(C(a))); if (Hp) add(Hp, 'r_spk', at(cone(0.03, 0.1, 5), [0, 0.06, -0.1], [-1.3, 0, 0]), mt(C(a))); }
+    else if (kind === 'drums') { const n = new Node('r_drums'); n.pos = [0, 0.2, -0.2]; J.add(n); const D = [], G = [], P = []; for (let i = 0; i < 7; i++) { const an = (i - 3) * 0.52, p = [Math.sin(an) * 0.4, Math.cos(an) * 0.4 - 0.05, 0]; P.push(p); D.push(at(E(0.085, 0.085, 0.03, 12, 6), p)); G.push(at(E(0.035, 0.035, 0.034, 8, 5), p)); } n.meshes.push(new Mesh(merge(D), mt(C(a)))); n.meshes.push(new Mesh(merge(G), glow(C(b || '#ffe14d')))); n.meshes.push(new Mesh(tube(P, () => [0.012, 0.012], 5), metal([0.3, 0.26, 0.2]))); sw(c, n, 0.02, 0.04); }
+    else if (kind === 'blades') { const n = new Node('r_blades'); n.pos = [0, 0.2, -0.22]; J.add(n); const L = []; for (let i = 0; i < 6; i++) L.push(at(at(fcone(0.04, 0.62, 0.18, 4), [0, 0.2, 0]), [0, 0, 0], [0, 0, -(i - 2.5) * 0.44])); n.meshes.push(new Mesh(merge(L), glow(C(a)))); sw(c, n, 0.03, 0.04); }
+    else if (kind === 'legs') S(g => [0, 1].forEach(k => add(J, 'r_leg', tube([[g * 0.04, 0.12 - k * 0.1, -0.1], [g * 0.42, 0.44 - k * 0.2, -0.26], [g * 0.72, 0.06 - k * 0.25, -0.16], [g * 0.8, -0.46 - k * 0.2, -0.05]], t => [0.032 - t * 0.022, 0.032 - t * 0.022], 6), mt(C(a), { spec: 0.4 }))));
+    else if (kind === 'tentacles') { if (!Hp) return; S(g => { const n = add(Hp, 'r_tent', merge([tube([[g * 0.1, 0, -0.08], [g * 0.35, -0.25, -0.2], [g * 0.55, -0.55, -0.1], [g * 0.6, -0.75, 0.1], [g * 0.5, -0.8, 0.2]], t => [0.06 - t * 0.045, 0.06 - t * 0.045], 7), tube([[g * 0.06, 0, -0.1], [g * 0.2, -0.3, -0.35], [g * 0.25, -0.65, -0.45], [g * 0.15, -0.85, -0.35]], t => [0.06 - t * 0.045, 0.06 - t * 0.045], 7)]), mt(C(a))); sw(c, n, 0.05, 0.08); }); }
+    else if (kind === 'chimney') S(g => { add(J, 'r_chim', capsule([g * 0.07, 0.0, -0.14], [g * 0.1, 0.44, -0.21], 0.036, 0.046, 8), metal(C(a))); add(J, 'r_chim', at(E(0.04, 0.016, 0.04, 8, 5), [g * 0.1, 0.485, -0.21]), glow(C(b || '#ff8a1a'))); });
+    else if (kind === 'rod') { add(J, 'r_rod', capsule([0, -0.1, -0.13], [0, 0.62, -0.17], 0.012, 0.01, 6), metal(C(a))); add(J, 'r_rod', at(E(0.045, 0.045, 0.045, 8, 6), [0, 0.65, -0.17]), glow(C(b || '#ffe14d'))); [0.4, 0.5].forEach(y => add(J, 'r_rod', at(ring(0.035, 0.008, 10), [0, y, -0.165]), glow(C(b || '#ffe14d')))); }
+    else if (kind === 'bonewings') S(g => { const n = add(J, 'r_bw', merge([spike([[0, 0, 0], [g * 0.3, 0.35, -0.15], [g * 0.62, 0.5, -0.25]], 0.026, 6), spike([[0, 0, 0], [g * 0.5, 0.1, -0.2], [g * 0.8, -0.05, -0.3]], 0.024, 6), spike([[0, 0, 0], [g * 0.35, -0.15, -0.15], [g * 0.55, -0.5, -0.25]], 0.022, 6), spike([[g * 0.3, 0.35, -0.15], [g * 0.45, 0.1, -0.2], [g * 0.35, -0.15, -0.15]], 0.014, 5)]), mt(C(a || '#e8e2d0'), { rough: 0.6 }), [g * 0.06, 0.14, -0.1]); sw(c, n, 0.04, 0.05); });
+    else if (kind === 'abdomen') { if (!Hp) return; add(Hp, 'r_abd', at(E(0.17, 0.17, 0.25, 14, 10), [0, 0.03, -0.3]), mt(C(a), { spec: 0.4 })); add(Hp, 'r_abd', at(E(0.05, 0.07, 0.03, 8, 6), [0, 0.15, -0.44], [-0.6, 0, 0]), glow(C(b || '#ff3a8a'))); }
+    else if (kind === 'shardsOrbit') { const n = new Node('r_orbit'); n.pos = [0, 0.1, 0]; J.add(n); const L = []; for (let i = 0; i < 6; i++) { const an = i / 6 * PI * 2; L.push(at(cone(0.035, 0.13, 4), [Math.cos(an) * 0.46, (i % 3 - 1) * 0.12, Math.sin(an) * 0.46], [i, i * 2, 0.4])); } n.meshes.push(new Mesh(merge(L), b === 'glow' ? glow(C(a)) : shiny(C(a)))); spin(c, n); }
+    else if (kind === 'crystals') [[0, 0.16, 0.34, 0], [0.12, 0.08, 0.26, 0.5], [-0.12, 0.08, 0.26, -0.5], [0.07, -0.06, 0.2, 0.3], [-0.07, -0.06, 0.2, -0.3]].forEach(([x, y, h, rz], i) => add(J, 'r_cry', at(cone(0.055, h, 5), [0, 0, 0], [-1.0, 0, -rz]), glow(C(a, i)), [x, y, -0.1]));
+  };
+  P16.wings = (c, kind, a, b, k) => {
+    const J = c.J.chest; if (!J) return;
+    if (kind === 'feather') { const sp = k || 0.8, col = C(a), tipC = b ? C(b) : dk(col, 0.72); S(g => { const n = new Node('r_wing'); n.pos = [g * 0.05, 0.16, -0.115]; n.rot = [0, g * 0.5, 0]; J.add(n); const A = [], B = [], Cv = [];
+        for (let i = 0; i < 9; i++) { const an = 0.75 - i * 0.27, l = sp * (1 - i * 0.055), f = at(at(E(l * 0.5, 0.05 + i * 0.004, 0.007, 10, 6), [g * l * 0.5, 0, 0]), [0, 0, -i * 0.004], [0, 0, g * an]); (i % 2 ? B : A).push(f); }
+        for (let i = 0; i < 7; i++) { const an = 0.65 - i * 0.3, l = sp * 0.5; Cv.push(at(at(E(l * 0.5, 0.055, 0.012, 8, 6), [g * l * 0.5, 0, 0]), [0, 0, 0.012], [0, 0, g * an])); }
+        Cv.push(at(E(0.07, 0.09, 0.03, 8, 6), [g * 0.03, 0, 0.01]));
+        n.meshes.push(new Mesh(merge(A), mt(col, { twoSide: true, rough: 0.8 }))); n.meshes.push(new Mesh(merge(B), mt(tipC, { twoSide: true, rough: 0.8 }))); n.meshes.push(new Mesh(merge(Cv), mt(mixc(col, [1, 1, 1], 0.25), { twoSide: true, rough: 0.8 }))); sw(c, n, 0.07, 0.05); }); }
+    else if (kind === 'batS') PARTS.wing(c.ch, c.J, C(a), 0.42, { fing: 3 });
+    else if (kind === 'insect') S(g => [[0.72, 0.55, 0.2], [0.56, 0.05, 0.16]].forEach(([len, ang, w], i) => { const n = add(J, 'r_iw', at(E(len * 0.5, w * 0.5, 0.005, 14, 8), [g * len * 0.5, 0, 0]), glass(C(a), 0.5), [g * 0.04, 0.15, -0.11], [0, g * 0.75, g * ang]); sw(c, n, 0.2, 0.04); }));
+    else S(g => { const moth = kind === 'moth', n = new Node('r_bfly'); n.pos = [g * 0.03, 0.13, -0.115]; n.rot = [0, g * 0.45, 0]; J.add(n); const k2 = moth ? 0.85 : 1.1;
+      n.meshes.push(new Mesh(merge([at(E(0.3 * k2, 0.25 * k2, 0.006, 14, 10), [g * 0.3 * k2, 0.12 * k2, 0], [0, 0, g * 0.5]), at(E(0.2 * k2, 0.2 * k2, 0.006, 12, 8), [g * 0.22 * k2, -0.2 * k2, 0], [0, 0, -g * 0.3])]), mt(C(a), { twoSide: true, unlit: !moth, noCast: true })));
+      n.meshes.push(new Mesh(merge([at(E(0.1 * k2, 0.1 * k2, 0.009, 10, 6), [g * 0.36 * k2, 0.17 * k2, 0]), at(E(0.07 * k2, 0.07 * k2, 0.009, 8, 6), [g * 0.24 * k2, -0.22 * k2, 0])]), mt(C(b), { twoSide: true, unlit: true, noCast: true })));
+      if (k) n.meshes.push(new Mesh(merge([at(E(0.045, 0.045, 0.011, 8, 5), [g * 0.36 * k2, 0.17 * k2, 0]), at(E(0.05, 0.05, 0.009, 8, 5), [g * 0.52 * k2, 0.3 * k2, 0])]), mt(C(k), { twoSide: true, unlit: true, noCast: true }))); sw(c, n, 0.16, 0.04); });
+  };
+  P16.tail = (c, kind, a, b, k, x) => {
+    const J = c.J.hips; if (!J) return;
+    const one = (geo, mat, rz) => { const n = add(J, 'r_tail', geo, mat, [0, 0, -0.06], [0, 0, rz || 0]); sw(c, n, 0.07, 0.14); return n; };
+    if (kind === 'fox') { const n = a || 1; for (let i = 0; i < n; i++) { const t = one(blobs([[0, -0.02, -0.08, 0.065], [0, 0.03, -0.2, 0.095], [0, 0.11, -0.34, 0.115], [0, 0.2, -0.47, 0.105]]), mt(C(b), { rough: 1 }), (i - (n - 1) / 2) * 0.55); t.meshes.push(new Mesh(at(E(0.075, 0.075, 0.09, 9, 7), [0, 0.28, -0.57]), mt(C(k || '#ffffff'), { rough: 1 }))); } }
+    else if (kind === 'cat') { const n = a || 1; for (let i = 0; i < n; i++) one(tube([[0, 0, -0.04], [0, -0.1, -0.26], [0, -0.05, -0.46], [0, 0.15, -0.56], [0, 0.3, -0.5]], t => [0.03 - t * 0.008, 0.03 - t * 0.008], 6), mt(C(b)), (i - (n - 1) / 2) * 0.5); }
+    else if (kind === 'fish') { const t = one(tube([[0, 0, -0.04], [0, -0.15, -0.24], [0, -0.35, -0.38], [0, -0.5, -0.55]], t => [0.085 - t * 0.055, 0.085 - t * 0.055], 8), mt(C(a))); S(g => t.meshes.push(new Mesh(at(E(0.02, 0.16, 0.09, 8, 6), [g * 0.07, -0.56, -0.62], [0.6, 0, g * 0.7]), mt(C(b || a), { twoSide: true })))); }
+    else if (kind === 'scorpion') { const P = [[0, -0.02, -0.08], [0, 0.05, -0.26], [0, 0.25, -0.41], [0, 0.5, -0.44], [0, 0.72, -0.36], [0, 0.86, -0.21]]; const t = one(merge(P.map((p, i) => at(E(0.072 - i * 0.005, 0.072 - i * 0.005, 0.072 - i * 0.005, 8, 6), p))), mt(C(a), { spec: 0.4 })); t.meshes.push(new Mesh(at(cone(0.04, 0.18, 6), [0, 0.88, -0.17], [1.9, 0, 0]), glow(C(b || '#ff5a3a')))); }
+    else if (kind === 'bunny') add(J, 'r_tail', at(E(0.085, 0.085, 0.085, 9, 7), [0, 0.02, -0.15]), mt(C(a), { rough: 1 }));
+    else if (kind === 'tuft') { const t = one(tube([[0, 0, -0.04], [0, -0.14, -0.26], [0, -0.3, -0.42], [0, -0.36, -0.6]], () => [0.02, 0.02], 6), mt(C(a))); t.meshes.push(new Mesh(at(E(0.055, 0.075, 0.055, 8, 6), [0, -0.38, -0.65]), mt(C(b || a), { rough: 1 }))); }
+    else if (kind === 'ring') { const P = [[0, -0.02, -0.1, 0.085], [0, -0.02, -0.24, 0.11], [0, 0.02, -0.39, 0.125], [0, 0.08, -0.54, 0.12], [0, 0.15, -0.67, 0.095]]; const t = one(blobs(P.filter((p, i) => i % 2 === 0)), mt(C(a), { rough: 1 })); t.meshes.push(new Mesh(blobs(P.filter((p, i) => i % 2 === 1)), mt(C(b), { rough: 1 }))); }
+    else if (kind === 'bolt') one(merge([[0, 0, -0.06], [0.09, 0.1, -0.22], [-0.07, 0.16, -0.36], [0.09, 0.28, -0.48], [0, 0.42, -0.6]].map((p, i, A) => (i ? capsule(A[i - 1], p, 0.032 - i * 0.004, 0.03 - i * 0.004, 5) : null)).filter(Boolean)), glow(C(a)));
+    else if (kind === 'fan') { const n = new Node('r_fan'); n.pos = [0, 0.05, -0.15]; n.rot = [-0.3, 0, 0]; J.add(n); const cols = a, N = b || 9, len = k || 0.8, St = [], Ey = [[], [], []]; for (let i = 0; i < N; i++) { const an = (i / (N - 1) - 0.5) * 2.5, l = len * (1 - Math.abs(an) * 0.12), e = [Math.sin(an) * l, Math.cos(an) * l, 0]; St.push(at(at(E(0.05, l * 0.5, 0.008, 6, 8), [0, l * 0.5, 0]), [0, 0, 0], [0, 0, -an])); Ey[i % 3].push(at(E(x ? 0.075 : 0.05, x ? 0.095 : 0.07, 0.012, 8, 6), [e[0], e[1], 0.004], [0, 0, -an])); if (x) Ey[(i + 1) % 3].push(at(E(0.035, 0.045, 0.016, 6, 5), [e[0], e[1], 0.006], [0, 0, -an])); }
+      n.meshes.push(new Mesh(merge(St), mt(C(cols[0]), { twoSide: true }))); Ey.forEach((L, i) => { if (L.length) n.meshes.push(new Mesh(merge(L), mt(C(cols[(i + 1) % cols.length]), { unlit: true, noCast: true, twoSide: true }))); }); sw(c, n, 0.04, 0.06); }
+    else if (kind === 'bulb') add(J, 'r_tail', at(E(0.085, 0.13, 0.085, 10, 8), [0, -0.02, -0.17], [0.5, 0, 0]), glow(C(a)));
+    else if (kind === 'bone') one(merge([[0, -0.02, -0.1], [0, -0.1, -0.26], [0, -0.22, -0.4], [0, -0.36, -0.52], [0, -0.48, -0.66], [0, -0.55, -0.82]].map((p, i) => at(E(0.06 - i * 0.006, 0.05 - i * 0.005, 0.07 - i * 0.006, 7, 5), p))), mt(C(a || '#e8e2d0'), { rough: 0.6 }));
+    else if (kind === 'curl') one(tube([[0, 0, -0.06], [0, -0.2, -0.24], [0, -0.42, -0.2], [0, -0.5, -0.02], [0, -0.38, 0.06], [0, -0.3, -0.04]], t => [0.07 - t * 0.05, 0.07 - t * 0.05], 7), mt(C(a)));
+  };
+  P16.hips = (c, kind, a, b, k) => {
+    const J = c.J.hips; if (!J) return;
+    if (kind === 'kilt') add(J, 'r_kilt', lathe([[0.15, 0.07], [0.19, -0.1], [0.24, -0.3], [0.252, -0.335], [0.232, -0.325]], 20, { sz: 0.86 }), cloth(C(a)));
+    else if (kind === 'tassets') add(J, 'r_tas', merge([0, 1, 2, 3, 4, 5].map(i => at(at(E(0.075, 0.13, 0.02, 8, 6), [0, -0.13, 0.185], [-0.14, 0, 0]), [0, 0, 0], [0, i / 6 * PI * 2 + PI / 6, 0]))), metal(C(a)));
+    else if (kind === 'loin') { add(J, 'r_loin', grid(2, 4, (u, v) => ({ p: [(u - 0.5) * 0.17, 0.03 - v * 0.46, 0.125 + v * 0.03] })), cloth(C(a))); add(J, 'r_loin', grid(2, 4, (u, v) => ({ p: [(u - 0.5) * 0.17, 0.03 - v * 0.42, -0.115 - v * 0.03] })), cloth(C(a))); add(J, 'r_loin', lathe([[0.158, 0.0], [0.17, 0.03], [0.158, 0.06]], 18, { sz: 0.8 }), mt(dk(C(a), 0.6))); }
+    else if (kind === 'petal') { const n = b || 8, cr = k === 'crystal', L = []; for (let i = 0; i < n; i++) L.push([at(at(cr ? at(cone(0.06, 0.3, 5), [0, 0, 0], [PI, 0, 0]) : E(0.085, 0.2, 0.018, 8, 8), [0, cr ? -0.02 : -0.2, 0.2], [-0.2, 0, 0]), [0, 0.02, 0], [0, i / n * PI * 2, 0]), i]);
+      if (a === 'rainbow') L.forEach(([g, i]) => add(J, 'r_petal', g, glow(C(a, i)))); else add(J, 'r_petal', merge(L.map(l => l[0])), cr ? glow(C(a)) : mt(C(a), { twoSide: true })); }
+    else if (kind === 'cloud') { const s = b || 1, L = []; for (let i = 0; i < 9; i++) { const an = i / 9 * PI * 2; L.push([Math.sin(an) * 0.19 * s, -0.1 - (i % 2) * 0.09, Math.cos(an) * 0.16 * s, 0.125 * s]); } for (let i = 0; i < 6; i++) { const an = i / 6 * PI * 2 + 0.4; L.push([Math.sin(an) * 0.12 * s, -0.32 * s, Math.cos(an) * 0.1 * s, 0.11 * s]); } add(J, 'r_cloud', blobs(L), mt(C(a), { rough: 1, rim: 0.7 })); }
+  };
+  P16.arms = (c, kind, a) => S(g => {
+    const el = jn(c, g > 0 ? 'elL' : 'elR'), ha = jn(c, g > 0 ? 'haL' : 'haR'); if (!el || !ha) return;
+    if (kind === 'bracers') add(el, 'r_brc', lathe([[0.047, -0.05], [0.057, -0.1], [0.05, -0.2], [0.044, -0.215]], 12), metal(C(a)));
+    else if (kind === 'gauntlets') { add(ha, 'r_gnt', at(E(0.058, 0.075, 0.058, 12, 9), [0, -0.055, 0.005]), mt(C(a), { spec: 0.3 })); add(el, 'r_gnt', lathe([[0.05, -0.1], [0.064, -0.16], [0.058, -0.235]], 12), mt(C(a), { spec: 0.3 })); }
+    else if (kind === 'claws') add(ha, 'r_claw', merge([-0.028, 0, 0.028].map(x => at(cone(0.012, 0.075, 5), [x, -0.13, 0.02], [PI, 0, 0]))), mt(C(a), { spec: 0.5 }));
+    else if (kind === 'pincers') add(ha, 'r_pinc', merge([at(E(0.085, 0.12, 0.06, 12, 9), [0, -0.1, 0]), spike([[0.035, -0.18, 0], [0.06, -0.3, 0], [0.012, -0.37, 0]], 0.036, 7), spike([[-0.035, -0.18, 0], [-0.055, -0.28, 0], [-0.012, -0.35, 0]], 0.03, 7)]), mt(C(a), { spec: 0.4 }));
+  });
+  P16.legs = (c, kind, a) => S(g => {
+    const th = jn(c, g > 0 ? 'thL' : 'thR'), kn = jn(c, g > 0 ? 'knL' : 'knR'), ft = jn(c, g > 0 ? 'ftL' : 'ftR'); if (!kn) return;
+    if (kind === 'greaves') add(kn, 'r_grv', lathe([[0.062, -0.02], [0.071, -0.12], [0.058, -0.36], [0.05, -0.385]], 12), metal(C(a)));
+    else if (kind === 'hooves') { if (ft) add(ft, 'r_hoof', at(E(0.056, 0.05, 0.088, 10, 8), [0, -0.065, 0.045]), mt(C(a), { spec: 0.4 })); }
+    else if (kind === 'fur') { if (th) add(th, 'r_furl', lathe([[0.078, 0.0], [0.096, -0.12], [0.086, -0.3], [0.07, -0.375]], 12), mt(C(a), { rough: 1 })); add(kn, 'r_furl', lathe([[0.07, 0.0], [0.082, -0.12], [0.062, -0.34], [0.056, -0.4]], 12), mt(C(a), { rough: 1 })); }
+  });
+  P16.extra = (c, kind, a, b) => {
+    const J = c.J, ch = J.chest, col = () => C(a);
+    if (kind === 'cracks') { if (!ch) return; add(ch, 'r_crack', merge([tube([[-0.08, 0.2, 0.118], [-0.02, 0.11, 0.14], [-0.06, 0.02, 0.135], [0.0, -0.07, 0.125]], () => [0.008, 0.008], 4), tube([[0.09, 0.18, 0.11], [0.04, 0.1, 0.138], [0.08, 0.0, 0.13]], () => [0.007, 0.007], 4), tube([[-0.05, 0.2, -0.105], [0.02, 0.08, -0.115], [-0.03, -0.05, -0.11]], () => [0.008, 0.008], 4)]), glow(col())); S(g => { const s = jn(c, g > 0 ? 'shL' : 'shR'), k = jn(c, g > 0 ? 'knL' : 'knR'); if (s) add(s, 'r_crack', tube([[g * 0.04, -0.02, 0.03], [g * 0.055, -0.1, 0.01], [g * 0.04, -0.17, 0.035]], () => [0.007, 0.007], 4), glow(col())); if (k) add(k, 'r_crack', tube([[0.0, -0.05, 0.062], [0.02, -0.16, 0.066], [-0.01, -0.28, 0.058]], () => [0.007, 0.007], 4), glow(col())); }); }
+    else if (kind === 'moss') { S(g => { const s = jn(c, g > 0 ? 'shL' : 'shR'); if (s) add(s, 'r_moss', blobs([[g * 0.03, 0.05, 0, 0.065], [g * 0.07, 0.02, 0.03, 0.045], [g * 0.01, 0.04, -0.04, 0.05]]), mt(col(), { rough: 1 })); }); if (c.hd) add(c.hd, 'acc_moss', blobs([[0.3, 1.0, 0.1, 0.36], [-0.35, 0.95, -0.2, 0.32], [0, 1.05, -0.4, 0.3]]), mt(col(), { rough: 1 })); }
+    else if (kind === 'drips') { const m = glass(col(), 0.75); S(g => { const e = jn(c, g > 0 ? 'elL' : 'elR'); if (e) add(e, 'r_drip', merge([at(E(0.03, 0.05, 0.03, 7, 6), [0.02, -0.12, 0.04]), at(E(0.02, 0.04, 0.02, 6, 5), [-0.02, -0.2, 0.03])]), m); }); if (ch) add(ch, 'r_drip', merge([at(E(0.035, 0.06, 0.03, 7, 6), [0.08, 0.02, 0.12]), at(E(0.025, 0.045, 0.02, 6, 5), [-0.06, -0.08, 0.12]), at(E(0.03, 0.05, 0.03, 7, 6), [0.0, 0.12, -0.12])]), m); }
+    else if (kind === 'straw') { const m = mt(col(), { rough: 1 }); S(g => { const h = jn(c, g > 0 ? 'haL' : 'haR'), k = jn(c, g > 0 ? 'ftL' : 'ftR'); if (h) add(h, 'r_straw', merge([-0.03, 0, 0.03].map(x => at(cone(0.016, 0.14, 4), [x, -0.02, 0], [PI + x * 6, 0, 0]))), m); if (k) add(k, 'r_straw', merge([-0.03, 0, 0.03].map(x => at(cone(0.016, 0.1, 4), [x, 0.06, 0.02], [PI, 0, x * 8]))), m); }); if (ch) { const L = []; for (let i = 0; i < 10; i++) { const an = i / 10 * PI * 2; L.push(at(cone(0.018, 0.12, 4), [Math.sin(an) * 0.12, 0.22, Math.cos(an) * 0.09], [PI - Math.cos(an) * 0.5, 0, Math.sin(an) * 0.5])); } add(ch, 'r_straw', merge(L), m); } }
+    else if (kind === 'bandages') { const m = cloth(col(), { twoSide: false }), band = (r, y, sz) => lathe([[r, y - 0.014], [r + 0.006, y], [r, y + 0.014]], 12, { sz: sz || 1 }); S(g => { const e = jn(c, g > 0 ? 'elL' : 'elR'), s = jn(c, g > 0 ? 'shL' : 'shR'), k = jn(c, g > 0 ? 'knL' : 'knR'), t = jn(c, g > 0 ? 'thL' : 'thR'); if (e) add(e, 'r_band', merge([-0.05, -0.11, -0.17].map(y => band(0.046, y))), m); if (s) add(s, 'r_band', merge([-0.06, -0.13].map(y => band(0.052, y))), m); if (k) add(k, 'r_band', merge([-0.08, -0.18, -0.28].map(y => band(0.062, y))), m); if (t) add(t, 'r_band', merge([-0.1, -0.22].map(y => band(0.088, y))), m); }); if (ch) add(ch, 'r_band', merge([0.16, 0.06, -0.04].map(y => band(0.172, y, 0.74))), m); if (c.hd) add(c.hd, 'acc_band', merge([[0.5, 1.0], [-0.45, 0.96], [-0.75, 0.75]].map(([y, r]) => lathe([[r, y - 0.1], [r + 0.03, y], [r, y + 0.1]], 16))), m); }
+    else if (kind === 'spikesAll') { const m = mt(col()), sp = (L) => merge(L.map(([x, y, z, rx, rz]) => at(cone(0.011, 0.06, 4), [x, y, z], [rx || 0, 0, rz || 0]))); S(g => { const s = jn(c, g > 0 ? 'shL' : 'shR'), e = jn(c, g > 0 ? 'elL' : 'elR'), k = jn(c, g > 0 ? 'knL' : 'knR'), t = jn(c, g > 0 ? 'thL' : 'thR'); if (s) add(s, 'r_spk', sp([[g * 0.05, 0.02, 0, 0, -g * 1.2], [g * 0.055, -0.08, 0.02, 0.5, -g * 1.4], [g * 0.05, -0.15, -0.02, -0.5, -g * 1.5], [0, 0.05, 0, 0, 0]]), m); if (e) add(e, 'r_spk', sp([[g * 0.045, -0.06, 0, 0, -g * 1.5], [g * 0.04, -0.15, 0.02, 0.6, -g * 1.5], [0, -0.1, 0.045, 1.5, 0]]), m); if (k) add(k, 'r_spk', sp([[g * 0.06, -0.1, 0, 0, -g * 1.5], [0, -0.2, 0.06, 1.5, 0], [g * 0.05, -0.28, 0, 0, -g * 1.5]]), m); if (t) add(t, 'r_spk', sp([[g * 0.09, -0.12, 0, 0, -g * 1.5], [0, -0.22, 0.09, 1.5, 0]]), m); });
+      if (ch) add(ch, 'r_spk', sp([[0.07, 0.15, 0.13, 1.5], [-0.07, 0.15, 0.13, 1.5], [0, 0.05, 0.14, 1.5], [0.08, -0.05, 0.12, 1.5], [-0.08, -0.05, 0.12, 1.5], [0.05, 0.12, -0.11, -1.5], [-0.05, 0.12, -0.11, -1.5], [0, 0, -0.11, -1.5]]), m); if (c.hd) { const L = []; for (let i = 0; i < 10; i++) { const p = hp(i * 0.63, 0.45 + (i % 3) * 0.3, 1.0); L.push(at(cone(0.05, 0.3, 4), p, [p[2] * 1.2, 0, -p[0] * 1.2])); } add(c.hd, 'acc_spk', merge(L), m); } }
+    else if (kind === 'iceShoulders') S(g => { const s = jn(c, g > 0 ? 'shL' : 'shR'); if (s) [0, 1, 2].forEach(i => add(s, 'r_ice', at(cone(0.038, 0.24 - i * 0.05, 5), [g * 0.03, 0.03, 0], [0, 0, -g * (0.25 + i * 0.4)]), a === 'rainbow' ? glow(C(a, i + (g > 0 ? 0 : 3))) : shiny(C(a)))); });
+    else if (kind === 'stars') { const n = b || 16, L = []; let s = 12345; const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; }; if (!ch) return; for (let i = 0; i < n; i++) { const f = rnd() > 0.4 ? 1 : -1; L.push(at(E(0.009, 0.009, 0.006, 5, 4), [(rnd() - 0.5) * 0.24, -0.1 + rnd() * 0.32, f * (f > 0 ? 0.125 : 0.108)])); } add(ch, 'r_star', merge(L), glow(col())); S(g => { const t = jn(c, g > 0 ? 'thL' : 'thR'), e = jn(c, g > 0 ? 'shL' : 'shR'); if (t) add(t, 'r_star', merge([0, 1, 2, 3].map(i => at(E(0.008, 0.008, 0.006, 5, 4), [(rnd() - 0.5) * 0.08, -0.05 - rnd() * 0.3, 0.085]))), glow(col())); if (e) add(e, 'r_star', merge([0, 1, 2].map(i => at(E(0.007, 0.007, 0.007, 5, 4), [g * 0.05, -0.02 - rnd() * 0.16, (rnd() - 0.5) * 0.05]))), glow(col())); }); }
+    else if (kind === 'rays') { if (!c.hd) return; for (let i = 0; i < 7; i++) add(c.hd, 'acc_ray', at(at(cone(0.07, 1.5, 4), [0, 1.3, 0]), [0, 0.2, -0.5], [0, 0, (i - 3) * 0.5]), glow(C('rainbow', i))); }
+  };
+
+  /* ================= LES 89 FICHES (les 10 créatures de la v15 sont dans race15.js) ================= */
+  const T = {
+    // ---- FEU ----
+    taro: ['Diablotin de braise', '#e0503a', '#2a0f10', '#ffd23d', '#3a1418', '#e0a030', 0.92, 'flat', 'tailSpade belt', [['horns', 'small', '#2a1a1a'], ['face', 'fangs'], ['arms', 'bracers', '#e0a030'], ['hips', 'loin', '#7a1c1c']]],
+    mina: ['Nymphe des flammes', '#ffb38a', '#ff7a2a', '#ffe08a', '#c23a1a', '#ffd060', 0.98, 'flat', '', [['crown', 'flame', '#ff8a2a', '#ffe27a', 0.8], ['hips', 'petal', '#ff9a3a', 9], ['torso', 'petalCollar', '#ffc04a'], ['arms', 'bracers', '#ffd060']]],
+    gorou: ['Géant de cendres', '#8a8480', '#3a3432', '#ff8a3a', '#4a4442', '#c0562a', 1.16, 'skin', 'pauldronRock belt', [['horns', 'bull', '#3a3432'], ['arms', 'gauntlets', '#5a5452'], ['hips', 'loin', '#7a2c1c'], ['extra', 'cracks', '#ff7a2a']], { js: { shL: 1.15, shR: 1.15 } }],
+    pyra: ['Salamandre', '#ff8a3a', '#ffcf5a', '#2a1a10', '#ff8a3a', '#ffd060', 0.94, 'skin', 'tailDragon crest', [['back', 'spikes', '#ffd060'], ['muzzle', 'snout', '#ffa55a'], ['arms', 'claws', '#3a1a10'], ['torso', 'belly', '#ffe0a0']], { bald: 1 }],
+    akio: ['Oni samouraï', '#c8402c', '#1a1012', '#ffe08a', '#1c1a22', '#c9a03a', 1.04, 'flat', 'tusks', [['helm', 'kabuto', '#1c1a22', '#c9a03a'], ['torso', 'cuirass', '#8a1c1c'], ['hips', 'tassets', '#8a1c1c'], ['arms', 'bracers', '#1c1a22'], ['legs', 'greaves', '#1c1a22']]],
+    rin: ['Kitsune', '#ffe4d0', '#ff6b3d', '#ffcf3a', '#f4ecdf', '#c8321e', 0.96, 'flat', '', [['ears', 'fox', '#ff6b3d', '#fff0e0'], ['tail', 'fox', 3, '#ff6b3d', '#fff4e6'], ['hips', 'kilt', '#c8321e'], ['torso', 'scarf', '#c8321e']]],
+    bram: ['Minotaure de magma', '#6a3324', '#2a1410', '#ffb03a', '#6a3324', '#d08a2a', 1.18, 'skin', 'pauldrons belt', [['horns', 'bull', '#f0e6d0'], ['muzzle', 'beast', '#8a4a34', '#2a1410'], ['crown', 'nosering', '#e0b040'], ['legs', 'hooves', '#2a1410'], ['hips', 'loin', '#3a1a14'], ['tail', 'tuft', '#6a3324', '#2a1410']], { js: { shL: 1.18, shR: 1.18 }, bald: 1 }],
+    kaen: ['Demi-dragon écarlate', '#c8281e', '#ffb03a', '#ffe07a', '#c8281e', '#ffb03a', 1.06, 'skin', 'hornsBack tailDragon', [['back', 'spikes', '#ffb03a'], ['arms', 'claws', '#f0e0c0'], ['torso', 'cuirass', '#3a1010'], ['face', 'fangs'], ['hips', 'tassets', '#3a1010']]],
+    seika: ['Phénix', '#ffd9a8', '#ffb347', '#ff5a2a', '#e8521c', '#ffd24a', 1.0, 'flat', '', [['wings', 'feather', '#ff7a1e', null, 0.82], ['tail', 'fan', ['#ff5a1e', '#ffb02a', '#ffe07a'], 7, 0.7], ['crown', 'feather', '#ffd24a'], ['hips', 'kilt', '#e8521c'], ['torso', 'cuirass', '#ffcf4a']]],
+    // ---- EAU ----
+    mio: ['Esprit de rosée', '#7fe0ff', '#bff4ff', '#1a6ad0', '#7fe0ff', '#ffffff', 0.9, 'skin', 'orbs', [['crown', 'drop', '#9feaff'], ['hips', 'petal', '#5fd0ff', 10], ['extra', 'drips', '#dff8ff']], { bald: 1 }],
+    kai: ['Homme-requin', '#6f8fa8', '#2a4a66', '#101820', '#6f8fa8', '#2a3a4a', 1.08, 'skin', '', [['back', 'fin', '#5a7a94'], ['tail', 'fish', '#6f8fa8', '#4a6a84'], ['crown', 'fin', '#5a7a94'], ['face', 'fangs'], ['torso', 'belly', '#e8f0f4'], ['arms', 'bracers', '#2a3a4a']], { bald: 1 }],
+    shio: ['Tortue des récifs', '#6fbf7a', '#2bb3a3', '#2a1a10', '#6fbf7a', '#3a7a5a', 1.0, 'skin', '', [['back', 'shell', '#3a7a5a', '#8fd0a0'], ['torso', 'belly', '#e8dca0'], ['muzzle', 'beakS', '#4f9f6a'], ['hips', 'kilt', '#2a6a5a'], ['arms', 'bracers', '#3a7a5a']], { bald: 1 }],
+    nori: ['Fantôme des brumes', '#cfe4f0', '#3d4b6b', '#7fffff', '#8fa8c0', '#cfe4f0', 1.0, 'flat', 'robe orbs', [['helm', 'hood', '#5a6f8a'], ['torso', 'poncho', '#7a90aa'], ['crown', 'eyesGlow', '#9fffff']], { hs: 'short', robeC: '#8fa8c0' }],
+    aiko: ['Hippocampe', '#ffd27a', '#5fb8ff', '#2a8ad0', '#ffd27a', '#ff9a5a', 0.98, 'skin', '', [['muzzle', 'seahorse', '#ffd27a'], ['crown', 'fin', '#ff9a5a'], ['tail', 'curl', '#ffd27a'], ['back', 'fin', '#ff9a5a'], ['torso', 'belly', '#fff0c0'], ['hips', 'kilt', '#2a8ab0']], { bald: 1 }],
+    kiri: ['Homme-pieuvre', '#5a3a8a', '#0c2a4a', '#ffe14d', '#5a3a8a', '#c8a0e8', 1.02, 'skin', '', [['face', 'tentaclebeard', '#7a52b0'], ['back', 'tentacles', '#5a3a8a'], ['crown', 'mantle', '#5a3a8a'], ['torso', 'belly', '#c8a0e8']], { bald: 1 }],
+    isao: ['Loutre des rivières', '#7a5a40', '#1a3f66', '#1a1210', '#7a5a40', '#2a6a8a', 1.02, 'skin', '', [['ears', 'bear', '#6a4a34', '#c8a080'], ['muzzle', 'beast', '#e8d8c0', '#2a1a14', 0.9], ['tail', 'fish', '#6a4a34', '#6a4a34'], ['torso', 'belly', '#e8d8c0'], ['torso', 'necklace', '#f4f0e0'], ['hips', 'kilt', '#2a6a8a']], { bald: 1 }],
+    ondine: ['Méduse des abysses', '#d8f4ff', '#9fe3ff', '#ff8ad8', '#a8dcff', '#ff9ae0', 1.02, 'flat', 'robe', [['helm', 'jelly', '#b8ecff', '#ff9ae0'], ['torso', 'petalCollar', '#e0f8ff', 1.3]], { bald: 1, robeC: '#bfe6ff' }],
+    suiren: ['Dame du givre', '#e4f4ff', '#d6f1ff', '#5ab0ff', '#f4faff', '#9fd0ff', 1.0, 'flat', 'robe', [['crown', 'ice', '#bfe8ff'], ['torso', 'fur', '#ffffff'], ['extra', 'iceShoulders', '#dff4ff']], { robeC: '#eef6ff' }],
+    // ---- FOUDRE ----
+    rai: ["Lutin d'orage", '#ffe680', '#fff4b0', '#2a6ad0', '#3a5ab0', '#ffe14d', 0.86, 'flat', 'elfEarsShort belt', [['hat', 'gnome', '#3a5ab0', '#ffe14d'], ['torso', 'cloudcollar', '#ffffff'], ['tail', 'bolt', '#ffe14d']], { js: { head: 1.15 } }],
+    volt: ['Kobold mécano', '#b0c04a', '#f2c200', '#1a1210', '#5a4a3a', '#c08a3a', 0.84, 'flat', 'tailDragon belt', [['muzzle', 'snout', '#c0d05a'], ['crown', 'goggles', '#c08a3a', '#7fffff'], ['back', 'tank', '#8a8f96', '#ffe14d'], ['arms', 'gauntlets', '#8a5a2a'], ['horns', 'small', '#e8e0c0']], { js: { head: 1.2 }, bald: 1 }],
+    ohm: ['Automate de cuivre', '#c87a4a', '#6b5a2a', '#ffe14d', '#c87a4a', '#6a4a3a', 1.16, 'metal', 'pauldrons', [['helm', 'robotdome', '#c87a4a', '#ffe14d'], ['torso', 'core', '#ffe14d'], ['back', 'rod', '#8a8f96', '#ffe14d'], ['arms', 'gauntlets', '#a05a34'], ['legs', 'greaves', '#a05a34']], { js: { shL: 1.15, shR: 1.15 }, bald: 1 }],
+    lumi: ['Fée luciole', '#fff0c0', '#fff27a', '#3aa05a', '#3a3a2a', '#d8ff5a', 0.88, 'flat', '', [['wings', 'insect', '#f4ffd0'], ['crown', 'antenna', 'ball', '#d8ff5a'], ['tail', 'bulb', '#d8ff5a'], ['hips', 'petal', '#5a6a2a', 8]]],
+    jinto: ['Oni du tonnerre', '#4a8ad0', '#ffe14d', '#ffe14d', '#4a8ad0', '#e0a020', 1.1, 'skin', 'tusks', [['horns', 'oni', '#ffe9a0'], ['back', 'drums', '#c8321e', '#ffe14d'], ['hips', 'loin', '#e0a020'], ['arms', 'bracers', '#e0a020'], ['torso', 'necklace', '#f0e8d0']]],
+    hikari: ["Valkyrie de l'aurore", '#fff0e4', '#ffe9a8', '#5ad0c0', '#f4f4ff', '#ffd860', 1.03, 'flat', '', [['helm', 'winged', '#ffd860', '#ffffff'], ['wings', 'feather', '#ffffff', null, 0.8], ['torso', 'cuirass', '#ffd860'], ['hips', 'tassets', '#ffd860'], ['legs', 'greaves', '#ffd860'], ['hips', 'kilt', '#f4f4ff']]],
+    neko: ['Nekomata', '#5a5a66', '#3a3a3a', '#ffe14d', '#5a5a66', '#ffe14d', 0.97, 'skin', '', [['ears', 'cat', '#3a3a44', '#ffb0c0'], ['tail', 'cat', 2, '#3a3a44'], ['arms', 'claws', '#f0f0f0'], ['torso', 'scarf', '#ffe14d'], ['torso', 'belly', '#8a8a96']]],
+    raijo: ['Kirin de foudre', '#e8c040', '#fff0a0', '#ff5a3a', '#e8c040', '#2a6a5a', 1.08, 'skin', 'crest', [['horns', 'uni', '#fff4c0'], ['ears', 'wolf', '#e8c040', '#fff0a0'], ['tail', 'tuft', '#e8c040', '#fff0a0'], ['legs', 'hooves', '#3a2a10'], ['torso', 'cuirass', '#2a6a5a']]],
+    // ---- TERRE ----
+    iwa: ['Gargouille', '#6c727c', '#5a5f64', '#ffb02a', '#8f9499', '#5a5f64', 1.08, 'skin', 'wingsBat tailSpade', [['horns', 'small', '#6a6f74'], ['ears', 'bat', '#8f9499', '#6a6f74'], ['arms', 'claws', '#5a5f64'], ['face', 'fangs'], ['extra', 'moss', '#5a8a4a']], { bald: 1 }],
+    daichi: ['Troll des collines', '#7a9a5a', '#4a3a2a', '#ffd060', '#7a9a5a', '#6a4a30', 1.2, 'skin', 'goblinEars', [['torso', 'fur', '#6a4a30'], ['hips', 'loin', '#6a4a30'], ['arms', 'gauntlets', '#5a7a44'], ['muzzle', 'nose', '#6a8a4a', null, 1.2], ['torso', 'necklace', '#f0e8d0']], { js: { shL: 1.2, shR: 1.2, head: 0.95 } }],
+    mousse: ['Dryade', '#b8e08a', '#3f9a4a', '#ffe07a', '#3a7a3a', '#ff8ab0', 0.96, 'flat', '', [['crown', 'leaf', '#4faa4a'], ['hips', 'petal', '#4faa4a', 9], ['torso', 'petalCollar', '#6fc45a'], ['crown', 'flower', '#ff8ab0', 3], ['arms', 'bracers', '#3a7a3a']]],
+    grav: ['Scorpion des sables', '#c8a060', '#3a2a1a', '#ff5a3a', '#c8a060', '#a07a40', 1.02, 'skin', '', [['tail', 'scorpion', '#b08a4a', '#ff5a3a'], ['arms', 'pincers', '#b08a4a'], ['crown', 'antenna', 'ball', '#8a6a3a'], ['torso', 'cuirass', '#a07a40'], ['crown', 'eyes', '#ff5a3a']], { bald: 1 }],
+    bodo: ['Tréant', '#7a5a3a', '#3a2a1a', '#b0ff5a', '#7a5a3a', '#5faa4a', 1.22, 'skin', '', [['horns', 'antler', '#5a4028'], ['crown', 'leaf', '#5faa4a'], ['extra', 'moss', '#5faa4a'], ['arms', 'gauntlets', '#6a4a2e'], ['face', 'cloudbeard', '#5faa4a']], { js: { shL: 1.15, shR: 1.15 }, bald: 1 }],
+    koji: ['Ours des roches', '#7a5a44', '#3a2a1a', '#1a1210', '#7a5a44', '#8a8f96', 1.16, 'skin', 'pauldronRock', [['ears', 'bear', '#6a4a36', '#c8a080'], ['muzzle', 'beast', '#c8a080', '#2a1a14'], ['arms', 'claws', '#f0e8d8'], ['torso', 'belly', '#b89878'], ['tail', 'bunny', '#6a4a36']], { js: { shL: 1.15, shR: 1.15 }, bald: 1 }],
+    hana: ['Alraune', '#d8f0b0', '#ff7ab0', '#ffd24a', '#4f9a4a', '#ff7ab0', 0.98, 'flat', '', [['torso', 'petalCollar', '#ff7ab0', 1.7], ['hips', 'petal', '#ff9ac4', 8], ['crown', 'flower', '#ffe6f0', 1, 'big'], ['arms', 'bracers', '#4f9a4a']]],
+    takeru: ['Homme-serpent', '#5a9a5a', '#2a3a1a', '#ffe14d', '#5a9a5a', '#e8d060', 1.04, 'skin', 'tailDragon', [['helm', 'cobra', '#4a8a4a', '#e8d060'], ['face', 'fangs'], ['torso', 'belly', '#e8e0a0'], ['arms', 'bracers', '#e8d060'], ['hips', 'loin', '#8a2a5a']], { bald: 1 }],
+    // ---- OMBRE ----
+    kuro: ['Ombre vivante', '#14101c', '#0a0810', '#ffffff', '#14101c', '#8a4ad0', 0.96, 'skin', 'orbs', [['torso', 'scarf', '#8a4ad0'], ['crown', 'eyesGlow', '#ffffff']]],
+    yoru: ['Vampire', '#e8e0ec', '#1a1420', '#ff2a3a', '#1a1420', '#8a1428', 1.04, 'flat', 'collar cape elfEarsShort', [['face', 'fangs'], ['torso', 'jabot', '#f4f0f4'], ['arms', 'bracers', '#8a1428']], { hs: 'short' }],
+    shin: ['Chevalier noir', '#2a2a34', '#101014', '#b06aff', '#1c1c26', '#8a4ad0', 1.1, 'metal', 'pauldronSpike cape', [['helm', 'full', '#1c1c26', '#b06aff', '#8a4ad0'], ['torso', 'cuirass', '#22222e'], ['hips', 'tassets', '#22222e'], ['legs', 'greaves', '#22222e'], ['arms', 'gauntlets', '#22222e']], { bald: 1 }],
+    luna: ['Lapin de lune', '#f0e8ff', '#e0d8f8', '#ff7ab0', '#c8b8f0', '#fff0a0', 0.92, 'flat', '', [['ears', 'bunny', '#f4eeff', '#ffc0d8'], ['tail', 'bunny', '#ffffff'], ['crown', 'tiara', '#fff0a0', '#ffffff'], ['hips', 'kilt', '#c8b8f0'], ['torso', 'fur', '#ffffff']]],
+    ren: ['Tengu corbeau', '#2a2a34', '#101018', '#ff3a3a', '#16161e', '#8a1c1c', 1.0, 'flat', '', [['muzzle', 'beak', '#c8a040'], ['wings', 'feather', '#16161e', null, 0.74], ['crown', 'feather', '#16161e'], ['hips', 'kilt', '#16161e'], ['arms', 'bracers', '#8a1c1c']]],
+    mayu: ['Arachné', '#c8b0e0', '#2a1a3a', '#ff3a8a', '#2a1a3a', '#8a3ab0', 1.0, 'flat', '', [['back', 'legs', '#2a1a3a'], ['crown', 'eyes', '#ff3a8a'], ['hips', 'kilt', '#2a1a3a'], ['face', 'fangs'], ['back', 'abdomen', '#2a1a3a', '#ff3a8a']]],
+    ayame: ['Phalène', '#e8dcc8', '#8a7a6a', '#1a1a1a', '#6a5a4a', '#c8b090', 0.97, 'flat', '', [['wings', 'moth', '#a08a6a', '#3a2a1a', '#f4ecd8'], ['torso', 'fur', '#f4ecd8'], ['crown', 'antenna', 'feather', '#c8b090'], ['hips', 'kilt', '#8a7a5a']]],
+    kurai: ['Faucheur', '#d8d4c8', '#101014', '#7a3aff', '#101014', '#7a3aff', 1.08, 'flat', 'robe', [['helm', 'skull', '#e8e4d8', '#7a3aff'], ['helm', 'hood', '#16161c'], ['torso', 'ribs', '#e8e4d8']], { bald: 1, robeC: '#16161c' }],
+    // ---- NOUVEAUX : FEU ----
+    zarok: ['Éfrit', '#7a2a3a', '#ff7a1a', '#ffe08a', '#7a2a3a', '#ffd24a', 1.14, 'skin', 'elfEarsShort', [['crown', 'flame', '#ff5a1a', '#ffd24a', 1.1], ['arms', 'bracers', '#ffd24a'], ['hips', 'cloud', '#ff8a3a'], ['torso', 'necklace', '#ffd24a'], ['hips', 'loin', '#ffd24a']], { js: { shL: 1.15, shR: 1.15 }, bald: 1 }],
+    leo: ['Lion solaire', '#e8b050', '#ffb020', '#3a1a10', '#e8b050', '#c8321e', 1.12, 'skin', '', [['crown', 'mane', '#c8641a'], ['ears', 'bear', '#e8b050', '#c8641a'], ['muzzle', 'beast', '#f4d8a0', '#3a1a10'], ['tail', 'tuft', '#e8b050', '#c8641a'], ['arms', 'claws', '#f4f0e0'], ['torso', 'cuirass', '#c8321e'], ['hips', 'loin', '#c8321e']], { bald: 1 }],
+    brazo: ['Golem de lave', '#2a2224', '#2a1612', '#ff8a1a', '#2a2224', '#ff7a1a', 1.22, 'skin', 'pauldronRock', [['extra', 'cracks', '#ff7a1a'], ['torso', 'core', '#ffb02a'], ['arms', 'gauntlets', '#3a2e2e'], ['crown', 'eyesGlow', '#ffb02a'], ['crown', 'rocks', '#3a2e2e']], { js: { shL: 1.25, shR: 1.25, head: 0.88 }, bald: 1 }],
+    magda: ['Fourneau vivant', '#8a8a94', '#c4521c', '#ffb02a', '#4a4a52', '#c87a3a', 1.08, 'metal', '', [['torso', 'furnace', '#ff8a1a'], ['back', 'chimney', '#3a3a42', '#ff8a1a'], ['crown', 'goggles', '#c87a3a', '#ffb02a'], ['arms', 'gauntlets', '#3a3a42'], ['torso', 'apron', '#6a4a2e'], ['legs', 'greaves', '#3a3a42']]],
+    cendre: ['Lanterne hantée', '#3a2a2a', '#ffcf7a', '#ffcf7a', '#5a1c1c', '#1a1010', 0.98, 'flat', '', [['helm', 'lantern', '#ffcf7a', '#1a1010'], ['torso', 'poncho', '#5a1c1c'], ['hips', 'kilt', '#3a1414'], ['arms', 'bracers', '#1a1010']], { bald: 1 }],
+    pompa: ['Épouvantail', '#c8a870', '#d9a441', '#1a1210', '#5a6a8a', '#c8321e', 1.06, 'flat', '', [['helm', 'sack', '#c8a870'], ['hat', 'straw', '#d9b451'], ['torso', 'poncho', '#8a5a2e'], ['torso', 'scarf', '#c8321e'], ['extra', 'straw', '#e8c860']], { bald: 1, pants: '#6a4a2e' }],
+    fumi: ['Feu follet', '#fff0d0', '#ffd98a', '#ff7a1a', '#fff0d0', '#ff9a2a', 0.74, 'skin', '', [['crown', 'flame', '#ff9a2a', '#fff0a0', 1.3], ['torso', 'poncho', '#f4e8d0'], ['extra', 'drips', '#fff8e8']], { js: { head: 1.22 }, bald: 1 }],
+    tika: ['Chamane masqué', '#8a5a3a', '#3a1c14', '#ffb02a', '#8a5a3a', '#c8321e', 0.98, 'skin', '', [['helm', 'mask', '#6a4a2e', '#ffb02a', '#ffffff'], ['crown', 'feather', '#c8321e'], ['hips', 'loin', '#c8321e'], ['torso', 'necklace', '#f0e8d0'], ['arms', 'bracers', '#e0a030']]],
+    // ---- NOUVEAUX : EAU ----
+    abyssa: ['Baudroie des abysses', '#1a2448', '#101a3a', '#7fffd0', '#1a2448', '#7fffd0', 1.05, 'skin', '', [['crown', 'lure', '#7fffd0'], ['face', 'fangs', 1.7], ['back', 'fin', '#2a3a6a'], ['tail', 'fish', '#1a2448', '#7fffd0'], ['extra', 'stars', '#7fffd0', 14], ['torso', 'belly', '#3a4a7a']]],
+    borg: ['Yéti', '#eef4fa', '#eef6ff', '#5ab0ff', '#eef4fa', '#7fb8e8', 1.24, 'skin', '', [['horns', 'small', '#7fb8e8'], ['torso', 'fur', '#ffffff'], ['crown', 'mane', '#ffffff'], ['arms', 'gauntlets', '#dfe8f0'], ['face', 'fangs'], ['muzzle', 'nose', '#8fb8d8'], ['legs', 'fur', '#eef4fa']], { js: { shL: 1.22, shR: 1.22 }, bald: 1 }],
+    frimas: ['Chevalier de givre', '#bfe0f4', '#e8f6ff', '#2a8aff', '#9fd0f0', '#dff4ff', 1.06, 'metal', '', [['horns', 'long', '#dff4ff'], ['extra', 'iceShoulders', '#dff4ff'], ['torso', 'cuirass', '#bfe4fa'], ['hips', 'tassets', '#bfe4fa'], ['legs', 'greaves', '#bfe4fa'], ['arms', 'bracers', '#bfe4fa']]],
+    koa: ['Grenouille ninja', '#5fc86a', '#3fbf5f', '#1a1210', '#5fc86a', '#2a2a34', 0.86, 'skin', '', [['crown', 'stalk', 'frog', '#5fc86a'], ['torso', 'belly', '#e8f4c0'], ['torso', 'scarf', '#c8321e'], ['hips', 'loin', '#2a2a34'], ['arms', 'bracers', '#2a2a34']], { js: { head: 1.15 }, bald: 1 }],
+    karka: ['Crabe géant', '#e0562c', '#e0562c', '#1a1210', '#e0562c', '#f08a5a', 1.1, 'skin', '', [['arms', 'pincers', '#e8643a'], ['back', 'shell', '#c8421e', '#f08a5a'], ['crown', 'stalk', 'crab', '#e0562c'], ['torso', 'belly', '#f4d8b0']], { js: { shL: 1.2, shR: 1.2 }, bald: 1 }],
+    narval: ['Narval', '#9fc4d8', '#9fc4d8', '#101820', '#9fc4d8', '#3a5a7a', 1.1, 'skin', '', [['horns', 'uni', '#f4f0e0', 1.5], ['torso', 'belly', '#f0f6fa'], ['back', 'fin', '#7fa8c0'], ['tail', 'fish', '#9fc4d8', '#7fa8c0'], ['hips', 'kilt', '#3a5a7a']], { bald: 1 }],
+    pingo: ['Manchot', '#1a2230', '#1a2230', '#1a1210', '#1a2230', '#ffa02a', 0.78, 'skin', '', [['muzzle', 'beak', '#ffa02a', 0.55], ['torso', 'belly', '#ffffff', 1.2], ['crown', 'brow', '#ffd24a'], ['legs', 'hooves', '#ffa02a'], ['torso', 'scarf', '#c8321e']], { js: { head: 1.18, chest: 1.12 }, bald: 1 }],
+    axo: ['Axolotl', '#ffb6c9', '#ffb6c9', '#2a1a2a', '#ffb6c9', '#7fd0e0', 0.88, 'skin', '', [['crown', 'gills', '#ff6a9a'], ['tail', 'fish', '#ffb6c9', '#ff8ab0'], ['torso', 'belly', '#ffe0ea'], ['hips', 'kilt', '#7fd0e0']], { js: { head: 1.15 }, bald: 1 }],
+    // ---- NOUVEAUX : FOUDRE ----
+    ryujin: ['Dragon des nuées', '#3a7ad0', '#e8f4ff', '#ffe14d', '#3a7ad0', '#ffe9a0', 1.1, 'skin', 'tailDragon orbs', [['horns', 'antler', '#ffe9a0'], ['crown', 'whiskers', '#e8f4ff'], ['back', 'spikes', '#e8f4ff'], ['torso', 'belly', '#ffe9a0'], ['hips', 'cloud', '#ffffff'], ['arms', 'claws', '#ffe9a0']]],
+    tesla: ['Méca-samouraï', '#c8d2e0', '#c8d2e0', '#2affff', '#aab4c4', '#2a6aff', 1.06, 'metal', '', [['helm', 'kabuto', '#8a94a4', '#2affff'], ['crown', 'visor', '#2affff'], ['torso', 'core', '#2affff'], ['hips', 'tassets', '#8a94a4'], ['arms', 'bracers', '#2a6aff'], ['legs', 'greaves', '#8a94a4'], ['back', 'tank', '#8a94a4', '#2affff']], { bald: 1 }],
+    stratos: ['Cyclope des tempêtes', '#8fa8c8', '#e8ecf4', '#ffe14d', '#8fa8c8', '#ffe14d', 1.26, 'skin', '', [['crown', 'cyclops', '#ffe14d'], ['face', 'cloudbeard', '#ffffff'], ['torso', 'fur', '#ffffff'], ['hips', 'cloud', '#e8ecf4'], ['arms', 'bracers', '#ffe14d'], ['horns', 'small', '#e8ecf4']], { js: { shL: 1.2, shR: 1.2 }, bald: 1 }],
+    zephyr: ['Djinn des nuages', '#7fc8f0', '#f4f7ff', '#ffffff', '#7fc8f0', '#ffd24a', 1.04, 'skin', 'elfEarsShort', [['hips', 'cloud', '#ffffff', 1.35], ['arms', 'bracers', '#ffd24a'], ['torso', 'necklace', '#ffd24a'], ['torso', 'scarf', '#ffd24a']]],
+    magno: ['Élémentaire magnétique', '#6a6f7a', '#b0342c', '#ff5a4a', '#5a5f6a', '#c8321e', 1.08, 'metal', '', [['horns', 'magnet', '#c8321e'], ['back', 'shardsOrbit', '#b0b8c8'], ['torso', 'core', '#c8321e'], ['arms', 'gauntlets', '#c8321e'], ['legs', 'greaves', '#3a5ab0']], { bald: 1 }],
+    hoot: ['Hibou savant', '#b08a5a', '#8a6a3a', '#ffb02a', '#b08a5a', '#3a2a4a', 0.92, 'skin', '', [['ears', 'feather', '#8a6a3a'], ['muzzle', 'beak', '#e8c060', 0.45], ['crown', 'goggles', '#3a2a1a', '#ffe6a0', 'eyes'], ['wings', 'feather', '#8a6a3a', null, 0.6], ['torso', 'belly', '#e8d8b8'], ['hips', 'kilt', '#3a2a4a']], { js: { head: 1.15 }, bald: 1 }],
+    fuse: ['Belette-éclair', '#ffe680', '#ffe680', '#1a1210', '#ffe680', '#3a5ab0', 0.84, 'skin', '', [['ears', 'bear', '#ffe680', '#fff8d0'], ['muzzle', 'beast', '#fff8d0', '#3a2a10', 0.8], ['tail', 'bolt', '#ffd020'], ['torso', 'belly', '#fff8d0'], ['torso', 'scarf', '#3a5ab0']]],
+    gong: ['Tanuki', '#8a6a4a', '#7a5a3a', '#1a1210', '#8a6a4a', '#d9b451', 0.98, 'skin', '', [['ears', 'bear', '#5a4030', '#c8a880'], ['muzzle', 'beast', '#e8d8b8', '#2a1a14'], ['crown', 'patches', '#3a2a1e'], ['tail', 'ring', '#8a6a4a', '#3a2a1e'], ['torso', 'drum', '#f0e4c8'], ['hat', 'kasa', '#d9b451']], { js: { chest: 1.15 }, bald: 1 }],
+    // ---- NOUVEAUX : TERRE ----
+    jade: ['Guerrier de jade', '#5fae8a', '#2a6a4f', '#e8fff0', '#5fae8a', '#e8d48a', 1.12, 'skin', 'pauldrons', [['hat', 'topknot', '#3f8e6a', '#e8d48a'], ['torso', 'lamellar', '#3f8e6a', '#e8d48a'], ['hips', 'tassets', '#3f8e6a'], ['legs', 'greaves', '#3f8e6a'], ['arms', 'bracers', '#3f8e6a'], ['torso', 'scarf', '#c8321e']], { hs: 'short' }],
+    bront: ['Rhinocéros', '#8a8f96', '#8a8f96', '#1a1210', '#8a8f96', '#6a5a3a', 1.22, 'skin', 'pauldrons', [['muzzle', 'rhino', '#8a8f96', '#e8e0d0'], ['ears', 'cat', '#7a7f86', '#a8adb4'], ['torso', 'cuirass', '#6a5a3a'], ['hips', 'tassets', '#6a5a3a'], ['tail', 'tuft', '#8a8f96', '#3a3a3a']], { js: { shL: 1.25, shR: 1.25 }, bald: 1 }],
+    sylvan: ['Faune', '#e0b890', '#6a4526', '#5a8a3a', '#e0b890', '#4a6a2e', 1.0, 'skin', 'elfEarsShort', [['horns', 'ram', '#8a6a4a'], ['legs', 'fur', '#6a4526'], ['legs', 'hooves', '#2a1a10'], ['tail', 'bunny', '#6a4526'], ['torso', 'necklace', '#5a8a3a'], ['hips', 'loin', '#4a6a2e']]],
+    mamut: ['Mammouth', '#6b4a30', '#6b4a30', '#1a1210', '#6b4a30', '#f4ecd8', 1.26, 'skin', '', [['muzzle', 'trunk', '#6b4a30', '#f4ecd8'], ['ears', 'flap', '#6b4a30'], ['torso', 'fur', '#5a3a24'], ['legs', 'fur', '#5a3a24'], ['arms', 'gauntlets', '#5a3a24']], { js: { shL: 1.2, shR: 1.2 }, bald: 1 }],
+    sirocco: ['Momie', '#d8c9a0', '#d8c9a0', '#3affc8', '#d8c9a0', '#e8c040', 1.02, 'skin', '', [['crown', 'eyesGlow', '#3affc8'], ['extra', 'bandages', '#f4ecd0'], ['torso', 'scarf', '#c8b888'], ['crown', 'tiara', '#e8c040', '#3affc8'], ['arms', 'bracers', '#e8c040']], { bald: 1 }],
+    gemma: ['Fée géode', '#b48cff', '#e8d8ff', '#ffffff', '#b48cff', '#e0c8ff', 0.98, 'skin', '', [['crown', 'crystal', '#e0c8ff'], ['extra', 'iceShoulders', '#e0c8ff'], ['hips', 'petal', '#c8a0ff', 7, 'crystal'], ['torso', 'core', '#ffffff'], ['back', 'shardsOrbit', '#e0c8ff', 'glow']]],
+    champi: ['Champignon', '#f0e6d0', '#e8dcc0', '#1a1210', '#f0e6d0', '#c8321e', 0.8, 'skin', '', [['helm', 'mushroom', '#c8321e', '#ffffff'], ['hips', 'kilt', '#e8dcc0'], ['torso', 'fur', '#f8f0e0']], { js: { head: 1.1 }, bald: 1 }],
+    spino: ['Cactus', '#4fa85a', '#3f9a4a', '#1a1210', '#4fa85a', '#ff5a8a', 1.0, 'skin', '', [['extra', 'spikesAll', '#f4f0c0'], ['crown', 'flower', '#ff5a8a', 1, 'big'], ['torso', 'belly', '#6fc47a']], { bald: 1 }],
+    // ---- NOUVEAUX : OMBRE ----
+    erebos: ['Dracoliche', '#3a3440', '#e8e2d0', '#7affb0', '#1c1a22', '#e8e2d0', 1.2, 'flat', '', [['helm', 'bone', '#e8e2d0', '#7affb0'], ['torso', 'ribs', '#e8e2d0'], ['back', 'bonewings', '#e8e2d0'], ['tail', 'bone', '#e8e2d0'], ['arms', 'claws', '#e8e2d0']], { js: { shL: 1.15, shR: 1.15 }, bald: 1 }],
+    noct: ['Loup-garou', '#5a5e6c', '#4a4e5c', '#ffe14d', '#5a5e6c', '#3a2a5a', 1.16, 'skin', '', [['ears', 'wolf', '#4a4e5c', '#8a8e9c'], ['muzzle', 'beast', '#8a8e9c', '#1a1a20', 1.15], ['tail', 'fox', 1, '#5a5e6c', '#8a8e9c'], ['arms', 'claws', '#f0f0f0'], ['torso', 'fur', '#4a4e5c'], ['hips', 'loin', '#3a2a5a'], ['face', 'fangs']], { js: { shL: 1.18, shR: 1.18 } }],
+    nyx: ['Gorgone', '#9fc8a0', '#3f8a5a', '#ffe14d', '#2a4a3a', '#c8a040', 1.02, 'flat', 'robe', [['crown', 'snakes', '#3f8a5a'], ['arms', 'bracers', '#c8a040'], ['torso', 'necklace', '#c8a040'], ['face', 'fangs']], { bald: 1, robeC: '#2a4a3a' }],
+    onyx: ["Panthère d'ombre", '#1c1a24', '#16141c', '#b0ff3a', '#1c1a24', '#8a4ad0', 1.04, 'skin', '', [['ears', 'bear', '#1c1a24', '#5a3a6a'], ['muzzle', 'beast', '#2a2834', '#ff8ab0', 0.9], ['tail', 'cat', 1, '#1c1a24'], ['arms', 'claws', '#e8e8f0'], ['torso', 'necklace', '#b0ff3a'], ['arms', 'bracers', '#8a4ad0']], { bald: 1 }],
+    corvus: ['Médecin de peste', '#e8e4d8', '#1a1a20', '#3affb0', '#1a1a20', '#3affb0', 1.04, 'flat', 'robe', [['muzzle', 'beakLong', '#e8e4d8', '#3affb0'], ['hat', 'plague', '#1a1a20'], ['torso', 'poncho', '#24242c'], ['torso', 'necklace', '#3affb0']], { bald: 1, robeC: '#1a1a20' }],
+    gloom: ["Slime d'ombre", '#5a2f8a', '#5a2f8a', '#ffffff', '#5a2f8a', '#ff7ae0', 0.92, 'skin', '', [['helm', 'dome', '#7a4ab0'], ['crown', 'eyesGlow', '#ffffff'], ['extra', 'drips', '#9a6ad0'], ['torso', 'core', '#ff7ae0']], { js: { chest: 1.12 }, bald: 1 }],
+    vespera: ['Chauve-souris', '#6a4a7a', '#3a2a4a', '#ffb0d0', '#6a4a7a', '#f0e0f4', 0.9, 'skin', '', [['ears', 'bat', '#5a3a6a', '#ffb0d0'], ['wings', 'batS', '#4a2a5a'], ['torso', 'fur', '#f0e0f4'], ['face', 'fangs'], ['muzzle', 'nose', '#ff9ac0', null, 0.5]]],
+    mimi: ['Mimic', '#3a2a3a', '#7a4a22', '#ff3a5a', '#5a3a1e', '#e8c040', 0.9, 'flat', '', [['helm', 'chest', '#7a4a22', '#e8c040', '#ff3a5a'], ['hips', 'kilt', '#5a3a1e'], ['arms', 'gauntlets', '#7a4a22'], ['torso', 'core', '#e8c040']], { bald: 1 }],
+    // ---- NOUVEAUX : PRISME ----
+    astra: ['Licorne astrale', '#fff4fa', '#f6c8ff', '#8a5aff', '#ffffff', '#ffd8f0', 1.04, 'flat', '', [['horns', 'uni', '#ffe9a0', 1.2, 'glow'], ['ears', 'cat', '#ffffff', '#ffc8e0'], ['tail', 'fox', 1, '#f6c8ff', '#c8e0ff'], ['legs', 'hooves', '#ffd24a'], ['hips', 'kilt', '#ffffff'], ['extra', 'stars', '#fff0a0', 14]]],
+    nebula: ['Enfant de la galaxie', '#1a1450', '#2a1f6a', '#ffffff', '#1a1450', '#ff8ae0', 1.1, 'skin', 'orbs', [['extra', 'stars', '#ffffff', 34], ['crown', 'eyesGlow', '#ffffff'], ['crown', 'shards', '#ff8ae0'], ['torso', 'core', '#ff8ae0'], ['hips', 'cloud', '#4a2a9a']], { bald: 1 }],
+    zenith: ['Titan stellaire', '#fff0e0', '#fff3c4', '#ffb02a', '#fafaff', '#ffd24a', 1.14, 'metal', 'pauldrons', [['back', 'blades', '#fff3c4'], ['crown', 'shards', '#ffd24a'], ['torso', 'cuirass', '#fafaff'], ['hips', 'tassets', '#fafaff'], ['legs', 'greaves', '#ffd24a'], ['arms', 'bracers', '#ffd24a']]],
+    prisma: ['Prisme vivant', '#f4f4ff', '#ffffff', '#ff5ac8', '#f4f4ff', '#ffffff', 1.0, 'skin', '', [['helm', 'pyramid'], ['extra', 'rays'], ['torso', 'core', '#ffffff'], ['back', 'crystals', 'rainbow'], ['hips', 'petal', 'rainbow', 7, 'crystal']], { bald: 1 }],
+    iris: ['Papillon prismatique', '#ffe4f4', '#ffc2e8', '#5ad0ff', '#b08aff', '#ffe14d', 0.95, 'flat', '', [['wings', 'butterfly', '#ff8ad0', '#5ad0ff', '#ffe14d'], ['crown', 'antenna', 'curl', '#b08aff'], ['hips', 'petal', '#b08aff', 8], ['torso', 'fur', '#ffffff']]],
+    lumen: ['Paon royal', '#1fa890', '#1fa890', '#ffd24a', '#1fa890', '#2a4ab0', 1.04, 'skin', '', [['tail', 'fan', ['#1fa890', '#2a6ad0', '#ffd24a'], 11, 1.0, 1], ['crown', 'feather', '#2a6ad0'], ['muzzle', 'beak', '#ffd24a', 0.4], ['torso', 'cuirass', '#2a4ab0'], ['hips', 'kilt', '#1a6a5a']], { bald: 1 }],
+    sphinx: ['Sphinx', '#e0b070', '#1a1430', '#3ad0ff', '#f4e8c0', '#2a5ab0', 1.08, 'flat', '', [['helm', 'nemes', '#e8c040', '#2a5ab0'], ['wings', 'feather', '#e8c040', null, 0.7], ['tail', 'tuft', '#e0b070', '#8a5a2a'], ['torso', 'necklace', '#3ad0ff'], ['arms', 'bracers', '#e8c040'], ['hips', 'kilt', '#f4e8c0']], { bald: 1 }]
+  };
+  Object.keys(T).forEach(id => {
+    const [nom, sk, hr, ey, mn, sc, s, suit, parts, p, o] = T[id], X = o || {};
+    RACES[id] = { nom, skin: hx(sk), hair: hx(hr), eye: hx(ey), main: hx(mn), sec: hx(sc), pants: X.pants ? hx(X.pants) : dk(hx(mn), 0.7), s, js: X.js, suit, bald: X.bald, hairStyle: X.hs, robeC: X.robeC ? hx(X.robeC) : null, parts: parts ? parts.split(' ') : [], p };
+  });
+  // les 10 créatures de la v15 : leur tenue d'origine passe aussi en combinaison unie
+  Object.keys(RACES).forEach(id => { if (!RACES[id].suit) RACES[id].suit = 'flat'; });
 })();
 
 /* ===================== v15 : ACCUEIL ALLÉGÉ, DÉBLOCAGE PROGRESSIF, INVOCATIONS, DÉCORS ET IMPACTS =====================
@@ -12742,7 +13235,7 @@ openModes = function () {
 };
 
 /* ---------- accueil : moins de boutons, un menu « Plus », l'invocation au centre ---------- */
-const MORE15 = () => [
+let MORE15 = () => [
   ['act', 'Activités', I.star(false), () => go('act'), actBadge()], ['exp', 'Expéditions', I.exp14, openExp, expBadge14()], ['event', 'Événement', I.event, () => go('event'), false],
   ['club', 'Club', I.club, () => go('club'), false], ['lb', 'Classement', I.tower, () => go('lb'), false], ['agenda', 'Agenda', I.cal14, openAgenda, false],
   ['albums', 'Albums', I.book, openAlbums, albReady() > 0], ['replays', 'Revoir mes combats', I.target, openReplays, false], ['me', 'Carrière et bannière', I.hero, openMe, false]
@@ -12783,7 +13276,7 @@ bellItems = function () {
 const _next15 = next14;
 next14 = function () {
   const n = _next15(), story = () => { const ns = nextStage(); return ns && HBY[ns.foe] ? { t: `Continue l'histoire : ${HBY[ns.foe].name}`, run: () => go('story') } : null; };
-  if (n && /(terminée|Récupère|Ouvre ton|débloqué|terminé|conclue)/.test(n.t) && !(/album/i.test(n.t) && !unl('albums'))) return n;
+  if (n && /(terminée|Récupère|débloqué|terminé|conclue)/.test(n.t) && !(/album/i.test(n.t) && !unl('albums'))) return n;
   if (P.tk >= 10) return { t: 'Lance une invocation ×10', run: () => go('inv') };
   if (n && ((/défi du jour/.test(n.t) && !unl('daily')) || (/expédition/.test(n.t) && !unl('exp')) || (/marché/.test(n.t) && !unl('market')) || /album/i.test(n.t))) return story();
   return n;
@@ -12826,8 +13319,8 @@ function shopTk15() {
 const INV = { b: 'cre', busy: false };
 const HW15 = [46, 30, 17, 5.8, 1.2], FW15 = [40, 38, 17, 5];
 const BAN15 = () => { const el = tideNow(), E = EL[el] || EL.feu; return [
-  { k: 'cre', nom: 'Créatures de légende', sub: 'Les 10 héros fantastiques, et des ressources', c: '#ff6a8a', ids: Object.keys(RACES) },
-  { k: 'all', nom: 'Portail des héros', sub: 'Les 52 héros, fragments ou héros entier', c: '#ffc53d' },
+  { k: 'cre', nom: 'Créatures de légende', sub: 'Les 47 nouvelles créatures de la v16, et des ressources', c: '#ff6a8a', ids: HEROES.filter(h => h.idx >= HEROES_BASE_N).map(h => h.id) },
+  { k: 'all', nom: 'Portail des héros', sub: 'Les 99 héros, fragments ou héros entier', c: '#ffc53d' },
   { k: 'el', nom: 'Portail ' + E.nom, sub: `Seulement les héros ${E.nom} · change avec la marée`, c: E.c, el: EL[el] ? el : 'feu' },
   { k: 'forge', nom: 'Forge runique', sub: 'Équipement et ressources', c: '#7fd6ff' }]; };
 function invRes() {
@@ -13024,6 +13517,242 @@ const _goZ = go; go = function (name, opt) { const r = _goZ(name, opt); if (name
 if (navigator.webdriver) window.__zoom = { ZOOM, zoomReset };
 
 if (navigator.webdriver) window.__v15 = { grant: rw => grant(rw), V15, unl, UNL, invPull, invOne, BAN15, INV, RACES, invCost, invClose, invReveal, v15Init };
+
+/* ===================== v17 =====================
+   1. Plus de coffres : tout ce qui donnait un coffre donne des tickets d'invocation.
+   2. Héros visé : fragments en plus dans chaque invocation ×10.
+   3. Accueil : nouveau décor (crépuscule, lune, montagnes, cristaux) et menu allégé.
+   4. Comparateur de statistiques des 99 héros. */
+
+/* ---------- 1. coffres -> tickets ---------- */
+const CHEST_TK = [1, 2, 3, 5, 10];
+CHESTS.forEach((C, t) => { C.nom = tkTxt(CHEST_TK[t]) + " d'invocation"; C.court = '×' + CHEST_TK[t]; C.c = '#ffc53d'; });
+chestMini = function () { return I.tk15; };
+chestSVG = function (cls) { return `<span class="tk17 ${cls || ''}">${I.tk15}</span>`; };
+// un coffre encore rangé quelque part (ancienne sauvegarde, récompense de mode) devient des tickets
+function sweep17() {
+  if (typeof P === 'undefined' || !P || !P.chests || !P.chests.length) return 0;
+  let n = 0; P.chests.forEach(t => { n += CHEST_TK[t] || 1; }); P.chests.length = 0; V15(); P.tk += n; return n;
+}
+const _save17 = save; save = function () { sweep17(); return _save17.apply(this, arguments); };
+const _grant17 = grant;
+grant = function (rw) {
+  if (rw && rw.chest != null) { let n = 0; [].concat(rw.chest).forEach(t => { n += CHEST_TK[t] || 1; }); rw = Object.assign({}, rw, { tk: (rw.tk || 0) + n }); delete rw.chest; }
+  return _grant17(rw);
+};
+const _rwTxt17 = rwTxt;
+rwTxt = function (rw) { if (rw && rw.chest != null) { let n = 0; [].concat(rw.chest).forEach(t => { n += CHEST_TK[t] || 1; }); rw = Object.assign({}, rw, { tk: (rw.tk || 0) + n }); delete rw.chest; } return _rwTxt17(rw); };
+const _showReward17 = showReward; showReward = function (title, lines) { return _showReward17(title, lines, false); };
+// le coffre gratuit devient un ticket gratuit (même délai)
+openChest = function (src) {
+  ensureMeta(); V15();
+  if (src === 'free') {
+    if (Date.now() < P.chestAt) return;
+    P.chestAt = Date.now() + CHEST_EVERY; P.tk += 1; save();
+    showReward('Ticket gratuit', [[I.tk15, "+1 ticket d'invocation", '#ffc53d', 'INVOCATION'], [I.inv15, `Prochain ticket dans ${Math.round(CHEST_EVERY / 60000)} minutes`, '#b8a8ff', '']]);
+    if (cur === 'home') renderHome();
+    return;
+  }
+  const n = sweep17(); if (n) { save(); toast('+' + tkTxt(n) + " d'invocation"); }
+};
+chestWidget = function () {
+  const el = $('#h-chest'); if (!el) return;
+  const left = P.chestAt - Date.now(), ready = left <= 0; el.classList.toggle('ready', ready);
+  const html = `<span class="qi">${I.tk15}</span><b>${ready ? 'Ticket !' : 'Ticket'}</b><small class="num">${ready ? 'Gratuit' : mmss(left)}</small>`;
+  if (el.dataset.h !== html) { el.dataset.h = html; el.innerHTML = html; el.setAttribute('aria-label', ready ? 'Ticket gratuit prêt' : 'Ticket gratuit dans ' + mmss(left)); }
+};
+// objectifs et succès : « ouvrir des coffres » devient « faire des invocations »
+(function () {
+  const fix = q => { if (q && q.ev === 'chest') { q.ev = 'summon'; q.t = 'Fais {n} invocations'; } };
+  try { DAILY_POOL.forEach(fix); } catch (e) { /* nom différent : voir plus bas */ }
+  try { Object.keys(DQ).forEach(k => fix(DQ[k])); } catch (e) { /* */ }
+  WEEKLY.forEach(fix);
+  ACH.forEach(a => { if (a.k === 'chests') { a.nom = 'Invocateur'; a.t = 'Fais {n} invocations'; } });
+})();
+// sac : plus d'onglet Coffres ; le bouton « contenu des coffres » devient « chances d'invocation »
+const _BTABS17 = BTABS; BTABS = function () { return _BTABS17().filter(x => x[0] !== 'chests'); };
+const _renderBag17 = renderBag;
+renderBag = function () {
+  if (bagTab === 'chests') bagTab = 'gear';
+  _renderBag17(); const b = $('#bag'); if (!b) return;
+  const o = b.querySelector('[data-v14="odds"]'); if (o) o.remove();
+  b.querySelectorAll('[data-btab="chests"]').forEach(x => x.remove());
+  if (!b.querySelector('[data-v17="odds"]')) b.insertAdjacentHTML('beforeend', '<button class="btn" data-v17="odds" style="width:100%;margin-top:14px">Voir les chances d\'invocation</button>');
+};
+
+/* ---------- 2. héros visé : bonus dans les invocations ×10 ---------- */
+const WISH_FR = [4, 4, 3, 2, 1];
+const _invPull17 = invPull;
+invPull = function (k, n) {
+  const B = BAN15().find(b => b.k === k), can = B && !INV.busy && invCost(n);
+  const w = V14().wish, x = w && HBY[w];
+  if (can) { track('summon', n); try { if (new Date().getHours() < 5) secretDone('nuit'); } catch (e) { /* */ } }
+  if (can && n === 10 && x && k !== 'forge') {
+    const _show = invShow;
+    invShow = function (B2, out, n2) {
+      invShow = _show; const f = WISH_FR[x.r]; P.frag[x.id] = (P.frag[x.id] || 0) + f; save();
+      out.push({ t: 'frag', id: x.id, r: x.r, c: RAR[x.r].c, nm: x.name, sub: `${f} fragments`, tag: 'HÉROS VISÉ', g: false }); return _show(B2, out, n2);
+    };
+    try { _invPull17(k, n); } finally { invShow = _show; }
+    return;
+  }
+  _invPull17(k, n);
+};
+
+/* ---------- 3a. décor de l'accueil ---------- */
+const DEC17 = { on: false, root: null, t: 0, float: [] };
+// nuit sur une planète-désert : ciel violet, horizon turquoise, grande lune, roches à facettes, pierres flottantes, flaques dorées
+const SKY17 = [[0.15, 0.06, 0.36], [0.10, 0.50, 0.86], [0.10, 0.05, 0.26]];
+function decor17() {
+  if (DEC17.root) return DEC17.root;
+  const { ellipsoid: E, lathe, merge, xformGeo, grid, Node, Mesh, M } = G3, PI = Math.PI;
+  const at = (g, p, r, s) => xformGeo(g, M.compose(p || [0, 0, 0], r || [0, 0, 0], s || 1));
+  const flat = (c, o) => Object.assign({ col: c, unlit: true, noCast: true, twoSide: true, rough: 1, spec: 0, wrap: 0, rim: 0 }, o || {});
+  const stone = (c, o) => Object.assign({ col: c, rough: 0.85, spec: 0.1, wrap: 0.35, rim: 0.8, rimC: [0.35, 0.85, 1], noCast: true }, o || {});
+  const root = new Node('decor17'); let seed = 11; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  const put = (name, geo, mat, pos, rot) => { const n = new Node(name); n.pos = pos || [0, 0, 0]; if (rot) n.rot = rot; n.meshes.push(new Mesh(geo, mat)); root.add(n); return n; };
+  const box = (w, h, d) => at(lathe([[0.01, h], [w * 0.7, h], [w * 0.74, h * 0.5], [w * 0.7, 0], [0.01, 0]], 4, { sub: 1, sz: d / w }), [0, 0, 0], [0, PI / 4, 0]);
+  const chunk = (r, k) => E(r, r * (k || 0.7), r * 0.8, 5, 4);
+  const V1 = [0.33, 0.20, 0.66], V2 = [0.25, 0.14, 0.52], V3 = [0.17, 0.09, 0.38], V4 = [0.12, 0.06, 0.28];
+  // grande lune posée sur l'horizon, halo turquoise
+  put('halo2', E(9.5, 9.5, 0.04, 48, 32), flat([0.2, 0.75, 1.0], { alpha: 0.16 }), [3.2, 3.0, -31]);
+  put('halo', E(6.4, 6.4, 0.04, 48, 32), flat([0.55, 0.92, 1.0], { alpha: 0.3 }), [3.2, 3.0, -30.6]);
+  put('moon', E(4.6, 4.6, 0.05, 56, 36), flat([0.95, 0.99, 1.0]), [3.2, 3.0, -30.2]);
+  // collines lointaines, de plus en plus sombres en approchant
+  const ridge = (z, w, h, base, col, k) => {
+    const ph = [rnd() * 6, rnd() * 6];
+    const f = x => { const u = x / w; return base + h * (0.35 + 0.4 * Math.abs(Math.sin(u * 2.3 * k + ph[0])) + 0.25 * Math.abs(Math.sin(u * 6.1 * k + ph[1]))); };
+    put('ridge', grid(36, 1, (a, b) => { const x = (a - 0.5) * 2 * w; return { p: [x, b ? f(x) : -1, 0] }; }), flat(col), [0, 0, z]);
+  };
+  ridge(-28, 44, 2.2, 0.5, [0.30, 0.26, 0.74], 1.0);
+  ridge(-20, 32, 1.6, 0.2, V2, 1.5);
+  ridge(-13, 24, 1.0, 0.0, V3, 2.1);
+  put('ground', grid(1, 1, (a, b) => ({ p: [(a - 0.5) * 90, -0.02, 8 - b * 40] })), flat(V4));
+  // arche de roche à gauche
+  put('arch', merge([at(box(1.5, 1.5, 1.2), [0, 0, 0], [0, 0.2, 0.05]), at(box(1.25, 1.4, 1.0), [0.1, 1.45, 0], [0, -0.15, -0.06]), at(box(1.05, 1.1, 0.9), [0.05, 2.8, 0], [0, 0.3, 0.05]),
+    at(box(3.6, 0.8, 1.1), [1.5, 3.7, 0], [0, 0.05, -0.16]), at(box(0.8, 1.5, 0.7), [3.4, 2.0, 0.1], [0, 0.2, 0.5]), at(box(1.3, 0.8, 1.1), [1.9, 0, 0.5], [0, 0.6, 0]), at(box(0.9, 0.5, 0.8), [-1.3, 0, 0.6], [0, 0.3, 0])]), stone(V1), [-6.2, -0.05, -9.5]);
+  // dalles penchées à droite
+  put('slabs', merge([at(box(2.6, 0.5, 1.6), [0, 0.5, 0], [0, 0.3, 0.42]), at(box(2.0, 0.4, 1.3), [1.5, 0.25, 0.4], [0, -0.2, 0.3]), at(box(1.2, 0.5, 1.0), [-1.6, 0, 0.6], [0, 0.5, 0.08])]), stone(V2), [5.4, -0.05, -6.5]);
+  [[-3.4, -3.2, 0.5], [3.0, -2.2, 0.38], [-2.2, -6.0, 0.6], [7.5, -11, 1.1], [-9.5, -14, 1.4]].forEach(([x, z, r]) => put('rock', at(chunk(r, 0.55), [0, r * 0.3, 0], [0, rnd() * 3, 0]), stone(V2), [x, 0, z]));
+  // pierres flottantes
+  [[-4.2, 5.2, -11, 0.5], [-1.8, 6.6, -14, 0.38], [2.4, 6.0, -12, 0.95], [5.6, 4.4, -10, 0.45], [0.6, 7.6, -16, 0.3], [-6.5, 7.0, -15, 0.42], [4.2, 7.4, -15, 0.26], [-2.6, 4.3, -9, 0.2], [1.5, 4.6, -9.5, 0.16], [7.4, 6.6, -14, 0.34]].forEach(([x, y, z, r], i) => {
+    const n = put('float', at(chunk(r, 0.75), [0, 0, 0], [rnd() * 3, rnd() * 3, rnd() * 3]), stone(i % 3 ? V2 : V1), [x, y, z]); DEC17.float.push({ n, y, ph: rnd() * 6, a: 0.12 + r * 0.25, w: 0.35 + rnd() * 0.4 });
+  });
+  // flaques dorées qui brillent
+  const pools = [[-2.6, 1.6, 0.55, 0.3], [2.3, 0.9, 0.42, 0.24], [-1.0, -3.6, 0.7, 0.36], [3.6, -4.2, 0.5, 0.26], [-4.6, -1.2, 0.36, 0.2], [0.9, 2.2, 0.3, 0.17], [5.2, -1.0, 0.3, 0.2], [-3.4, 2.4, 0.2, 0.12], [1.8, -6.5, 0.6, 0.3], [-5.5, -5.6, 0.45, 0.22]];
+  put('poolg', merge(pools.map(([x, z, a, b]) => at(E(a * 1.9, 0.004, b * 1.9, 18, 3), [x, 0.004, z]))), flat([1.0, 0.55, 0.1], { alpha: 0.22 }));
+  put('pool', merge(pools.map(([x, z, a, b]) => at(E(a, 0.004, b, 18, 3), [x, 0.012, z]))), flat([1.0, 0.72, 0.12]));
+  put('pool2', merge(pools.map(([x, z, a, b]) => at(E(a * 0.6, 0.004, b * 0.55, 14, 3), [x + a * 0.08, 0.018, z]))), flat([1.0, 0.93, 0.35]));
+  // dalle sous les héros
+  put('slab', lathe([[0.01, 0.0], [2.05, 0.0], [2.2, -0.08], [2.24, -0.3], [0.01, -0.3]], 7, { sub: 1 }), stone(V1), [0, -0.012, -0.2], [0, 0.2, 0]);
+  DEC17.root = root; return root;
+}
+const STARS17 = (function () { const L = []; let s = 99; const r = () => { s = (s * 16807) % 2147483647; return s / 2147483647; }; for (let i = 0; i < 80; i++) L.push([(r() - 0.5) * 64, 8 + r() * 16, -34, 0.05 + r() * 0.09, r() * 6]); return L; })();
+function drawDecor17(R) {
+  try {
+    const root = decor17(), t = DEC17.t;
+    DEC17.float.forEach(f => { f.n.pos[1] = f.y + Math.sin(t * f.w + f.ph) * f.a; f.n.rot = [f.n.rot[0], f.n.rot[1] + 0.002, f.n.rot[2]]; });
+    R.draw([root]);
+    const Q = STARS17.map(([x, y, z, sz, ph]) => ({ p: [x, y, z], s: sz * 2.2, c: [0.85, 0.95, 1, 0.3 + 0.5 * Math.abs(Math.sin(t * 0.7 + ph))] }));
+    for (let i = 0; i < 10; i++) { const u = (t * 0.05 + i / 10) % 1, a = i * 2.4; Q.push({ p: [Math.cos(a) * (3 + i % 4), u * 5, -3 - (i % 5) * 1.6], s: 0.07, c: [1, 0.8, 0.3, (1 - u) * 0.7] }); }
+    R.fx(Q, 'soft');
+  } catch (e) { if (!DEC17.err) { DEC17.err = 1; console.warn('decor17', e); } }
+}
+function hookDecor17() {
+  const R = GL.R; if (!R || R._d17) return; R._d17 = true;
+  const base = R.clear;
+  R.clear = function (sky) { if (DEC17.on) { const d = P.opt && P.opt.decor, m = !d || d === 'auto' ? SKY17[1] : d === 'nuit' ? [0.2, 0.3, 0.62] : (SKY[d] ? SKY[d][1] : SKY17[1]); base.call(this, [SKY17[0], m, SKY17[2]]); drawDecor17(this); } else base.call(this, sky); };
+}
+const _renderMenu17 = renderMenu;
+renderMenu = function (dt) {
+  hookDecor17(); DEC17.t += dt;
+  DEC17.on = !!(GL.host && GL.host.id === 'v3home' && !GL.view);
+  try { _renderMenu17(dt); } finally { DEC17.on = false; }
+};
+
+/* ---------- 3b. accueil allégé : deux raccourcis, le reste dans « Plus » (rien n'est supprimé) ---------- */
+const _MORE17 = MORE15;
+MORE15 = function () {
+  return [['friends', 'Amis', I.hero, () => go('friends'), false], ['pass', 'Saison', I.star(true), () => go('pass'), typeof passClaimable === 'function' && passClaimable() > 0],
+    ['cmp', 'Comparer les héros', I.cmp17, () => openCmp(), false], ['vit', 'Vitrine, décor et photo', I.vit15, () => { const b = $('#h-vit'); if (b) b.click(); }, false]].concat(_MORE17());
+};
+UNL_NOM.friends = UNL_NOM.friends || 'Amis'; UNL_NOM.cmp = 'Comparateur'; UNL_NOM.vit = 'Vitrine';
+rails15 = function (quick, B, nd) {
+  v15Init();
+  return `<nav class="hrail" aria-label="Raccourcis">
+      <button class="hq hq-chest" id="h-chest"></button>
+      ${quick('data-go="quests"', I.quest, 'Objectifs', '', B.quests, '', `<i class="qn num${nd >= DAILY_N ? ' full' : ''}">${nd}/${DAILY_N}</i>`)}
+    </nav>
+    <nav class="hrail r" aria-label="Plus">
+      ${quick('data-v15="more"', I.more15, 'Plus', '', moreBadge15())}
+    </nav>`;
+};
+I.cmp17 = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>';
+
+/* ---------- 4. comparateur de statistiques ---------- */
+const CMP = { sort: 'pow', dir: -1, el: 'tous', mode: 'base', sel: [] };
+const CMP_COLS = [{ k: 'pow', court: 'PUIS', nom: 'Puissance' }].concat(STAT_DEFS);
+function cmpStats(h) {
+  const own = P.heroes[h.id], mine = CMP.mode === 'mine' && own;
+  const hs = mine ? own : newHero(h.id), s = mine ? statsFor(h.id) : statsOf(h, hs, []);
+  return Object.assign({ pow: powerOf(s, hs.tech) }, s);
+}
+function cmpRows() { return HEROES.map(h => ({ h, s: cmpStats(h) })); }
+const cmpFmt = (c, v) => (c.pct ? (Math.round(v * 10) / 10) + ' %' : nf(Math.round(v)));
+function openCmp(id) {
+  if (id && CMP.sel.indexOf(id) < 0) { CMP.sel.unshift(id); CMP.sel = CMP.sel.slice(0, 3); }
+  let ov = $('#ov-cmp'); if (!ov) { ov = document.createElement('div'); ov.id = 'ov-cmp'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'Comparer les héros'); $('#app').appendChild(ov); }
+  closeSheet(); ov.className = 'on'; renderCmp();
+}
+function closeCmp() { const ov = $('#ov-cmp'); if (ov) { ov.className = ''; ov.innerHTML = ''; } }
+function renderCmp() {
+  const ov = $('#ov-cmp'); if (!ov || !ov.classList.contains('on')) return;
+  const all = cmpRows(), max = {}; CMP_COLS.forEach(c => { max[c.k] = Math.max.apply(null, all.map(r => r.s[c.k])); });
+  const rows = all.filter(r => CMP.el === 'tous' || r.h.el === CMP.el).sort((a, b) => (CMP.sort === 'nom' ? a.h.name.localeCompare(b.h.name) * -CMP.dir : (a.s[CMP.sort] - b.s[CMP.sort]) * CMP.dir));
+  const sel = CMP.sel.map(id => all.find(r => r.h.id === id)).filter(Boolean);
+  const duel = sel.length ? `<div class="cmp-duel n${sel.length}"><div class="cd-head"><span></span>${sel.map(r => `<button data-cmpsel="${r.h.id}" style="--ec:${EL[r.h.el].c}" aria-label="Retirer ${r.h.name}">${thumbImg(r.h.id)}<b>${r.h.name}</b><small>${RACES[r.h.id] ? RACES[r.h.id].nom : ''}</small><i>×</i></button>`).join('')}</div>
+      ${CMP_COLS.map(c => { const best = Math.max.apply(null, sel.map(r => r.s[c.k])); return `<div class="cd-row"><span>${c.nom}</span>${sel.map(r => `<div class="${sel.length > 1 && r.s[c.k] === best ? 'best' : ''}"><b class="num">${cmpFmt(c, r.s[c.k])}</b><i style="--w:${Math.round(r.s[c.k] / max[c.k] * 100)}%;--ec:${EL[r.h.el].c}"></i></div>`).join('')}</div>`; }).join('')}</div>`
+    : '<p class="hint cmp-hint">Touche jusqu\'à 3 héros dans la liste pour les comparer côte à côte. Touche un titre de colonne pour trier.</p>';
+  const sc = ov.querySelector('.cmp-wrap'), keep = sc ? [sc.scrollLeft, sc.scrollTop] : null;
+  ov.innerHTML = `<div class="cmp-top"><h2>Comparer les héros</h2><button class="ib" data-v17="cmpclose" aria-label="Fermer">×</button></div>
+    <div class="cmp-opts"><div class="seg"><button data-cmpmode="base" aria-pressed="${CMP.mode === 'base'}">Niveau 1 pour tous</button><button data-cmpmode="mine" aria-pressed="${CMP.mode === 'mine'}">Mes héros</button></div>
+      <div class="cmp-els">${['tous'].concat(Object.keys(EL)).map(e => `<button data-cmpel="${e}" aria-pressed="${CMP.el === e}" style="--ec:${e === 'tous' ? '#cfd8ff' : EL[e].c}">${e === 'tous' ? 'Tous' : EL[e].nom}</button>`).join('')}</div></div>
+    ${duel}
+    <div class="cmp-wrap"><table class="cmp-t"><thead><tr><th class="nm"><button data-cmpsort="nom" aria-pressed="${CMP.sort === 'nom'}">Héros ${CMP.sort === 'nom' ? (CMP.dir < 0 ? '▾' : '▴') : ''}</button></th>${CMP_COLS.map(c => `<th><button data-cmpsort="${c.k}" aria-pressed="${CMP.sort === c.k}" title="${c.nom}">${c.court} ${CMP.sort === c.k ? (CMP.dir < 0 ? '▾' : '▴') : ''}</button></th>`).join('')}</tr></thead>
+      <tbody>${rows.map((r, i) => `<tr data-cmpsel="${r.h.id}" class="${CMP.sel.indexOf(r.h.id) >= 0 ? 'on' : ''}${P.heroes[r.h.id] ? '' : ' no'}" style="--ec:${EL[r.h.el].c};--rc:${RAR[r.h.r].c}"><td class="nm"><span class="rk num">${i + 1}</span>${thumbImg(r.h.id)}<span><b>${r.h.name}</b><small>${RAR[r.h.r].nom}${P.heroes[r.h.id] ? '' : ' · pas encore à toi'}</small></span></td>${CMP_COLS.map(c => `<td class="${CMP.sort === c.k ? 'srt' : ''}"><b class="num">${cmpFmt(c, r.s[c.k])}</b><i style="--w:${Math.round(r.s[c.k] / max[c.k] * 100)}%"></i></td>`).join('')}</tr>`).join('')}</tbody></table></div>
+    <p class="cmp-foot">${rows.length} héros · ${CMP.mode === 'base' ? 'statistiques de base, sans équipement, pour comparer à égalité' : 'tes héros avec leur niveau, leurs étoiles et leur équipement ; les autres au niveau 1'}</p>`;
+  const sc2 = ov.querySelector('.cmp-wrap'); if (keep && sc2) { sc2.scrollLeft = keep[0]; sc2.scrollTop = keep[1]; }
+}
+// boutons « Comparer » : fiche du héros et collection
+const _renderHero17 = renderHero;
+renderHero = function (id) {
+  _renderHero17(id); const row = $('#s-hero .v14row');
+  if (row && !row.querySelector('[data-v17="cmp"]')) row.insertAdjacentHTML('beforeend', `<button class="btn" data-v17="cmp" data-id="${heroId}">${I.cmp17} Comparer</button>`);
+};
+const _renderColl17 = renderColl;
+renderColl = function () {
+  _renderColl17(); const h = $('#s-coll .sh') || $('#coll .sh');
+  if (h && !h.querySelector('[data-v17="cmp"]')) h.insertAdjacentHTML('beforeend', `<button class="btn cmp-btn" data-v17="cmp">${I.cmp17} Comparer</button>`);
+};
+const _go17 = go; go = function (name, opt) { closeCmp(); sweep17(); return _go17(name, opt); };
+
+function v17Click(t) {
+  if (t.closest('#r-openchest')) { $('#ov-res').classList.remove('on'); go('inv'); return true; }
+  const so = t.closest('[data-cmpsort]'); if (so) { const k = so.dataset.cmpsort; if (CMP.sort === k) CMP.dir = -CMP.dir; else { CMP.sort = k; CMP.dir = -1; } SFX.click(); renderCmp(); return true; }
+  const ce = t.closest('[data-cmpel]'); if (ce) { CMP.el = ce.dataset.cmpel; SFX.click(); renderCmp(); return true; }
+  const cm = t.closest('[data-cmpmode]'); if (cm) { CMP.mode = cm.dataset.cmpmode; SFX.click(); renderCmp(); return true; }
+  const cs = t.closest('[data-cmpsel]'); if (cs) { const id = cs.dataset.cmpsel, i = CMP.sel.indexOf(id); if (i >= 0) CMP.sel.splice(i, 1); else { if (CMP.sel.length >= 3) { toast('3 héros au maximum : retire-en un d\'abord'); return true; } CMP.sel.push(id); } SFX.click(); renderCmp(); return true; }
+  const b = t.closest('[data-v17]'); if (!b) return !!t.closest('#ov-cmp');
+  const a = b.dataset.v17; SFX.click();
+  if (a === 'cmp') openCmp(b.dataset.id || null);
+  else if (a === 'cmpclose') closeCmp();
+  else if (a === 'odds') { go('inv'); setTimeout(invOdds, 80); }
+  return true;
+}
+Object.assign(EN, { 'Comparer les héros': 'Compare heroes', Comparer: 'Compare', 'Niveau 1 pour tous': 'All at level 1', 'Mes héros': 'My heroes', 'Ticket gratuit': 'Free ticket', 'Ticket !': 'Ticket!', Ticket: 'Ticket', Gratuit: 'Free',
+  "Voir les chances d'invocation": 'See summon odds', 'Vitrine, décor et photo': 'Showcase, scenery and photo', 'HÉROS VISÉ': 'TARGET HERO', Invocateur: 'Summoner', Puissance: 'Power', Héros: 'Heroes', Tous: 'All' });
+EN_RX.push([/^Fais (\d+) invocations?$/, (m, n) => `Do ${n} summon${n > 1 ? 's' : ''}`]);
+if (navigator.webdriver) window.__v17 = { openCmp, closeCmp, renderCmp, CMP, sweep17, CHEST_TK, cmpRows, DEC17 };
 
 const hot = window.claude && window.claude.hot;
 if (hot && hot.ready) hot.ready(start); else start((hot && hot.data) || {});
