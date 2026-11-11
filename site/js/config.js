@@ -1,0 +1,104 @@
+/* =============================================================================
+   RUNE CLASH — RÉGLAGES DU SITE
+   -----------------------------------------------------------------------------
+   C'est LE fichier à modifier en premier. Tout le reste du site lit ces valeurs.
+   Règles simples :
+     - garde les guillemets '...' autour du texte (ou "..." si le texte contient une apostrophe) ;
+     - une virgule à la fin de chaque ligne d'une liste ;
+     - un lien vide '' = le bouton ou la ligne est caché automatiquement.
+   ============================================================================= */
+const CONFIG = {
+
+  /* --- Bouton principal « Jouer » (en haut, au centre et en bas de la page) --- */
+  jouer: {
+    // '../' = le jeu est dans le dossier juste au-dessus du site (le site est dans « site/ »).
+    // Ce lien marche avec n'importe quel nom de domaine (rune-clash.com, github.io…) : rien à changer le jour où tu changes d'adresse.
+    url: '../',
+    texte: 'Jouer maintenant'
+  },
+
+  /* --- Bouton secondaire ---
+     « url » rempli : le bouton y mène directement (fichier, magasin d'applis…).
+     « url » vide : le bouton ouvre le guide « Installer l'appli ». */
+  telecharger: {
+    url: '',
+    texte: "Installer l'appli"
+  },
+
+  /* --- Fondateur --- */
+  fondateur: {
+    nom: 'Aykel Drira',
+    role: 'Fondateur de Rune Clash',
+    citation: "Je voulais un jeu de combat où l'on gagne parce qu'on joue bien, jamais parce qu'on a payé.",
+    texte: [
+      "Rune Clash a commencé avec une envie simple : créer le jeu de combat que j'aurais voulu trouver sur mon téléphone. Des héros originaux, des combats en temps réel, et rien à acheter pour gagner.",
+      "Je suis un jeune entrepreneur. Pas de studio, pas de budget de départ : une idée, et l'envie d'aller au bout. Le jeu s'est construit version après version, en gardant ce qui marchait et en refaisant ce qui ne marchait pas.",
+      "Je décide de l'univers, des personnages, de l'équilibre des combats et de ce qui entre dans le jeu. Une règle ne bougera pas : dans le jeu, tout s'obtient en jouant, et rien ne s'achète avec de l'argent réel.",
+      "Le projet ne fait que commencer. Laisse-moi un conseil plus bas : je lis tout, et je réponds aux meilleurs directement sur le site."
+    ]
+  },
+
+  /* --- Mes réseaux (page Soutenir + bas de l'Accueil) ---
+     Colle tes liens entre les guillemets. Tant qu'un lien est vide, la case affiche « Bientôt ».
+     Pour l'e-mail, mets seulement l'adresse (ex. 'runeclash.contact@gmail.com') :
+     de préférence une adresse créée pour le jeu, pas ton adresse personnelle. */
+  reseaux: [
+    { nom: 'TikTok', detail: 'Les combats et les nouveautés', url: '' },
+    { nom: 'YouTube', detail: 'Bandes-annonces et coulisses', url: '' },
+    { nom: 'Instagram', detail: 'Images des nouveaux héros', url: '' },
+    { nom: 'Snapchat', detail: 'Les coulisses au jour le jour', url: '' },
+    { nom: 'Discord', detail: 'Discuter avec les joueurs', url: '' },
+    { nom: 'E-mail', detail: 'Pour me contacter', email: '' }
+  ],
+
+  /* --- Soutenir ---
+     Les liens vers ta page de paiement (Tipeee, Ko-fi, Patreon…). Ces services demandent d'être majeur :
+     c'est un parent qui crée le compte. Tant qu'un lien est vide, le bouton affiche « Bientôt disponible ».
+     Les avantages de chaque abonnement sont écrits ici : tu peux les changer. */
+  soutien: {
+    unique: { prix: '4,99 €', texte: 'Un soutien unique, sans abonnement.', url: '' },
+    abonnements: [
+      { nom: 'Éclat', prix: '0,99 €', url: '', avantages: [
+        'Ton pseudo sur le mur des soutiens du site',
+        'Un merci dans chaque note de mise à jour'
+      ] },
+      { nom: 'Sceau', prix: '4,99 €', conseille: true, url: '', avantages: [
+        "Tout ce qu'offre Éclat",
+        'Tu votes chaque mois pour la prochaine nouveauté du jeu (héros, mode ou décor)',
+        'Les coulisses : images et nouveautés avant tout le monde'
+      ] },
+      { nom: 'Prisme', prix: '9,99 €', url: '', avantages: [
+        "Tout ce qu'offre Sceau",
+        'Tes conseils passent en premier et je te réponds personnellement par e-mail',
+        "Chaque mois, tu proposes un ajout ou une modification du jeu : s'il est faisable et juste pour tous, je l'ajoute",
+        'Ton nom dans les crédits du jeu'
+      ] }
+    ],
+    // Pseudos des personnes qui soutiennent (avec leur accord), affichés sur le mur des soutiens
+    mur: []
+  },
+
+  /* --- Boîte à conseils : connexion au serveur Firebase du jeu ---
+     Si le site est rangé dans le dossier « site » du dépôt du jeu, laisse null :
+     il utilise automatiquement le config.js du jeu.
+     Sinon, colle ici le même contenu que dans le config.js du jeu, par exemple :
+     firebase: { apiKey: '...', authDomain: '...', databaseURL: '...', projectId: '...', appId: '...' }, */
+  firebase: null,
+
+  /* --- Contact (adresse e-mail affichée en bas de l'Accueil ; '' pour la cacher) --- */
+  contact: '',
+
+  /* --- Informations légales (pages Mentions légales, Confidentialité, Conditions) ---
+     À REMPLIR AVANT DE METTRE LE SITE EN LIGNE, avec un parent :
+       - directeur : le nom et le prénom d'un parent. La loi demande que le « directeur de la publication »
+         soit majeur. C'est lui qui répond légalement du site.
+       - email : une adresse où l'on peut te joindre (la loi l'exige pour les demandes sur les données
+         personnelles et pour signaler un contenu). Mets l'adresse pro du jeu, pas ton adresse perso.
+     Tant qu'un champ est vide, la page affiche « à compléter » en rouge : c'est fait exprès, pour ne pas l'oublier. */
+  legal: {
+    editeur: 'Aykel Drira',
+    directeur: 'Aykel Drira',
+    email: '',
+    miseAJour: '11 novembre 2026'
+  }
+};
