@@ -2357,6 +2357,14 @@ button, a, [role="button"], .htab, .hq, .hcard, .b3, .modec, .ivb, .pp, .chip, .
 @media (min-width:900px){#ov-cmp.on{display:grid;grid-template-columns:400px 1fr;grid-template-rows:auto auto 1fr auto;column-gap:14px}
   .cmp-top,.cmp-opts,.cmp-foot{grid-column:1/3}.cmp-duel,.cmp-hint{grid-column:1;grid-row:3;max-height:none;align-self:start}.cmp-wrap{grid-column:2;grid-row:3}
   .cd-row{padding:6px 0}}
+/* v17.1 : en paysage sur iPhone, l'encoche décalait seulement le bouton Attaque, qui venait recouvrir le Spécial.
+   Tout le groupe de droite se décale maintenant ensemble (et le groupe de gauche aussi). */
+@media (orientation: landscape) and (max-height: 560px) {
+  #k-sp, #k-ult, #k-guard { margin-right: env(safe-area-inset-right); }
+}
+@media (orientation: portrait) {
+  #pad3 .b3, #pad3 .joy { margin-bottom: env(safe-area-inset-bottom); }
+}
 
 </style>
 </head>
@@ -2381,7 +2389,7 @@ button, a, [role="button"], .htab, .hq, .hcard, .b3, .modec, .ivb, .pp, .chip, .
       <div class="b-st"><span id="b-step">Allumage des runes…</span><b id="b-pct">0 %</b></div></div>
     <button id="b-go" hidden>TOUCHE POUR JOUER</button>
   </div>
-  <span class="b-ver">v17.0</span>
+  <span class="b-ver">v17.1</span>
 </div>
 
 <div id="app" style="padding-top: env(safe-area-inset-top)">
@@ -8195,7 +8203,7 @@ function start(data) {
    EN LIGNE : connexion, pseudo, compte, amis, club, duels entre joueurs.
    (inséré dans la même portée que ui3.js, juste avant le démarrage)
    ===================================================================== */
-const GAME_VER = '17.0';
+const GAME_VER = '17.1';
 const ONL = { watch: [], gate: false, inviteSeen: {}, q: null, saveT: 0, profT: 0 };
 const logged = () => !!(NET.ready && NET.user && NET.me && NET.me.pseudo);
 function screenUnwatch() { ONL.watch.splice(0).forEach(f => { try { f(); } catch (e) { /* */ } }); }
@@ -13753,6 +13761,60 @@ Object.assign(EN, { 'Comparer les héros': 'Compare heroes', Comparer: 'Compare'
   "Voir les chances d'invocation": 'See summon odds', 'Vitrine, décor et photo': 'Showcase, scenery and photo', 'HÉROS VISÉ': 'TARGET HERO', Invocateur: 'Summoner', Puissance: 'Power', Héros: 'Heroes', Tous: 'All' });
 EN_RX.push([/^Fais (\d+) invocations?$/, (m, n) => `Do ${n} summon${n > 1 ? 's' : ''}`]);
 if (navigator.webdriver) window.__v17 = { openCmp, closeCmp, renderCmp, CMP, sweep17, CHEST_TK, cmpRows, DEC17 };
+
+/* ---------- v17.1 : les boutons de combat ne se recouvrent jamais ----------
+   Après le placement (taille réglée, mode gaucher, positions personnalisées, encoche du téléphone),
+   on vérifie chaque paire de boutons. Si deux cercles se touchent, le bouton le moins important
+   est poussé juste à côté. Ordre d'importance : Attaque, Garde, Spécial, Ultime, joystick, Esquive, Ki, Équipe, Soin. */
+const PADFIT_IDS = ['k-atk', 'k-guard', 'k-sp', 'k-ult', 'joy', 'k-dodge', 'k-ki', 'k-sw', 'k-heal'];
+function padFit() {
+  const W = innerWidth, H = innerHeight, C = [];
+  PADFIT_IDS.forEach(id => {
+    const e = document.getElementById(id); if (!e || e.hidden) return;
+    const r = e.getBoundingClientRect(); if (!r.width || !r.height) return;
+    const t = (e.style.translate || '').split(' ').map(parseFloat);
+    C.push({ e, x: r.left + r.width / 2, y: r.top + r.height / 2, r: Math.min(r.width, r.height) / 2, tx: t[0] || 0, ty: t[1] || 0, dx: 0, dy: 0 });
+  });
+  const clamp = c => { c.dx = Math.max(c.r + 2 - c.x, Math.min(W - c.r - 2 - c.x, c.dx)); c.dy = Math.max(c.r + 2 - c.y, Math.min(H - c.r - 18 - c.y, c.dy)); };   // 18 px en bas : place pour le nom du bouton
+  C.forEach(clamp);                                                    // d'abord : rien ne dépasse de l'écran
+  const over = (a, b) => a.r + b.r + 4 - Math.hypot((b.x + b.dx) - (a.x + a.dx), (b.y + b.dy) - (a.y + a.dy));
+  for (let it = 0; it < 12; it++) {
+    let moved = false;
+    for (let i = 0; i < C.length; i++) for (let j = i + 1; j < C.length; j++) {
+      const a = C[i], b = C[j], o = over(a, b); if (o <= 0.5) continue;
+      let vx = (b.x + b.dx) - (a.x + a.dx), vy = (b.y + b.dy) - (a.y + a.dy), d = Math.hypot(vx, vy);
+      if (d < 1) { vx = -1; vy = 0; d = 1; }
+      b.dx += vx / d * o; b.dy += vy / d * o; clamp(b); moved = true;    // le moins important s'écarte
+    }
+    if (!moved) break;
+  }
+  C.forEach(c => { if (Math.abs(c.dx) + Math.abs(c.dy) >= 0.5) c.e.style.translate = `${(c.tx + c.dx).toFixed(1)}px ${(c.ty + c.dy).toFixed(1)}px`; });
+  let left = 0; for (let i = 0; i < C.length; i++) for (let j = i + 1; j < C.length; j++) if (over(C[i], C[j]) > 4.5) left++;
+  return left;                                                         // nombre de paires qui se touchent encore
+}
+const _applyTouch171 = applyTouch;
+applyTouch = function () {
+  const pad = $('#pad3'); if (!pad) return;
+  if (document.body.classList.contains('padedit')) { _applyTouch171(); return; }
+  const others = PADFIT_IDS.filter(id => TOUCH_IDS.indexOf(id) < 0);
+  let f = 1;
+  for (let k = 0; k < 7; k++) {
+    others.forEach(id => { const e = document.getElementById(id); if (e) { e.style.translate = ''; e.style.scale = ''; } });
+    _applyTouch171();
+    try {
+      // mode gaucher : Esquive et Ki passent aussi de l'autre côté
+      if (O().touch.mirror) others.forEach(id => { const e = document.getElementById(id); if (!e) return; const r = e.getBoundingClientRect(); if (r.width) e.style.translate = `${(innerWidth - (r.left + r.right)).toFixed(1)}px 0px`; });
+      // pas assez de place : tous les boutons rapetissent un peu, puis on revérifie
+      if (f < 1) PADFIT_IDS.forEach(id => { const e = document.getElementById(id); if (e) e.style.scale = String(((parseFloat(e.style.scale) || 1) * f).toFixed(3)); });
+      if (!padFit()) break;
+    } catch (e) { break; }
+    f *= 0.93;
+  }
+};
+const _launch171 = launch;
+launch = function (cfg) { const r = _launch171(cfg); requestAnimationFrame(() => { try { applyTouch(); } catch (e) { /* */ } }); setTimeout(() => { try { if (cur === 'fight') applyTouch(); } catch (e) { /* */ } }, 600); return r; };
+addEventListener('orientationchange', () => setTimeout(() => { try { if (cur === 'fight') applyTouch(); } catch (e) { /* */ } }, 350));
+if (navigator.webdriver) window.__v171 = { padFit };
 
 const hot = window.claude && window.claude.hot;
 if (hot && hot.ready) hot.ready(start); else start((hot && hot.data) || {});
