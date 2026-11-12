@@ -52,23 +52,24 @@ const CONFIG = {
   ],
 
   /* --- Soutenir : trois soutiens uniques (on paie une seule fois, aucun abonnement) ---
-     « url » : le lien de paiement Revolut avec le montant déjà rempli
+     « url » : le lien Revolut avec le montant déjà rempli (bouton « Apple Pay ou carte »)
        (?amount= en centimes : 99 = 0,99 €, 499 = 4,99 €, 999 = 9,99 €).
-     Sur la page Revolut, le visiteur paie avec Apple Pay, une carte ou Revolut.
+       Sur la page Revolut, le visiteur paie avec Apple Pay, une carte ou Revolut.
+     « paypal » : le lien PayPal.me avec le montant déjà rempli (/4.99EUR à la fin).
      Tant qu'un lien est vide, le bouton affiche « Bientôt disponible ».
      Les avantages sont écrits ici : tu peux les changer. */
   soutien: {
     formules: [
-      { nom: 'Éclat', prix: '0,99 €', url: 'https://revolut.me/sawaldrou91?amount=99&currency=EUR', avantages: [
+      { nom: 'Éclat', prix: '0,99 €', url: 'https://revolut.me/sawaldrou91?amount=99&currency=EUR', paypal: 'https://www.paypal.me/SawalDROU/0.99EUR', avantages: [
         'Ton pseudo sur le mur des soutiens du site',
         'Un merci dans la prochaine note de mise à jour'
       ] },
-      { nom: 'Sceau', prix: '4,99 €', conseille: true, url: 'https://revolut.me/sawaldrou91?amount=499&currency=EUR', avantages: [
+      { nom: 'Sceau', prix: '4,99 €', conseille: true, url: 'https://revolut.me/sawaldrou91?amount=499&currency=EUR', paypal: 'https://www.paypal.me/SawalDROU/4.99EUR', avantages: [
         "Tout ce qu'offre Éclat",
         'Tu votes pour la prochaine nouveauté du jeu (héros, mode ou décor)',
         'Les coulisses : les images de la prochaine mise à jour avant tout le monde'
       ] },
-      { nom: 'Prisme', prix: '9,99 €', url: 'https://revolut.me/sawaldrou91?amount=999&currency=EUR', avantages: [
+      { nom: 'Prisme', prix: '9,99 €', url: 'https://revolut.me/sawaldrou91?amount=999&currency=EUR', paypal: 'https://www.paypal.me/SawalDROU/9.99EUR', avantages: [
         "Tout ce qu'offre Sceau",
         'Je réponds à ton conseil par e-mail',
         "Tu proposes un ajout ou une modification du jeu : s'il est faisable et juste pour tous, je l'ajoute",

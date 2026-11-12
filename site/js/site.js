@@ -33,9 +33,15 @@
       : `<li><span class="case"><b>${esc(r.nom)}</b><small>Bientôt</small></span></li>`).join('');
     // soutenir
     const S = CONFIG.soutien, bouton = (url, txt) => url ? `<a class="btn btn-or" href="${esc(url)}" target="_blank" rel="noopener">${esc(txt)}</a>` : '<span class="btn btn-ligne bientot" aria-disabled="true">Bientôt disponible</span>';
+    // boutons de paiement d'une formule : Revolut (Apple Pay ou carte) en premier, PayPal en dessous
+    const payer = a => {
+      if (!a.url && !a.paypal) return bouton('', '');
+      const lien = (url, cls, txt) => `<a class="btn ${cls}" href="${esc(url)}" target="_blank" rel="noopener">${txt}</a>`;
+      return `<div class="payer">${a.url ? lien(a.url, 'btn-or', 'Apple Pay ou carte') : ''}${a.paypal ? lien(a.paypal, a.url ? 'btn-ligne pp' : 'btn-or', 'PayPal') : ''}</div>`;
+    };
     $('#offres').innerHTML = S.formules.map(a => `<article class="offre${a.conseille ? ' conseille' : ''}"><h3>${esc(a.nom)}</h3><p class="prix">${esc(a.prix)} <small>une seule fois</small></p>
-      <ul>${a.avantages.map(x => `<li>${esc(x)}</li>`).join('')}</ul>${bouton(a.url, 'Soutenir ' + a.prix)}</article>`).join('');
-    $('#unique').innerHTML = `<p><b>Paiement unique</b>Sans abonnement · Apple Pay, carte ou Revolut · Écris ton pseudo dans « Remarque » pour tes avantages.<small class="mention"><a href="#conditions">Conditions du soutien</a></small></p>`;
+      <ul>${a.avantages.map(x => `<li>${esc(x)}</li>`).join('')}</ul>${payer(a)}</article>`).join('');
+    $('#unique').innerHTML = `<p><b>Paiement unique</b>Sans abonnement · Écris ton pseudo dans le message du paiement pour recevoir tes avantages.<small class="mention"><a href="#conditions">Conditions du soutien</a></small></p>`;
     $('#mur').innerHTML = (S.mur || []).length ? S.mur.map(p => `<span>${esc(p)}</span>`).join('') : '<span class="doux">Le premier nom ici, ce sera peut-être le tien.</span>';
     $('#contact').innerHTML = CONFIG.contact ? `Contact : <a href="mailto:${esc(CONFIG.contact)}">${esc(CONFIG.contact)}</a>` : '';
     $('#annee').textContent = new Date().getFullYear();
