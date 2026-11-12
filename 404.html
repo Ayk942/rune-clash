@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rune Clash a déménagé</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://rune-clash.github.io/">
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#080706;color:#e8e0cd;font:16px/1.5 system-ui,sans-serif;text-align:center;padding:24px}b{color:#d8b25a}a{color:#f2dc9e}</style>
+</head>
+<body>
+<p><b>Rune Clash a déménagé</b><br>Nouvelle adresse : <a id="lien" href="https://rune-clash.github.io/">rune-clash.github.io</a><br><small>Redirection en cours… ta progression suit le jeu.</small></p>
+<script>
+/* Ancienne adresse (ayk942.github.io/rune-clash) : on emmène la sauvegarde du joueur vers la nouvelle adresse,
+   dans l'adresse elle-même (#import=…). Le jeu la range s'il n'a pas déjà une partie à la nouvelle adresse. */
+(function () {
+  var NOUVEAU = 'https://rune-clash.github.io/' + (location.pathname.indexOf('/site') >= 0 ? 'site/' : ''), dest = NOUVEAU;
+  try {
+    var o = {}, n = 0;
+    for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (/^(runeclash|rc_)/.test(k)) { o[k] = localStorage.getItem(k); n++; } }
+    if (n && localStorage.getItem('runeclash_3d_v1') && location.pathname.indexOf('/site') < 0) {
+      var bytes = new TextEncoder().encode(JSON.stringify(o)), s = '';
+      for (var j = 0; j < bytes.length; j += 8192) s += String.fromCharCode.apply(null, bytes.subarray(j, j + 8192));
+      dest = NOUVEAU + '#import=' + btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+  } catch (e) { /* pas de sauvegarde lisible : simple redirection */ }
+  document.getElementById('lien').href = dest;
+  location.replace(dest);
+})();
+</script>
+</body>
+</html>
