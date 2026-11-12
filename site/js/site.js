@@ -33,9 +33,9 @@
       : `<li><span class="case"><b>${esc(r.nom)}</b><small>Bientôt</small></span></li>`).join('');
     // soutenir
     const S = CONFIG.soutien, bouton = (url, txt) => url ? `<a class="btn btn-or" href="${esc(url)}" target="_blank" rel="noopener">${esc(txt)}</a>` : '<span class="btn btn-ligne bientot" aria-disabled="true">Bientôt disponible</span>';
-    $('#offres').innerHTML = S.abonnements.map(a => `<article class="offre${a.conseille ? ' conseille' : ''}"><h3>${esc(a.nom)}</h3><p class="prix">${esc(a.prix)} <small>par mois</small></p>
-      <ul>${a.avantages.map(x => `<li>${esc(x)}</li>`).join('')}</ul>${bouton(a.url, "M'abonner")}</article>`).join('');
-    $('#unique').innerHTML = `<p><b>${esc(S.unique.prix)}</b>${esc(S.unique.texte)}<small class="mention">Paiement via une plateforme extérieure · <a href="#conditions">Conditions du soutien</a></small></p>${bouton(S.unique.url, 'Soutenir une fois')}`;
+    $('#offres').innerHTML = S.formules.map(a => `<article class="offre${a.conseille ? ' conseille' : ''}"><h3>${esc(a.nom)}</h3><p class="prix">${esc(a.prix)} <small>une seule fois</small></p>
+      <ul>${a.avantages.map(x => `<li>${esc(x)}</li>`).join('')}</ul>${bouton(a.url, 'Soutenir ' + a.prix)}</article>`).join('');
+    $('#unique').innerHTML = `<p><b>Paiement unique</b>Sans abonnement · Apple Pay, carte ou Revolut · Écris ton pseudo dans « Remarque » pour tes avantages.<small class="mention"><a href="#conditions">Conditions du soutien</a></small></p>`;
     $('#mur').innerHTML = (S.mur || []).length ? S.mur.map(p => `<span>${esc(p)}</span>`).join('') : '<span class="doux">Le premier nom ici, ce sera peut-être le tien.</span>';
     $('#contact').innerHTML = CONFIG.contact ? `Contact : <a href="mailto:${esc(CONFIG.contact)}">${esc(CONFIG.contact)}</a>` : '';
     $('#annee').textContent = new Date().getFullYear();

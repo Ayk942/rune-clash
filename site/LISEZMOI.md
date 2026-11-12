@@ -20,7 +20,7 @@ Garde les guillemets autour des textes et une virgule à la fin de chaque ligne 
 
 Tout se règle dans `js/config.js` :
 - `reseaux` : colle le lien de chaque réseau (TikTok, YouTube, Instagram, Snapchat, Discord) et l'adresse e-mail. Une case vide affiche « Bientôt ».
-- `soutien` : les liens de paiement du soutien unique (4,99 €) et des trois abonnements (0,99 €, 4,99 €, 9,99 €), et leurs avantages. Un lien vide affiche « Bientôt disponible ».
+- `soutien` : les trois soutiens uniques (0,99 €, 4,99 €, 9,99 €) : lien de paiement Revolut avec le montant déjà rempli, et leurs avantages. Un lien vide affiche « Bientôt disponible ».
 - `soutien.mur` : les pseudos des personnes qui soutiennent (avec leur accord), par exemple `mur: ['LameBleue', 'Kaito']`.
 
 Le site ne prend pas l'argent lui-même : chaque bouton mène à une page de paiement (Tipeee, Ko-fi, Patreon…). Ces services demandent d'être majeur et une pièce d'identité, donc c'est un parent qui crée le compte et reçoit les paiements.

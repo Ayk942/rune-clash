@@ -51,26 +51,27 @@ const CONFIG = {
     { nom: 'E-mail', detail: 'Pour me contacter', email: 'rune-clash.officiel@proton.me' }
   ],
 
-  /* --- Soutenir ---
-     Les liens vers ta page de paiement (Tipeee, Ko-fi, Patreon…). Ces services demandent d'être majeur :
-     c'est un parent qui crée le compte. Tant qu'un lien est vide, le bouton affiche « Bientôt disponible ».
-     Les avantages de chaque abonnement sont écrits ici : tu peux les changer. */
+  /* --- Soutenir : trois soutiens uniques (on paie une seule fois, aucun abonnement) ---
+     « url » : le lien de paiement Revolut avec le montant déjà rempli
+       (?amount= en centimes : 99 = 0,99 €, 499 = 4,99 €, 999 = 9,99 €).
+     Sur la page Revolut, le visiteur paie avec Apple Pay, une carte ou Revolut.
+     Tant qu'un lien est vide, le bouton affiche « Bientôt disponible ».
+     Les avantages sont écrits ici : tu peux les changer. */
   soutien: {
-    unique: { prix: '4,99 €', texte: 'Un soutien unique, sans abonnement.', url: 'https://revolut.me/sawaldrou91' },
-    abonnements: [
-      { nom: 'Éclat', prix: '0,99 €', url: '', avantages: [
+    formules: [
+      { nom: 'Éclat', prix: '0,99 €', url: 'https://revolut.me/sawaldrou91?amount=99&currency=EUR', avantages: [
         'Ton pseudo sur le mur des soutiens du site',
-        'Un merci dans chaque note de mise à jour'
+        'Un merci dans la prochaine note de mise à jour'
       ] },
-      { nom: 'Sceau', prix: '4,99 €', conseille: true, url: '', avantages: [
+      { nom: 'Sceau', prix: '4,99 €', conseille: true, url: 'https://revolut.me/sawaldrou91?amount=499&currency=EUR', avantages: [
         "Tout ce qu'offre Éclat",
-        'Tu votes chaque mois pour la prochaine nouveauté du jeu (héros, mode ou décor)',
-        'Les coulisses : images et nouveautés avant tout le monde'
+        'Tu votes pour la prochaine nouveauté du jeu (héros, mode ou décor)',
+        'Les coulisses : les images de la prochaine mise à jour avant tout le monde'
       ] },
-      { nom: 'Prisme', prix: '9,99 €', url: '', avantages: [
+      { nom: 'Prisme', prix: '9,99 €', url: 'https://revolut.me/sawaldrou91?amount=999&currency=EUR', avantages: [
         "Tout ce qu'offre Sceau",
-        'Tes conseils passent en premier et je te réponds personnellement par e-mail',
-        "Chaque mois, tu proposes un ajout ou une modification du jeu : s'il est faisable et juste pour tous, je l'ajoute",
+        'Je réponds à ton conseil par e-mail',
+        "Tu proposes un ajout ou une modification du jeu : s'il est faisable et juste pour tous, je l'ajoute",
         'Ton nom dans les crédits du jeu'
       ] }
     ],
