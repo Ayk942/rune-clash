@@ -48,7 +48,7 @@ const CONFIG = {
     { nom: 'Instagram', detail: 'Images des nouveaux héros', url: '' },
     { nom: 'Snapchat', detail: 'Les coulisses au jour le jour', url: '' },
     { nom: 'Discord', detail: 'Discuter avec les joueurs', url: '' },
-    { nom: 'E-mail', detail: 'Pour me contacter', email: '' }
+    { nom: 'E-mail', detail: 'Pour me contacter', email: 'rune-clash.officiel@proton.me' }
   ],
 
   /* --- Soutenir ---
@@ -98,7 +98,7 @@ const CONFIG = {
   legal: {
     editeur: 'Aykel Drira',
     directeur: 'Aykel Drira',
-    email: '',
+    email: 'rune-clash.officiel@proton.me',
     miseAJour: '11 novembre 2026'
   }
 };
