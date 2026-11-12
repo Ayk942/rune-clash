@@ -56,7 +56,7 @@ const CONFIG = {
      c'est un parent qui crée le compte. Tant qu'un lien est vide, le bouton affiche « Bientôt disponible ».
      Les avantages de chaque abonnement sont écrits ici : tu peux les changer. */
   soutien: {
-    unique: { prix: '4,99 €', texte: 'Un soutien unique, sans abonnement.', url: '' },
+    unique: { prix: '4,99 €', texte: 'Un soutien unique, sans abonnement.', url: 'https://revolut.me/sawaldrou91' },
     abonnements: [
       { nom: 'Éclat', prix: '0,99 €', url: '', avantages: [
         'Ton pseudo sur le mur des soutiens du site',

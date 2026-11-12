@@ -32,7 +32,7 @@
       ? `<li><a href="${esc(lien(r))}" rel="noopener"><b>${esc(r.nom)}</b><small>${esc(r.email || r.detail || '')}</small></a></li>`
       : `<li><span class="case"><b>${esc(r.nom)}</b><small>Bientôt</small></span></li>`).join('');
     // soutenir
-    const S = CONFIG.soutien, bouton = (url, txt) => url ? `<a class="btn btn-or" href="${esc(url)}" rel="noopener">${esc(txt)}</a>` : '<span class="btn btn-ligne bientot" aria-disabled="true">Bientôt disponible</span>';
+    const S = CONFIG.soutien, bouton = (url, txt) => url ? `<a class="btn btn-or" href="${esc(url)}" target="_blank" rel="noopener">${esc(txt)}</a>` : '<span class="btn btn-ligne bientot" aria-disabled="true">Bientôt disponible</span>';
     $('#offres').innerHTML = S.abonnements.map(a => `<article class="offre${a.conseille ? ' conseille' : ''}"><h3>${esc(a.nom)}</h3><p class="prix">${esc(a.prix)} <small>par mois</small></p>
       <ul>${a.avantages.map(x => `<li>${esc(x)}</li>`).join('')}</ul>${bouton(a.url, "M'abonner")}</article>`).join('');
     $('#unique').innerHTML = `<p><b>${esc(S.unique.prix)}</b>${esc(S.unique.texte)}<small class="mention">Paiement via une plateforme extérieure · <a href="#conditions">Conditions du soutien</a></small></p>${bouton(S.unique.url, 'Soutenir une fois')}`;
